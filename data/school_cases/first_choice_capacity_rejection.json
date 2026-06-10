@@ -1,0 +1,31 @@
+{
+  "mode": "school",
+  "fairness_weight": 0,
+  "workload_balance_weight": 0,
+  "people": [
+    {"id": "s1", "name": "Student One", "skills": ["general"], "max_workload": 3},
+    {"id": "s2", "name": "Student Two", "skills": ["general"], "max_workload": 3}
+  ],
+  "items": [
+    {
+      "id": "p_popular",
+      "name": "Popular Project",
+      "capacity": 1,
+      "required_skills": ["general"],
+      "workload": 1,
+      "supervisor_id": "sup_a"
+    },
+    {
+      "id": "p_backup",
+      "name": "Backup Project",
+      "capacity": 1,
+      "required_skills": ["general"],
+      "workload": 1,
+      "supervisor_id": "sup_b"
+    }
+  ],
+  "preferences": {
+    "s1": ["p_popular", "p_backup"],
+    "s2": ["p_popular", "p_backup"]
+  }
+}

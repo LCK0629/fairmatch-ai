@@ -215,3 +215,25 @@ The official FYP topic requires transparent decision logic. Structured explanati
 
 Next Step:
 Add tests for first-choice rejection and constraint-driven explanations.
+
+## Round 11 - First-Choice Rejection Explanation Tests
+
+Status:
+Completed
+
+Completed:
+- Added tests for capacity-driven first-choice rejection
+- Added tests for skill-driven first-choice rejection
+- Added tests for workload-driven first-choice rejection
+- Added tests for fairness-influenced first-choice rejection
+
+Rationale:
+Transparent decision logic requires the system to explain not only why a student was assigned to a project, but also why their first-choice project was not selected.
+
+Next Step:
+Add code-level fairness metric helpers for:
+- satisfaction gap
+- max-min value
+- Gini coefficient
+- total satisfaction
+- average satisfaction

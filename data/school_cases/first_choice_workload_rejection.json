@@ -1,0 +1,29 @@
+{
+  "mode": "school",
+  "fairness_weight": 0,
+  "workload_balance_weight": 0,
+  "people": [
+    {"id": "s1", "name": "Student With Limited Workload", "skills": ["python"], "max_workload": 1}
+  ],
+  "items": [
+    {
+      "id": "p_heavy",
+      "name": "Heavy AI Project",
+      "capacity": 1,
+      "required_skills": ["python"],
+      "workload": 2,
+      "supervisor_id": "sup_ai"
+    },
+    {
+      "id": "p_light",
+      "name": "Light Python Project",
+      "capacity": 1,
+      "required_skills": ["python"],
+      "workload": 1,
+      "supervisor_id": "sup_python"
+    }
+  ],
+  "preferences": {
+    "s1": ["p_heavy", "p_light"]
+  }
+}

@@ -77,11 +77,19 @@ Reason:
 
 Google OR-Tools CP-SAT returns an optimal or feasible assignment, but it does not automatically return a causal explanation for every rejected alternative.
 
+## Explanation Test Coverage
+
+Current tests cover:
+
+- capacity-driven first-choice rejection
+- skill-driven first-choice rejection
+- workload-driven first-choice rejection
+- fairness-influenced first-choice rejection
+
 ## Future Plan
 
 Future explanation work should add:
 
-- explicit first-choice rejection tests
 - counterfactual checks for first-choice projects
 - fairness trade-off explanation comparing low and high fairness-weight runs
 - workload trade-off explanation comparing low and high workload-balance-weight runs

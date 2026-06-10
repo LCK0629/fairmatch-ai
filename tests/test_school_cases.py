@@ -96,6 +96,34 @@ def test_fairness_weight_changes_optimisation_behaviour():
     )
 
 
+def test_first_choice_rejection_explains_capacity_reason():
+    result = solve_allocation(load_allocation_input(load_case("first_choice_capacity_rejection.json")))
+
+    assert result.status in {"OPTIMAL", "FEASIBLE"}
+    rejected_assignment = next(
+        assignment for assignment in result.assignments if assignment.preference_rank != 1
+    )
+    assert "first-choice project reached capacity" in rejected_assignment.explanation.first_choice_note
+
+
+def test_first_choice_rejection_explains_skill_reason():
+    result = solve_allocation(load_allocation_input(load_case("first_choice_skill_rejection.json")))
+
+    assert result.status in {"OPTIMAL", "FEASIBLE"}
+    assignment = result.assignments[0]
+    assert assignment.item_id == "p_web"
+    assert "student lacked required skills" in assignment.explanation.first_choice_note
+
+
+def test_first_choice_rejection_explains_workload_reason():
+    result = solve_allocation(load_allocation_input(load_case("first_choice_workload_rejection.json")))
+
+    assert result.status in {"OPTIMAL", "FEASIBLE"}
+    assignment = result.assignments[0]
+    assert assignment.item_id == "p_light"
+    assert "would exceed the student's workload limit" in assignment.explanation.first_choice_note
+
+
 def test_insufficient_capacity_case_fails_validation():
     with pytest.raises(ValueError, match="total item capacity"):
         solve_allocation(load_allocation_input(load_case("insufficient_capacity_infeasible.json")))
