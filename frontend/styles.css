@@ -660,8 +660,15 @@ h3 {
 
 .scenario-stat strong,
 .dashboard-card strong {
-  font-size: 1.76rem;
-  line-height: 1;
+  display: block;
+  max-width: 100%;
+  overflow-wrap: anywhere;
+  font-size: clamp(1.12rem, 2vw, 1.76rem);
+  line-height: 1.08;
+}
+
+.scenario-stat [data-api-status] {
+  font-size: clamp(1rem, 1.45vw, 1.32rem);
 }
 
 .dashboard-section {
