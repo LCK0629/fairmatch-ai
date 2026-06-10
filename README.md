@@ -4,6 +4,10 @@ FairMatch AI is a fairness-aware allocation platform for CSIT-26-S3-06: Intellig
 
 It is a constraint optimisation and decision support platform. It is not an LLM recommendation system.
 
+Product positioning:
+
+FairMatch AI is an explainable fairness-aware allocation platform for university project allocation. It helps administrators and academic coordinators move beyond manual assignment lists by producing valid allocations, measuring fairness, explaining decisions, and comparing fairness-aware outcomes against baseline alternatives.
+
 It supports two allocation modes:
 
 - School Mode: allocate students to projects while considering preferences, skill match, project capacity, supervisor workload, and fairness.
