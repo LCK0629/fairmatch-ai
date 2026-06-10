@@ -113,6 +113,49 @@ The counterfactual comparison helper reports:
 - students whose satisfaction scores changed
 - whether fairness improved according to the reported metrics
 
+## CLI Explanation Output
+
+The CLI now exposes explanation and fairness reporting in a demo-ready format.
+
+Normal allocation:
+
+```bash
+python -m backend.fairmatch.cli data/school_cases/fairness_weight_tradeoff.json
+```
+
+or:
+
+```bash
+python -m backend.fairmatch.cli --input data/school_cases/fairness_weight_tradeoff.json
+```
+
+The normal output includes:
+
+- solver status
+- objective value
+- total satisfaction
+- average satisfaction
+- fairness gap
+- max-min value
+- Gini coefficient
+- workload gap
+- assignment summaries
+- first-choice notes
+- fairness notes
+- workload notes
+
+Counterfactual fairness comparison:
+
+```bash
+python -m backend.fairmatch.cli data/school_cases/fairness_weight_tradeoff.json --compare-fairness
+```
+
+This prints:
+
+- baseline allocation with `fairness_weight = 0`
+- fairness-aware allocation with `fairness_weight = 3`
+- counterfactual comparison showing assignment changes and fairness metric changes
+
 ## Current Limitations
 
 The current Explanation Engine provides structured evidence and likely reasons. It now includes a fairness-run counterfactual comparison, but it does not yet produce a formal counterfactual proof for every rejected alternative.

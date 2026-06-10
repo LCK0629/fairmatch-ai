@@ -332,6 +332,33 @@ Limitation:
 
 This comparison provides stronger evidence than an objective-aware note, but it is still scenario-level evidence. It shows that fairness weighting changed the allocation result between two runs. It does not prove that fairness was the only possible cause for every individual assignment change unless the compared inputs are controlled and all other parameters remain unchanged.
 
+## CLI Demonstration Status
+
+The CLI now prints demo-ready allocation output instead of only raw JSON.
+
+Normal CLI output includes:
+
+- solver status and objective value
+- total and average satisfaction
+- satisfaction gap, max-min value, and Gini coefficient
+- workload gap
+- each assignment with summary, first-choice note, fairness note, and workload note
+
+Counterfactual CLI mode is available with:
+
+```bash
+python -m backend.fairmatch.cli data/school_cases/fairness_weight_tradeoff.json --compare-fairness
+```
+
+This mode prints:
+
+- baseline allocation with `fairness_weight = 0`
+- fairness-aware allocation with the configured comparison fairness weight
+- assignment changes
+- satisfaction changes
+- fairness metric changes
+- whether fairness improved
+
 ## Overall Assessment
 
 The School Mode solver is not merely reading fields passively. It actively uses most of the School Mode fields in constraints or objective terms.
@@ -346,6 +373,7 @@ Strong areas:
 - fairness and workload balance are represented in the objective
 - fairness metrics are available through a code-level helper layer
 - assignment explanations now use structured explanation fields
+- CLI output exposes fairness metrics, explanation notes, and counterfactual fairness comparison
 
 Main issues to address next:
 

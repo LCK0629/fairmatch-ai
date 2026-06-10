@@ -291,3 +291,23 @@ Counterfactual comparison provides stronger evidence.
 
 Next Step:
 Expose fairness comparison results through CLI output and future dashboard visualisation.
+
+## Round 15 - Demo-Ready CLI Explanation Output
+
+Status:
+Completed
+
+Completed:
+- Replaced raw JSON-only CLI output with readable allocation summaries
+- Exposed fairness metrics in normal CLI output
+- Exposed structured explanation notes in normal CLI output
+- Added `--compare-fairness` CLI mode
+- Printed baseline versus fairness-aware allocation comparison
+- Printed counterfactual assignment, satisfaction, and fairness metric changes
+- Added tests for CLI allocation and counterfactual comparison formatting
+
+Rationale:
+The project needs a simple demo path before any frontend work. CLI output should clearly show allocation results, fairness metrics, and transparent decision logic.
+
+Next Step:
+Run the full CLI and solver test suite once the local environment has `pytest` and OR-Tools installed.
