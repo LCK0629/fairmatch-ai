@@ -2,19 +2,19 @@
 
 ## Purpose
 
-This document records the runtime verification pass for FairMatch AI.
+This document records the Round 17 runtime verification pass for FairMatch AI.
 
-Scope:
+The goal was to verify that the current system runs correctly after adding:
 
-- verify local dependency setup
-- verify OR-Tools installation
-- verify pytest installation
-- run the test suite
-- run `school_sample.json`
-- run `fairness_weight_tradeoff.json`
-- run counterfactual fairness comparison output
+- School Mode allocation engine
+- OR-Tools CP-SAT solver
+- fairness metric helper layer
+- structured explanation engine
+- counterfactual fairness comparison
+- demo-ready CLI
+- text and JSON output modes
 
-No new features, objective changes, or future-work implementations were added during this verification pass.
+No optimisation features, fairness logic, explanation logic, Work Mode implementation, or dashboard work were added during this pass.
 
 ## Environment
 
@@ -28,9 +28,7 @@ Runtime environment: project-local .venv
 Virtual environment Python: 3.11.9
 ```
 
-## Commands Used
-
-### Initial Dependency Check
+## Setup Commands
 
 System Python version:
 
@@ -44,85 +42,101 @@ Observed:
 Python 3.11.9
 ```
 
-OR-Tools check:
-
-```powershell
-python -c "import ortools; print(ortools.__version__)"
-```
-
-Observed failure:
-
-```text
-ModuleNotFoundError: No module named 'ortools'
-```
-
-pytest check:
-
-```powershell
-python -m pytest --version
-```
-
-Observed failure:
-
-```text
-No module named pytest
-```
-
-### Fix Applied
-
-A project-local virtual environment was created:
+Create or refresh the project virtual environment:
 
 ```powershell
 python -m venv .venv
 ```
 
-Dependencies were installed into `.venv`:
+Install dependencies:
 
 ```powershell
 .\.venv\Scripts\python.exe -m pip install -r requirements.txt
 ```
 
-This avoided modifying the system Python environment.
+The verification used the `.venv` Python executable directly. This is equivalent to activating the virtual environment for the executed commands and avoids modifying system Python packages.
 
-### Verified Dependency Versions
+## Installed Package Versions
 
-Python:
+Dependency installation result:
+
+```text
+Requirement already satisfied: ortools<10,>=9.10 ... (9.15.6755)
+Requirement already satisfied: pytest<9,>=8.0 ... (8.4.2)
+Requirement already satisfied: absl-py ... (2.4.0)
+Requirement already satisfied: numpy ... (2.4.6)
+Requirement already satisfied: pandas ... (3.0.3)
+Requirement already satisfied: protobuf ... (6.33.6)
+Requirement already satisfied: typing-extensions ... (4.15.0)
+Requirement already satisfied: immutabledict ... (4.3.1)
+Requirement already satisfied: colorama ... (0.4.6)
+Requirement already satisfied: iniconfig ... (2.3.0)
+Requirement already satisfied: packaging ... (26.2)
+Requirement already satisfied: pluggy ... (1.6.0)
+Requirement already satisfied: pygments ... (2.20.0)
+Requirement already satisfied: python-dateutil ... (2.9.0.post0)
+Requirement already satisfied: tzdata ... (2026.2)
+Requirement already satisfied: six ... (1.17.0)
+```
+
+Version checks:
 
 ```powershell
 .\.venv\Scripts\python.exe --version
-```
-
-Observed:
-
-```text
-Python 3.11.9
-```
-
-OR-Tools:
-
-```powershell
 .\.venv\Scripts\python.exe -c "import ortools; print(ortools.__version__)"
-```
-
-Observed:
-
-```text
-9.15.6755
-```
-
-pytest:
-
-```powershell
 .\.venv\Scripts\python.exe -m pytest --version
 ```
 
 Observed:
 
 ```text
+Python 3.11.9
+9.15.6755
 pytest 8.4.2
 ```
 
-## Test Suite Result
+Installation warnings:
+
+```text
+[notice] A new release of pip is available: 24.0 -> 26.1.2
+```
+
+This is informational only. No dependency installation failure occurred.
+
+## Compile Verification
+
+Command:
+
+```powershell
+.\.venv\Scripts\python.exe -m compileall backend tests
+```
+
+Observed:
+
+```text
+Listing 'backend'...
+Listing 'backend\fairmatch'...
+Compiling 'backend\fairmatch\__init__.py'...
+Compiling 'backend\fairmatch\cli.py'...
+Compiling 'backend\fairmatch\counterfactual.py'...
+Compiling 'backend\fairmatch\fairness.py'...
+Compiling 'backend\fairmatch\models.py'...
+Compiling 'backend\fairmatch\solver.py'...
+Listing 'tests'...
+Compiling 'tests\test_cli.py'...
+Compiling 'tests\test_fairness.py'...
+Compiling 'tests\test_school_cases.py'...
+Compiling 'tests\test_solver.py'...
+```
+
+Result:
+
+```text
+Compile verification passed.
+No compile errors observed.
+```
+
+## Test Suite Verification
 
 Command:
 
@@ -133,17 +147,24 @@ Command:
 Observed:
 
 ```text
-collected 21 items
+collected 24 items
 
-tests\test_cli.py ..                                                     [  9%]
-tests\test_fairness.py ...                                               [ 23%]
-tests\test_school_cases.py ............                                  [ 80%]
+tests\test_cli.py .....                                                  [ 20%]
+tests\test_fairness.py ...                                               [ 33%]
+tests\test_school_cases.py ............                                  [ 83%]
 tests\test_solver.py ....                                                [100%]
 
-21 passed in 31.20s
+24 passed in 1.48s
 ```
 
-## CLI Run: `school_sample.json`
+Result:
+
+```text
+Tests passed: 24
+Tests failed: 0
+```
+
+## CLI Text Output Verification
 
 Command:
 
@@ -184,56 +205,76 @@ Daniel Lim: Assigned project is the student's first choice.
 Evelyn Goh: First choice was not assigned because first-choice project reached capacity; supervisor limit affected the feasible set; fairness objective may have favoured another assignment; workload balancing may have favoured another assignment.
 ```
 
-Result:
+Verification:
 
 ```text
-school_sample.json ran successfully.
+status appears: yes
+assignments appear: yes
+fairness metrics appear: yes
+explanations appear: yes
 ```
 
-## CLI Run: `fairness_weight_tradeoff.json`
+## CLI JSON Output Verification
 
 Command:
 
 ```powershell
-.\.venv\Scripts\python.exe -m backend.fairmatch.cli data\school_cases\fairness_weight_tradeoff.json
+.\.venv\Scripts\python.exe -m backend.fairmatch.cli data\school_sample.json --output json
 ```
 
-Observed summary:
+Observed key fields:
+
+```json
+{
+  "mode": "school",
+  "status": "OPTIMAL",
+  "objective_value": 10.0,
+  "total_satisfaction": 13,
+  "average_satisfaction": 2.6,
+  "fairness_gap": 1,
+  "max_min_value": 2,
+  "gini_coefficient": 0.09230769230769231,
+  "workload_gap": 1
+}
+```
+
+Observed structured explanation field:
+
+```json
+{
+  "person_id": "s1",
+  "item_id": "p1",
+  "assigned_item": "AI Timetable Assistant",
+  "preference_rank": 1,
+  "satisfaction": 3,
+  "skill_match": true,
+  "first_choice_note": "Assigned project is the student's first choice.",
+  "fairness_note": "Fairness weight 2 was applied through the satisfaction gap objective.",
+  "workload_note": "Workload becomes 2/3; workload balance weight 1 was included in the objective."
+}
+```
+
+Additional JSON validation command:
+
+```powershell
+.\.venv\Scripts\python.exe -c "import json, subprocess, sys; out=subprocess.check_output([sys.executable, '-m', 'backend.fairmatch.cli', 'data\\school_sample.json', '--output', 'json'], text=True); data=json.loads(out); assert data['status']=='OPTIMAL'; assert 'fairness_gap' in data; assert data['assignments'][0]['explanation']['summary']; print('school_sample json valid')"
+```
+
+Observed:
 
 ```text
-Status: OPTIMAL
-Objective value: 7.0
-Total satisfaction: 7
-Average satisfaction: 2.33
-Fairness gap: 2
-Max-min value: 1
-Gini coefficient: 0.190
-Workload gap: 0
+school_sample json valid
 ```
 
-Observed assignments:
+Verification:
 
 ```text
-Student One -> Popular AI Project
-Student Two -> Documentation Project
-Student Three -> Data Quality Project
+valid JSON: yes
+fairness metrics included: yes
+structured explanations included: yes
 ```
 
-Observed explanation output:
-
-```text
-Student One: Assigned project is the student's first choice.
-Student Two: First choice was not assigned because first-choice project reached capacity.
-Student Three: Assigned project is the student's first choice.
-```
-
-Result:
-
-```text
-fairness_weight_tradeoff.json ran successfully.
-```
-
-## CLI Run: Counterfactual Fairness Comparison
+## Counterfactual Text Output Verification
 
 Command:
 
@@ -241,7 +282,7 @@ Command:
 .\.venv\Scripts\python.exe -m backend.fairmatch.cli data\school_cases\fairness_weight_tradeoff.json --compare-fairness
 ```
 
-### Baseline Output
+Observed baseline summary:
 
 ```text
 Baseline Allocation: fairness_weight = 0
@@ -255,15 +296,7 @@ Gini coefficient: 0.190
 Workload gap: 0
 ```
 
-Baseline assignments:
-
-```text
-Student One -> Popular AI Project
-Student Two -> Documentation Project
-Student Three -> Data Quality Project
-```
-
-### Fairness-Aware Output
+Observed fairness-aware summary:
 
 ```text
 Fairness-Aware Allocation: fairness_weight = 3
@@ -277,15 +310,7 @@ Gini coefficient: 0.133
 Workload gap: 0
 ```
 
-Fairness-aware assignments:
-
-```text
-Student One -> Documentation Project
-Student Two -> Data Quality Project
-Student Three -> Popular AI Project
-```
-
-### Counterfactual Output
+Observed counterfactual comparison:
 
 ```text
 Total satisfaction: 7 -> 5
@@ -293,97 +318,130 @@ Fairness gap: 2 -> 1
 Max-min value: 1 -> 1
 Gini coefficient: 0.190 -> 0.133
 Fairness improved: True
-```
-
 Changed assignments:
-
-```text
-s1: p1 -> p3
-s2: p3 -> p2
-s3: p2 -> p1
-```
-
+- s1: p1 -> p3
+- s2: p3 -> p2
+- s3: p2 -> p1
 Changed satisfaction:
-
-```text
-s1: 3 -> 1
-s2: 1 -> 2
-s3: 3 -> 2
+- s1: 3 -> 1
+- s2: 1 -> 2
+- s3: 3 -> 2
 ```
 
-Result:
+Verification:
 
 ```text
-Counterfactual fairness comparison ran successfully.
+baseline run displayed: yes
+fairness run displayed: yes
+assignment changes displayed: yes
+fairness metric changes displayed: yes
 ```
 
-## Failures
-
-### Failure 1: Missing OR-Tools in System Python
+## Counterfactual JSON Output Verification
 
 Command:
 
 ```powershell
-python -c "import ortools; print(ortools.__version__)"
+.\.venv\Scripts\python.exe -m backend.fairmatch.cli data\school_cases\fairness_weight_tradeoff.json --compare-fairness --output json
 ```
 
-Failure:
+Observed top-level JSON keys:
 
-```text
-ModuleNotFoundError: No module named 'ortools'
+```json
+{
+  "baseline_result": {},
+  "fairness_result": {},
+  "counterfactual_comparison": {},
+  "warning": null
+}
 ```
 
-Fix:
+Observed counterfactual fields:
 
-Installed dependencies into project-local `.venv`.
+```json
+{
+  "baseline_total_satisfaction": 7,
+  "fairness_total_satisfaction": 5,
+  "baseline_fairness_gap": 2,
+  "fairness_fairness_gap": 1,
+  "baseline_max_min_value": 1,
+  "fairness_max_min_value": 1,
+  "baseline_gini_coefficient": 0.19047619047619047,
+  "fairness_gini_coefficient": 0.13333333333333333,
+  "fairness_improved": true
+}
+```
 
-### Failure 2: Missing pytest in System Python
+Observed changed assignments:
 
-Command:
+```json
+{
+  "s1": ["p1", "p3"],
+  "s2": ["p3", "p2"],
+  "s3": ["p2", "p1"]
+}
+```
+
+Additional JSON validation command:
 
 ```powershell
-python -m pytest --version
+.\.venv\Scripts\python.exe -c "import json, subprocess, sys; out=subprocess.check_output([sys.executable, '-m', 'backend.fairmatch.cli', 'data\\school_cases\\fairness_weight_tradeoff.json', '--compare-fairness', '--output', 'json'], text=True); data=json.loads(out); assert 'baseline_result' in data; assert 'fairness_result' in data; assert 'counterfactual_comparison' in data; assert 'warning' in data; print('counterfactual json valid')"
 ```
 
-Failure:
+Observed:
 
 ```text
-No module named pytest
+counterfactual json valid
 ```
 
-Fix:
-
-Installed dependencies into project-local `.venv`.
-
-### Non-Issue: First OR-Tools Version Check Timeout
-
-One OR-Tools version check timed out during verification. The check was rerun with a longer timeout and succeeded:
+Verification:
 
 ```text
-9.15.6755
+baseline_result present: yes
+fairness_result present: yes
+counterfactual_comparison present: yes
+warning present: yes
+valid JSON: yes
 ```
 
-## Fixes
+## Warnings
 
-Applied fixes:
+Installation warning:
 
-- created `.venv`
-- installed `requirements.txt` into `.venv`
-- reran dependency checks through `.venv`
-- reran tests through `.venv`
-- reran CLI commands through `.venv`
+```text
+[notice] A new release of pip is available: 24.0 -> 26.1.2
+```
 
-No code fixes were required for the runtime verification pass.
+Assessment:
+
+This is not a project failure. The current dependency installation completed successfully, and no pip upgrade was required for verification.
+
+## Fixes Applied
+
+No code fixes were required.
+
+Operational cleanup:
+
+- removed `__pycache__` directories generated by compile and test commands
+- removed `.pytest_cache`
+
+The project-local `.venv` remains in place and is ignored by git.
 
 ## Final Verification Status
 
 ```text
-OR-Tools installed: Yes
-pytest installed: Yes
-Tests passing: Yes, 21 passed
-school_sample.json runs: Yes
-fairness_weight_tradeoff.json runs: Yes
-counterfactual CLI output runs: Yes
-Objective modified: No
-Future work implemented: No
+Python verified: yes
+OR-Tools installed: yes
+pytest installed: yes
+compileall passed: yes
+tests passing: yes, 24 passed
+CLI text output works: yes
+CLI JSON output works: yes
+counterfactual text output works: yes
+counterfactual JSON output works: yes
+optimisation logic modified: no
+fairness logic modified: no
+explanation logic modified: no
+Work Mode implemented: no
+dashboard implemented: no
 ```

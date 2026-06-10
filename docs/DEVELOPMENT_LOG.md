@@ -311,3 +311,41 @@ The project needs a simple demo path before any frontend work. CLI output should
 
 Next Step:
 Run the full CLI and solver test suite once the local environment has `pytest` and OR-Tools installed.
+
+## Round 16 - CLI Output Mode Polish
+
+Status:
+Completed
+
+Completed:
+- Added text/json output mode
+- Preserved demo-friendly text output
+- Added machine-readable JSON output
+- Added fairness comparison warning or override
+- Updated tests and documentation
+
+Rationale:
+The project now supports both human-readable demonstrations and machine-readable output for future dashboard integration.
+
+Next Step:
+Run full runtime verification using pytest and OR-Tools in a local virtual environment.
+
+## Round 17 - Runtime Verification
+
+Status:
+Completed
+
+Completed:
+- Installed runtime dependencies
+- Verified compile success
+- Verified test suite
+- Verified CLI text output
+- Verified CLI JSON output
+- Verified counterfactual comparison output
+- Created runtime verification report
+
+Rationale:
+The project has completed the core allocation engine and must be verified in a clean environment before presentation-layer development.
+
+Next Step:
+Build a lightweight Streamlit dashboard if runtime verification remains stable.

@@ -334,15 +334,23 @@ This comparison provides stronger evidence than an objective-aware note, but it 
 
 ## CLI Demonstration Status
 
-The CLI now prints demo-ready allocation output instead of only raw JSON.
+The CLI supports both demo-ready text output and machine-readable JSON output.
 
-Normal CLI output includes:
+Default text output includes:
 
 - solver status and objective value
 - total and average satisfaction
 - satisfaction gap, max-min value, and Gini coefficient
 - workload gap
 - each assignment with summary, first-choice note, fairness note, and workload note
+
+Machine-readable output is available with:
+
+```bash
+python -m backend.fairmatch.cli data/school_sample.json --output json
+```
+
+JSON output serializes `AllocationResult`, including fairness metrics and structured explanations.
 
 Counterfactual CLI mode is available with:
 
@@ -359,6 +367,27 @@ This mode prints:
 - fairness metric changes
 - whether fairness improved
 
+Counterfactual JSON output is available with:
+
+```bash
+python -m backend.fairmatch.cli data/school_cases/fairness_weight_tradeoff.json --compare-fairness --output json
+```
+
+The JSON response includes:
+
+- `baseline_result`
+- `fairness_result`
+- `counterfactual_comparison`
+- `warning`
+
+The fairness-aware comparison run defaults to `--fairness-weight 3`, even when the dataset itself has `fairness_weight = 0`. This keeps the controlled comparison meaningful. Users can override the comparison weight with:
+
+```bash
+python -m backend.fairmatch.cli data/school_cases/fairness_weight_tradeoff.json --compare-fairness --fairness-weight 5
+```
+
+If the override is `--fairness-weight 0`, the CLI prints a warning because baseline and fairness-aware runs are identical in fairness weight.
+
 ## Overall Assessment
 
 The School Mode solver is not merely reading fields passively. It actively uses most of the School Mode fields in constraints or objective terms.
@@ -373,7 +402,7 @@ Strong areas:
 - fairness and workload balance are represented in the objective
 - fairness metrics are available through a code-level helper layer
 - assignment explanations now use structured explanation fields
-- CLI output exposes fairness metrics, explanation notes, and counterfactual fairness comparison
+- CLI output exposes fairness metrics, explanation notes, counterfactual fairness comparison, and JSON output for future tooling
 
 Main issues to address next:
 

@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import argparse
 from copy import deepcopy
+from dataclasses import asdict
 import json
 from pathlib import Path
 
@@ -12,6 +13,10 @@ from .solver import solve_allocation
 
 
 DEFAULT_COMPARISON_FAIRNESS_WEIGHT = 3
+FAIRNESS_COMPARISON_WARNING = (
+    "Warning: baseline and fairness run both use fairness_weight = 0. "
+    "Counterfactual comparison may not be meaningful."
+)
 
 
 def main() -> None:
@@ -29,6 +34,12 @@ def main() -> None:
         default=DEFAULT_COMPARISON_FAIRNESS_WEIGHT,
         help="Fairness weight to use for --compare-fairness.",
     )
+    parser.add_argument(
+        "--output",
+        choices=("text", "json"),
+        default="text",
+        help="Output format. Use text for demos or json for machine-readable output.",
+    )
     args = parser.parse_args()
 
     selected_input = args.input_option or args.input_path
@@ -39,22 +50,38 @@ def main() -> None:
     payload = json.loads(input_path.read_text(encoding="utf-8"))
 
     if args.compare_fairness:
-        _run_fairness_comparison(payload, args.fairness_weight)
+        _run_fairness_comparison(payload, args.fairness_weight, args.output)
         return
 
     result = solve_allocation(load_allocation_input(payload))
+    if args.output == "json":
+        print(json.dumps(asdict(result), indent=2))
+        return
+
     print_allocation_result("Allocation Result", result)
 
 
-def _run_fairness_comparison(payload: dict, fairness_weight: int) -> None:
-    baseline_payload = deepcopy(payload)
-    fairness_payload = deepcopy(payload)
-    baseline_payload["fairness_weight"] = 0
-    fairness_payload["fairness_weight"] = fairness_weight
+def _run_fairness_comparison(payload: dict, fairness_weight: int, output: str) -> None:
+    baseline_result, fairness_result, comparison, warning = build_fairness_comparison(payload, fairness_weight)
 
-    baseline_result = solve_allocation(load_allocation_input(baseline_payload))
-    fairness_result = solve_allocation(load_allocation_input(fairness_payload))
-    comparison = compare_fairness_runs(baseline_result, fairness_result)
+    if output == "json":
+        print(
+            json.dumps(
+                {
+                    "baseline_result": asdict(baseline_result),
+                    "fairness_result": asdict(fairness_result),
+                    "counterfactual_comparison": asdict(comparison),
+                    "warning": warning,
+                },
+                indent=2,
+            )
+        )
+        return
+
+    if warning:
+        print("Warning:")
+        print(warning.removeprefix("Warning: "))
+        print()
 
     print_allocation_result("Baseline Allocation: fairness_weight = 0", baseline_result)
     print()
@@ -64,6 +91,22 @@ def _run_fairness_comparison(payload: dict, fairness_weight: int) -> None:
     )
     print()
     print_counterfactual_comparison(comparison)
+
+
+def build_fairness_comparison(
+    payload: dict,
+    fairness_weight: int,
+) -> tuple[AllocationResult, AllocationResult, CounterfactualComparison, str | None]:
+    baseline_payload = deepcopy(payload)
+    fairness_payload = deepcopy(payload)
+    baseline_payload["fairness_weight"] = 0
+    fairness_payload["fairness_weight"] = fairness_weight
+
+    baseline_result = solve_allocation(load_allocation_input(baseline_payload))
+    fairness_result = solve_allocation(load_allocation_input(fairness_payload))
+    comparison = compare_fairness_runs(baseline_result, fairness_result)
+    warning = FAIRNESS_COMPARISON_WARNING if fairness_weight == 0 else None
+    return baseline_result, fairness_result, comparison, warning
 
 
 def print_allocation_result(title: str, result: AllocationResult) -> None:

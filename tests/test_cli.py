@@ -1,9 +1,13 @@
+import json
+import sys
+
+from backend.fairmatch import cli
 from backend.fairmatch.cli import print_allocation_result, print_counterfactual_comparison
 from backend.fairmatch.counterfactual import CounterfactualComparison
 from backend.fairmatch.models import AllocationResult, Assignment, ExplanationDetail
 
 
-def test_print_allocation_result_shows_metrics_and_explanation_notes(capsys):
+def sample_result() -> AllocationResult:
     explanation = ExplanationDetail(
         person_id="s1",
         item_id="p1",
@@ -19,7 +23,7 @@ def test_print_allocation_result_shows_metrics_and_explanation_notes(capsys):
         workload_note="Workload becomes 1/3; workload balance weight 1 was included in the objective.",
         summary="Student One was assigned to Project One.",
     )
-    result = AllocationResult(
+    return AllocationResult(
         mode="school",
         status="OPTIMAL",
         objective_value=3,
@@ -48,20 +52,9 @@ def test_print_allocation_result_shows_metrics_and_explanation_notes(capsys):
         workload_gap=0,
     )
 
-    print_allocation_result("Allocation Result", result)
 
-    output = capsys.readouterr().out
-    assert "Status: OPTIMAL" in output
-    assert "Average satisfaction: 3.00" in output
-    assert "Gini coefficient: 0.000" in output
-    assert "Student One -> Project One" in output
-    assert "First-choice note:" in output
-    assert "Fairness note:" in output
-    assert "Workload note:" in output
-
-
-def test_print_counterfactual_comparison_shows_changed_assignments(capsys):
-    comparison = CounterfactualComparison(
+def sample_comparison() -> CounterfactualComparison:
+    return CounterfactualComparison(
         baseline_total_satisfaction=7,
         fairness_total_satisfaction=5,
         baseline_fairness_gap=3,
@@ -75,6 +68,25 @@ def test_print_counterfactual_comparison_shows_changed_assignments(capsys):
         fairness_improved=True,
     )
 
+
+def test_print_allocation_result_shows_metrics_and_explanation_notes(capsys):
+    result = sample_result()
+
+    print_allocation_result("Allocation Result", result)
+
+    output = capsys.readouterr().out
+    assert "Status: OPTIMAL" in output
+    assert "Average satisfaction: 3.00" in output
+    assert "Gini coefficient: 0.000" in output
+    assert "Student One -> Project One" in output
+    assert "First-choice note:" in output
+    assert "Fairness note:" in output
+    assert "Workload note:" in output
+
+
+def test_print_counterfactual_comparison_shows_changed_assignments(capsys):
+    comparison = sample_comparison()
+
     print_counterfactual_comparison(comparison)
 
     output = capsys.readouterr().out
@@ -83,3 +95,75 @@ def test_print_counterfactual_comparison_shows_changed_assignments(capsys):
     assert "Fairness gap: 3 -> 1" in output
     assert "s1: p1 -> p2" in output
     assert "s1: 3 -> 2" in output
+
+
+def test_main_prints_machine_readable_allocation_json(tmp_path, monkeypatch, capsys):
+    input_path = tmp_path / "input.json"
+    input_path.write_text('{"mode": "school"}', encoding="utf-8")
+    monkeypatch.setattr(sys, "argv", ["fairmatch", str(input_path), "--output", "json"])
+    monkeypatch.setattr(cli, "load_allocation_input", lambda payload: payload)
+    monkeypatch.setattr(cli, "solve_allocation", lambda problem: sample_result())
+
+    cli.main()
+
+    output = json.loads(capsys.readouterr().out)
+    assert output["status"] == "OPTIMAL"
+    assert output["total_satisfaction"] == 3
+    assert output["gini_coefficient"] == 0.0
+    assert output["assignments"][0]["explanation"]["first_choice_note"]
+
+
+def test_main_prints_machine_readable_fairness_comparison_json(tmp_path, monkeypatch, capsys):
+    input_path = tmp_path / "input.json"
+    input_path.write_text('{"mode": "school"}', encoding="utf-8")
+    monkeypatch.setattr(
+        sys,
+        "argv",
+        ["fairmatch", str(input_path), "--compare-fairness", "--output", "json"],
+    )
+    monkeypatch.setattr(
+        cli,
+        "build_fairness_comparison",
+        lambda payload, fairness_weight: (
+            sample_result(),
+            sample_result(),
+            sample_comparison(),
+            None,
+        ),
+    )
+
+    cli.main()
+
+    output = json.loads(capsys.readouterr().out)
+    assert output["baseline_result"]["status"] == "OPTIMAL"
+    assert output["fairness_result"]["status"] == "OPTIMAL"
+    assert output["counterfactual_comparison"]["fairness_improved"] is True
+    assert output["counterfactual_comparison"]["changed_assignments"]["s1"] == ["p1", "p2"]
+    assert output["warning"] is None
+
+
+def test_compare_fairness_text_output_warns_when_override_is_zero(tmp_path, monkeypatch, capsys):
+    input_path = tmp_path / "input.json"
+    input_path.write_text('{"mode": "school"}', encoding="utf-8")
+    monkeypatch.setattr(
+        sys,
+        "argv",
+        ["fairmatch", str(input_path), "--compare-fairness", "--fairness-weight", "0"],
+    )
+    monkeypatch.setattr(
+        cli,
+        "build_fairness_comparison",
+        lambda payload, fairness_weight: (
+            sample_result(),
+            sample_result(),
+            sample_comparison(),
+            cli.FAIRNESS_COMPARISON_WARNING,
+        ),
+    )
+
+    cli.main()
+
+    output = capsys.readouterr().out
+    assert "Warning:" in output
+    assert "Counterfactual comparison may not be meaningful." in output
+    assert "Fairness-Aware Allocation: fairness_weight = 0" in output

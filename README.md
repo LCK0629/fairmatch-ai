@@ -59,6 +59,32 @@ python -m backend.fairmatch.cli --input data\school_sample.json
 python -m backend.fairmatch.cli --input data\work_sample.json
 ```
 
+Default output is human-readable text for demonstrations.
+
+Machine-readable JSON output is also available:
+
+```powershell
+python -m backend.fairmatch.cli data\school_sample.json --output json
+```
+
+Run a counterfactual fairness comparison:
+
+```powershell
+python -m backend.fairmatch.cli data\school_cases\fairness_weight_tradeoff.json --compare-fairness
+```
+
+The comparison uses `fairness_weight = 0` as the baseline and `fairness_weight = 3` by default for the fairness-aware run. You can override the comparison weight:
+
+```powershell
+python -m backend.fairmatch.cli data\school_cases\fairness_weight_tradeoff.json --compare-fairness --fairness-weight 5
+```
+
+Counterfactual comparison can also be emitted as JSON:
+
+```powershell
+python -m backend.fairmatch.cli data\school_cases\fairness_weight_tradeoff.json --compare-fairness --output json
+```
+
 ## Data Model
 
 Each input JSON file contains:
