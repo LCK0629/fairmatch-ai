@@ -97,6 +97,56 @@ FairMatch AI also includes a Streamlit product demo for presentation:
 streamlit run app.py
 ```
 
+## Run Version 2 API
+
+Version 2 includes a FastAPI wrapper around the existing FairMatch backend:
+
+```powershell
+uvicorn api.main:app --reload
+```
+
+Available endpoints:
+
+- `GET /health`
+- `GET /samples`
+- `POST /allocate`
+- `POST /compare-fairness`
+
+The API reuses the existing backend solver, fairness metrics, explanation data, and counterfactual comparison logic.
+
+### Version 2 Frontend
+
+Run the API:
+
+```powershell
+uvicorn api.main:app --reload
+```
+
+Then open:
+
+```text
+frontend/index.html
+```
+
+The Version 2 dashboard checks `GET /health`, loads datasets from `GET /samples`,
+runs allocation through `POST /allocate`, and runs fairness comparison through
+`POST /compare-fairness`.
+
+### Version 2 Quick Start
+
+Double click:
+
+```text
+START_V2.bat
+```
+
+The launcher:
+
+- checks that `.venv` exists
+- starts FastAPI in a separate terminal window
+- opens `frontend/index.html` in the default browser
+- launches the Version 2 product experience
+
 ## One-Click Launch
 
 Double click:

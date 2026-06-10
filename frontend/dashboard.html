@@ -6,7 +6,7 @@
     <title>FairMatch AI | School Mode Dashboard</title>
     <meta
       name="description"
-      content="Static Version 2 School Mode dashboard prototype for FairMatch AI."
+      content="Version 2 School Mode dashboard for FairMatch AI."
     />
     <link rel="stylesheet" href="styles.css" />
   </head>
@@ -41,54 +41,78 @@
             workload, and fairness.
           </p>
         </div>
-        <div class="scenario-stat-grid" aria-label="Static scenario statistics">
+        <div class="scenario-stat-grid" aria-label="Scenario statistics">
           <div class="scenario-stat">
             <span>Students</span>
-            <strong>100</strong>
+            <strong data-scenario-students>100</strong>
           </div>
           <div class="scenario-stat">
             <span>Projects</span>
-            <strong>20</strong>
+            <strong data-scenario-projects>20</strong>
           </div>
           <div class="scenario-stat">
             <span>Supervisors</span>
-            <strong>5</strong>
+            <strong data-scenario-supervisors>5</strong>
           </div>
           <div class="scenario-stat">
-            <span>Mode</span>
-            <strong>Fairness-Aware</strong>
+            <span>API</span>
+            <strong data-api-status>Checking</strong>
           </div>
         </div>
       </section>
 
+      <section class="section dashboard-section control-section">
+        <div class="control-panel">
+          <div>
+            <div class="eyebrow">Live backend controls</div>
+            <h2>Run the verified FairMatch engine.</h2>
+            <p>
+              Select a sample dataset from FastAPI, then run allocation or compare fairness-aware
+              behaviour against the baseline.
+            </p>
+          </div>
+          <div class="control-actions">
+            <label class="field-label" for="dataset-select">Dataset</label>
+            <select id="dataset-select" data-dataset-select>
+              <option value="">Loading datasets...</option>
+            </select>
+            <button class="button primary" type="button" data-run-allocation>Run Allocation</button>
+            <button class="button secondary" type="button" data-run-comparison>
+              Run Fairness Comparison
+            </button>
+          </div>
+        </div>
+        <div class="message-panel" data-message-panel aria-live="polite"></div>
+      </section>
+
       <section class="section dashboard-section">
         <div class="section-heading compact">
-          <div class="eyebrow">Static prototype data</div>
+          <div class="eyebrow" data-data-source-label>Static prototype data</div>
           <h2>Allocation overview</h2>
           <p>
-            These cards demonstrate the Version 2 product interface before live backend
-            integration.
+            These cards start as a static preview. After a successful API call, they are replaced
+            with real FairMatch backend results.
           </p>
         </div>
         <div class="dashboard-card-grid">
           <article class="dashboard-card">
             <span>Allocation Status</span>
-            <strong>Optimised</strong>
-            <p>Static status display for the School Mode prototype.</p>
+            <strong data-overview-status>Optimised</strong>
+            <p>Current solver status.</p>
           </article>
           <article class="dashboard-card">
             <span>Total Satisfaction</span>
-            <strong>13</strong>
+            <strong data-overview-total>13</strong>
             <p>Combined preference satisfaction across assigned students.</p>
           </article>
           <article class="dashboard-card">
             <span>Fairness Gap</span>
-            <strong>1</strong>
+            <strong data-overview-gap>1</strong>
             <p>Lower gap indicates more balanced satisfaction outcomes.</p>
           </article>
           <article class="dashboard-card">
             <span>Gini Coefficient</span>
-            <strong>0.092</strong>
+            <strong data-overview-gini>0.092</strong>
             <p>Lower inequality indicates a fairer satisfaction distribution.</p>
           </article>
         </div>
@@ -99,7 +123,7 @@
           <div class="eyebrow">Allocation results</div>
           <h2>Assigned projects</h2>
         </div>
-        <div class="product-table" role="table" aria-label="Static allocation results">
+        <div class="product-table" role="table" aria-label="Allocation results">
           <div class="product-table-row product-table-head" role="row">
             <span>Student</span>
             <span>Assigned Project</span>
@@ -108,45 +132,31 @@
             <span>Skill Match</span>
             <span>Explanation Status</span>
           </div>
-          <div class="product-table-row" role="row">
-            <span>Alicia Tan</span>
-            <span>AI Timetable Assistant</span>
-            <span>1st</span>
-            <span>3</span>
-            <span class="positive-text">Matched</span>
-            <span>Explained</span>
-          </div>
-          <div class="product-table-row" role="row">
-            <span>Benjamin Lee</span>
-            <span>AI Timetable Assistant</span>
-            <span>2nd</span>
-            <span>2</span>
-            <span class="positive-text">Matched</span>
-            <span>Explained</span>
-          </div>
-          <div class="product-table-row" role="row">
-            <span>Chloe Wong</span>
-            <span>Smart Campus Feedback Portal</span>
-            <span>2nd</span>
-            <span>2</span>
-            <span class="positive-text">Matched</span>
-            <span>Explained</span>
-          </div>
-          <div class="product-table-row" role="row">
-            <span>Daniel Lim</span>
-            <span>Smart Campus Feedback Portal</span>
-            <span>1st</span>
-            <span>3</span>
-            <span class="positive-text">Matched</span>
-            <span>Explained</span>
-          </div>
-          <div class="product-table-row" role="row">
-            <span>Evelyn Goh</span>
-            <span>Student Performance Dashboard</span>
-            <span>3rd</span>
-            <span>1</span>
-            <span class="positive-text">Matched</span>
-            <span>Explained</span>
+          <div data-allocation-rows>
+            <div class="product-table-row" role="row">
+              <span>Alicia Tan</span>
+              <span>AI Timetable Assistant</span>
+              <span>1st</span>
+              <span>3</span>
+              <span class="positive-text">Matched</span>
+              <span>Explained</span>
+            </div>
+            <div class="product-table-row" role="row">
+              <span>Benjamin Lee</span>
+              <span>AI Timetable Assistant</span>
+              <span>2nd</span>
+              <span>2</span>
+              <span class="positive-text">Matched</span>
+              <span>Explained</span>
+            </div>
+            <div class="product-table-row" role="row">
+              <span>Chloe Wong</span>
+              <span>Smart Campus Feedback Portal</span>
+              <span>2nd</span>
+              <span>2</span>
+              <span class="positive-text">Matched</span>
+              <span>Explained</span>
+            </div>
           </div>
         </div>
       </section>
@@ -162,32 +172,32 @@
         <div class="fairness-metric-grid">
           <article class="metric-card">
             <span>Total Satisfaction</span>
-            <strong>13</strong>
+            <strong data-metric-total>13</strong>
             <p>Overall preference score.</p>
           </article>
           <article class="metric-card">
             <span>Average Satisfaction</span>
-            <strong>2.60</strong>
+            <strong data-metric-average>2.60</strong>
             <p>Mean student outcome.</p>
           </article>
           <article class="metric-card">
             <span>Fairness Gap</span>
-            <strong>1</strong>
+            <strong data-metric-gap>1</strong>
             <p>Lower is better.</p>
           </article>
           <article class="metric-card">
             <span>Max-Min Value</span>
-            <strong>2</strong>
+            <strong data-metric-max-min>2</strong>
             <p>Higher is better.</p>
           </article>
           <article class="metric-card">
             <span>Gini Coefficient</span>
-            <strong>0.092</strong>
+            <strong data-metric-gini>0.092</strong>
             <p>Lower is better.</p>
           </article>
           <article class="metric-card">
             <span>Workload Gap</span>
-            <strong>1</strong>
+            <strong data-metric-workload>1</strong>
             <p>Lower spread means better workload balance.</p>
           </article>
         </div>
@@ -197,7 +207,7 @@
         <div class="explanation-layout">
           <div class="section-heading compact">
             <div class="eyebrow">Explanation panel</div>
-            <h2>Chloe Wong</h2>
+            <h2 data-explanation-person>Chloe Wong</h2>
             <p>
               Focused explanations make allocation decisions easier to inspect and defend.
             </p>
@@ -206,11 +216,11 @@
             <div class="explanation-header">
               <div>
                 <span class="card-label">Assigned project</span>
-                <h3>Smart Campus Feedback Portal</h3>
+                <h3 data-explanation-project>Smart Campus Feedback Portal</h3>
               </div>
               <span class="status-pill">Explained</span>
             </div>
-            <ul class="explanation-list">
+            <ul class="explanation-list" data-explanation-list>
               <li>First-choice project reached capacity.</li>
               <li>Supervisor limit affected the feasible set.</li>
               <li>Fairness objective may have influenced allocation.</li>
@@ -229,26 +239,27 @@
           <div class="comparison-column">
             <span class="card-label">Baseline</span>
             <h3>fairness_weight = 0</h3>
-            <div class="comparison-stat"><span>Total Satisfaction</span><strong>7</strong></div>
-            <div class="comparison-stat"><span>Fairness Gap</span><strong>2</strong></div>
-            <div class="comparison-stat"><span>Gini</span><strong>0.190</strong></div>
+            <div class="comparison-stat"><span>Total Satisfaction</span><strong data-baseline-total>7</strong></div>
+            <div class="comparison-stat"><span>Fairness Gap</span><strong data-baseline-gap>2</strong></div>
+            <div class="comparison-stat"><span>Gini</span><strong data-baseline-gini>0.190</strong></div>
           </div>
-          <div class="comparison-arrow" aria-hidden="true">→</div>
+          <div class="comparison-arrow" aria-hidden="true">-&gt;</div>
           <div class="comparison-column highlighted">
             <span class="card-label">Fairness-aware</span>
             <h3>fairness_weight = 3</h3>
-            <div class="comparison-stat"><span>Total Satisfaction</span><strong>5</strong></div>
-            <div class="comparison-stat"><span>Fairness Gap</span><strong>1</strong></div>
-            <div class="comparison-stat"><span>Gini</span><strong>0.133</strong></div>
+            <div class="comparison-stat"><span>Total Satisfaction</span><strong data-fairness-total>5</strong></div>
+            <div class="comparison-stat"><span>Fairness Gap</span><strong data-fairness-gap>1</strong></div>
+            <div class="comparison-stat"><span>Gini</span><strong data-fairness-gini>0.133</strong></div>
           </div>
           <div class="comparison-column">
             <span class="card-label">What changed</span>
             <h3>Changed Assignments</h3>
-            <div class="changed-count">3</div>
-            <p>
+            <div class="changed-count" data-changed-count>3</div>
+            <p data-comparison-note>
               This static preview demonstrates the Version 2 product interface. Real backend
               integration is planned through FastAPI.
             </p>
+            <ul class="change-list" data-change-list></ul>
           </div>
         </div>
       </section>

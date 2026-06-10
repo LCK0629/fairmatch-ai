@@ -504,3 +504,85 @@ The Version 2 product frontend needs a real destination after Mode Selection. Th
 
 Next Step:
 Create FastAPI wrapper around the existing FairMatch backend.
+
+## Round 27 - FastAPI Backend Wrapper
+
+Status:
+Completed
+
+Completed:
+- Added FastAPI dependency
+- Added Uvicorn dependency
+- Created `api/main.py`
+- Added `GET /health`
+- Added `GET /samples`
+- Added `POST /allocate`
+- Added `POST /compare-fairness`
+- Added safe invalid payload handling
+- Added API tests
+- Updated README with API run instructions
+
+Rationale:
+Version 2 needs a clean API layer between the static product frontend and the existing FairMatch backend. The API wrapper allows future frontend integration while preserving the validated solver, fairness metrics, explanation logic, and counterfactual comparison layer.
+
+Next Step:
+Connect the static Version 2 frontend to the FastAPI endpoints.
+
+## Round 28 - Frontend API Integration
+
+Status:
+Completed
+
+Completed:
+- Connected frontend to FastAPI
+- Added health monitoring
+- Added dynamic dataset loading
+- Connected allocation endpoint
+- Connected fairness comparison endpoint
+- Replaced static dashboard data with real backend data
+- Added frontend error handling
+
+Rationale:
+Version 2 now moves from static prototype to real product by connecting the HTML frontend to the verified FairMatch backend.
+
+Next Step:
+Create one-click launcher for API + Frontend and polish Version 2 user experience.
+
+## Round 29 - Version 2 One-Click Launcher
+
+Status:
+Completed
+
+Completed:
+- Added START_V2.bat
+- Added startup checks
+- Added FastAPI startup
+- Added frontend auto-launch
+- Added Version 2 quick start documentation
+
+Rationale:
+A product should be easy to run and demonstrate. The launcher removes manual startup steps.
+
+Next Step:
+Perform a full Version 2 UX review and visual polish.
+
+## Round 30 - Version 2 API Offline Debug and Verification
+
+Status:
+Completed
+
+Completed:
+- Verified that `GET /health` returns `{"status":"ok","service":"FairMatch AI API"}` when FastAPI is running
+- Verified that `GET /samples` returns sample datasets and payloads
+- Identified that the dashboard shows API Offline when the frontend opens before the API is ready
+- Added frontend health-check retry behaviour
+- Updated `START_V2.bat` to wait for the `/health` endpoint before opening the frontend
+- Verified compile success
+- Verified test suite success
+- Stopped the temporary debug API process and removed debug logs
+
+Rationale:
+The Version 2 frontend depends on the local FastAPI service. Startup timing can cause a false API Offline message if the browser opens before the API is ready. Waiting for `/health` and retrying in the frontend makes the demo flow more reliable.
+
+Next Step:
+Run `START_V2.bat` manually for an end-to-end browser check.

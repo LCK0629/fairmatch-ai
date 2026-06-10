@@ -1,3 +1,5 @@
 ortools>=9.10,<10
 pytest>=8.0,<9
 streamlit>=1.40,<2
+fastapi>=0.115,<1
+uvicorn>=0.30,<1
