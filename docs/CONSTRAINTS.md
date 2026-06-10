@@ -147,6 +147,20 @@ Every assignment should eventually explain:
 - supervisor workload impact
 - fairness trade-off
 
+The current Phase 2 explanation model stores these notes as structured fields rather than one free-form string:
+
+```text
+capacity_note
+skill_note
+first_choice_note
+supervisor_note
+fairness_note
+workload_note
+summary
+```
+
+This keeps explanation output machine-readable while still supporting human-readable summaries.
+
 ## Future Work Mode Constraints
 
 Work Mode may later reuse the generic model for:

@@ -109,6 +109,25 @@ The system should not return only a final assignment. It should explain:
 
 Transparent decision logic is central to the FYP value.
 
+## Phase 2 Priority: Structured Explanation Engine
+
+Phase 2 changes explanations from a single plain-text sentence into structured explanation data.
+
+Each assignment should expose separate explanation fields for:
+
+- assigned project
+- preference rank
+- satisfaction score
+- skill eligibility
+- capacity impact
+- supervisor limit impact
+- fairness weight impact
+- workload balancing impact
+- first-choice assignment or rejection reason
+- human-readable summary
+
+This structure allows future CLI, report, or dashboard output to show clear reasoning without parsing a free-form string.
+
 ## Why Google OR-Tools CP-SAT Is Suitable
 
 Google OR-Tools CP-SAT is suitable because FairMatch AI needs:

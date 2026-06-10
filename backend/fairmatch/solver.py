@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from ortools.sat.python import cp_model
 
-from .models import AllocationInput, AllocationResult, Assignment, Item, Person
+from .models import AllocationInput, AllocationResult, Assignment, ExplanationDetail, Item, Person
 
 
 UNKNOWN_PREFERENCE_SCORE = 0
@@ -129,6 +129,12 @@ def solve_allocation(problem: AllocationInput) -> AllocationResult:
                 preference_rank = _preference_rank(item.id, ranked_choices)
                 satisfaction = _preference_score(item.id, ranked_choices)
                 assigned_workload = person.current_workload + item.workload
+                assigned_count = sum(
+                    1
+                    for candidate_person in problem.people
+                    if solver.boolean_value(assignment_vars[(candidate_person.id, item.id)])
+                )
+                supervisor_count = _assigned_supervisor_count(problem, assignment_vars, solver, item.supervisor_id)
                 assignments.append(
                     Assignment(
                         person_id=person.id,
@@ -139,7 +145,18 @@ def solve_allocation(problem: AllocationInput) -> AllocationResult:
                         preference_rank=preference_rank,
                         workload=assigned_workload,
                         skill_match=_has_required_skills(person, item),
-                        explanation=_build_explanation(person, item, preference_rank, satisfaction, assigned_workload),
+                        explanation=_build_explanation(
+                            problem=problem,
+                            assignment_vars=assignment_vars,
+                            solver=solver,
+                            person=person,
+                            item=item,
+                            preference_rank=preference_rank,
+                            satisfaction=satisfaction,
+                            assigned_workload=assigned_workload,
+                            assigned_count=assigned_count,
+                            supervisor_count=supervisor_count,
+                        ),
                     )
                 )
 
@@ -177,31 +194,145 @@ def _has_required_skills(person: Person, item: Item) -> bool:
 
 
 def _build_explanation(
+    problem: AllocationInput,
+    assignment_vars: dict[tuple[str, str], cp_model.IntVar],
+    solver: cp_model.CpSolver,
     person: Person,
     item: Item,
     preference_rank: int | None,
     satisfaction: int,
     assigned_workload: int,
-) -> str:
+    assigned_count: int,
+    supervisor_count: int,
+) -> ExplanationDetail:
     preference_text = (
         f"ranked choice #{preference_rank}"
         if preference_rank is not None
         else "an unranked but feasible option"
     )
-    skill_text = (
-        "required skills satisfied"
+    capacity_note = (
+        f"Project capacity respected: {assigned_count}/{item.capacity} slot(s) used."
+    )
+    skill_note = (
+        f"Required skills satisfied: {', '.join(item.required_skills or [])}."
         if item.required_skills
-        else "no specific skill requirement"
+        else "No specific skill requirement was defined for this project."
     )
-    supervisor_text = (
-        f"supervisor limit checked for {item.supervisor_id}"
-        if item.supervisor_id
-        else "no supervisor limit"
+    first_choice_note = _build_first_choice_note(problem, assignment_vars, solver, person, item)
+    supervisor_limit = (problem.supervisor_limits or {}).get(item.supervisor_id or "")
+    supervisor_note = (
+        f"Supervisor {item.supervisor_id} limit respected: {supervisor_count}/{supervisor_limit} assigned."
+        if item.supervisor_id and supervisor_limit is not None
+        else (
+            f"Supervisor {item.supervisor_id} recorded, but no supervisor limit was configured."
+            if item.supervisor_id
+            else "No supervisor limit applies to this project."
+        )
     )
-    return (
+    fairness_note = (
+        f"Fairness weight {problem.fairness_weight} was applied through the satisfaction gap objective."
+        if problem.fairness_weight
+        else "Fairness weight is 0, so satisfaction gap did not affect this optimisation run."
+    )
+    workload_note = (
+        f"Workload becomes {assigned_workload}/{person.max_workload}; workload balance weight "
+        f"{problem.workload_balance_weight} was included in the objective."
+        if problem.workload_balance_weight
+        else f"Workload becomes {assigned_workload}/{person.max_workload}; workload balance weight is 0."
+    )
+    summary = (
         f"{person.name} was assigned to {item.name}: {preference_text}, "
-        f"satisfaction score {satisfaction}, {skill_text}, workload becomes "
-        f"{assigned_workload}/{person.max_workload}, {supervisor_text}, and item capacity is respected."
+        f"satisfaction score {satisfaction}, skill eligibility satisfied, and capacity respected."
+    )
+    return ExplanationDetail(
+        person_id=person.id,
+        item_id=item.id,
+        assigned_item=item.name,
+        preference_rank=preference_rank,
+        satisfaction=satisfaction,
+        skill_match=_has_required_skills(person, item),
+        capacity_note=capacity_note,
+        skill_note=skill_note,
+        first_choice_note=first_choice_note,
+        supervisor_note=supervisor_note,
+        fairness_note=fairness_note,
+        workload_note=workload_note,
+        summary=summary,
+    )
+
+
+def _build_first_choice_note(
+    problem: AllocationInput,
+    assignment_vars: dict[tuple[str, str], cp_model.IntVar],
+    solver: cp_model.CpSolver,
+    person: Person,
+    assigned_item: Item,
+) -> str:
+    ranked_choices = problem.preferences.get(person.id, [])
+    if not ranked_choices:
+        return "No first choice was submitted for this student."
+
+    first_choice_id = ranked_choices[0]
+    if assigned_item.id == first_choice_id:
+        return "Assigned project is the student's first choice."
+
+    items_by_id = {item.id: item for item in problem.items}
+    first_choice = items_by_id.get(first_choice_id)
+    if first_choice is None:
+        return "First choice could not be evaluated because it does not match a known project."
+
+    reasons: list[str] = []
+    if not _has_required_skills(person, first_choice):
+        reasons.append("student lacked required skills for the first-choice project")
+
+    first_choice_assigned_count = sum(
+        1
+        for candidate_person in problem.people
+        if solver.boolean_value(assignment_vars[(candidate_person.id, first_choice.id)])
+    )
+    if first_choice_assigned_count >= first_choice.capacity:
+        reasons.append("first-choice project reached capacity")
+
+    supervisor_limit = (problem.supervisor_limits or {}).get(first_choice.supervisor_id or "")
+    if first_choice.supervisor_id and supervisor_limit is not None:
+        supervisor_count = _assigned_supervisor_count(
+            problem,
+            assignment_vars,
+            solver,
+            first_choice.supervisor_id,
+        )
+        if supervisor_count >= supervisor_limit:
+            reasons.append("supervisor limit affected the feasible set")
+
+    if person.current_workload + first_choice.workload > person.max_workload:
+        reasons.append("first-choice project would exceed the student's workload limit")
+
+    if problem.fairness_weight:
+        reasons.append("fairness objective may have favoured another assignment")
+    if problem.workload_balance_weight:
+        reasons.append("workload balancing may have favoured another assignment")
+
+    if not reasons:
+        return (
+            "First choice was not assigned; exact causal attribution is not available yet "
+            "because CP-SAT returns the selected optimum without a counterfactual proof."
+        )
+    return "First choice was not assigned because " + "; ".join(reasons) + "."
+
+
+def _assigned_supervisor_count(
+    problem: AllocationInput,
+    assignment_vars: dict[tuple[str, str], cp_model.IntVar],
+    solver: cp_model.CpSolver,
+    supervisor_id: str | None,
+) -> int:
+    if supervisor_id is None:
+        return 0
+    return sum(
+        1
+        for person in problem.people
+        for item in problem.items
+        if item.supervisor_id == supervisor_id and solver.boolean_value(assignment_vars[(person.id, item.id)])
     )
 
 

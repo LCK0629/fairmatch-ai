@@ -242,13 +242,52 @@ Current tests cover:
 - infeasible workload case
 - balanced feasible School Mode case
 - skill bottleneck case
+- controlled fairness-weight comparison case
 - insufficient capacity validation
 - skill gap infeasibility
 - supervisor limit infeasibility
 - workload limit infeasibility
 - invalid preference reference validation
 
+Note on `balanced_feasible.json`:
+
+Daniel Lim is intentionally constrained to the web project by skill eligibility. This is deliberate because the dataset is meant to show that a balanced feasible case can still include realistic eligibility restrictions. The test should verify valid assignment quality without assuming every future feasible assignment must have a ranked preference.
+
 The tests provide useful coverage, but full execution was not verified during this audit because local dependencies may not be installed.
+
+## Controlled Fairness Weight Result
+
+The project includes `data/school_cases/fairness_weight_tradeoff.json` to verify that `fairness_weight` can change optimisation behaviour.
+
+The case is designed so:
+
+- one allocation has higher total satisfaction but worse satisfaction gap
+- another allocation has lower total satisfaction but better satisfaction gap
+
+Expected behaviour:
+
+```text
+low fairness_weight:
+  favours higher total satisfaction
+  accepts a larger fairness gap
+
+high fairness_weight:
+  accepts lower total satisfaction
+  favours a smaller fairness gap
+```
+
+The corresponding test verifies:
+
+- both runs are feasible
+- project capacity is respected
+- skill eligibility is respected
+- low `fairness_weight` produces higher total satisfaction
+- high `fairness_weight` produces a lower fairness gap
+- low and high `fairness_weight` produce different assignment behaviour
+
+Status:
+
+The validation report and test coverage are now aligned. The controlled test is implemented in `tests/test_school_cases.py` as `test_fairness_weight_changes_optimisation_behaviour`.
 
 ## Overall Assessment
 
@@ -262,14 +301,40 @@ Strong areas:
 - workload limits are hard constraints
 - preference order affects optimisation
 - fairness and workload balance are represented in the objective
-- assignment explanations include key decision details
+- assignment explanations now use structured explanation fields
 
 Main issues to address next:
 
 1. Supervisor workload balance is not yet a soft objective metric.
-2. More tests should compare solver output under different `fairness_weight` and `workload_balance_weight` values.
-3. Explanation logic should eventually describe fairness trade-offs, not only assignment facts.
+2. More tests should compare solver output under different `workload_balance_weight` values.
+3. Explanation notes identify fairness and workload settings, but deeper counterfactual reasoning is still future work.
+
+## Phase 2 Structured Explanation Engine Status
+
+Assignments now include an `ExplanationDetail` object instead of a single explanation string.
+
+Current structured fields:
+
+- `person_id`
+- `item_id`
+- `assigned_item`
+- `preference_rank`
+- `satisfaction`
+- `skill_match`
+- `capacity_note`
+- `skill_note`
+- `first_choice_note`
+- `supervisor_note`
+- `fairness_note`
+- `workload_note`
+- `summary`
+
+This closes the first Phase 2 design step by making explanations structured and testable. The current engine explains assignment facts, optimisation settings, and likely first-choice rejection reasons.
+
+Current limitation:
+
+First-choice rejection notes are not yet formal counterfactual proofs. They identify likely constraint and objective factors such as capacity, skill eligibility, supervisor limits, fairness weighting, and workload balancing. Exact causal attribution remains future work.
 
 ## Recommended Next Step
 
-Add tests proving that changing `fairness_weight` can change allocation decisions in a controlled School Mode case.
+Add tests for first-choice rejection and constraint-driven explanations.

@@ -1,0 +1,41 @@
+{
+  "mode": "school",
+  "fairness_weight": 0,
+  "workload_balance_weight": 0,
+  "people": [
+    {"id": "s1", "name": "Student One", "skills": ["general"], "max_workload": 3},
+    {"id": "s2", "name": "Student Two", "skills": ["general"], "max_workload": 3},
+    {"id": "s3", "name": "Student Three", "skills": ["general"], "max_workload": 3}
+  ],
+  "items": [
+    {
+      "id": "p1",
+      "name": "Popular AI Project",
+      "capacity": 1,
+      "required_skills": ["general"],
+      "workload": 1,
+      "supervisor_id": "sup_a"
+    },
+    {
+      "id": "p2",
+      "name": "Data Quality Project",
+      "capacity": 1,
+      "required_skills": ["general"],
+      "workload": 1,
+      "supervisor_id": "sup_b"
+    },
+    {
+      "id": "p3",
+      "name": "Documentation Project",
+      "capacity": 1,
+      "required_skills": ["general"],
+      "workload": 1,
+      "supervisor_id": "sup_c"
+    }
+  ],
+  "preferences": {
+    "s1": ["p1", "p2", "p3"],
+    "s2": ["p1", "p2", "p3"],
+    "s3": ["p2", "p1", "p3"]
+  }
+}

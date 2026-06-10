@@ -37,6 +37,23 @@ class AllocationInput:
 
 
 @dataclass(frozen=True)
+class ExplanationDetail:
+    person_id: str
+    item_id: str
+    assigned_item: str
+    preference_rank: int | None
+    satisfaction: int
+    skill_match: bool
+    capacity_note: str
+    skill_note: str
+    first_choice_note: str
+    supervisor_note: str
+    fairness_note: str
+    workload_note: str
+    summary: str
+
+
+@dataclass(frozen=True)
 class Assignment:
     person_id: str
     person_name: str
@@ -46,7 +63,7 @@ class Assignment:
     preference_rank: int | None
     workload: int
     skill_match: bool
-    explanation: str
+    explanation: ExplanationDetail
 
 
 @dataclass(frozen=True)

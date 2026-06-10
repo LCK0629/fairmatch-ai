@@ -25,7 +25,9 @@ def test_school_sample_assigns_every_student():
     assert len(result.assignments) == 2
     assert {assignment.person_id for assignment in result.assignments} == {"s1", "s2"}
     assert all(assignment.skill_match for assignment in result.assignments)
-    assert all(assignment.explanation for assignment in result.assignments)
+    assert all(assignment.explanation.summary for assignment in result.assignments)
+    assert all(assignment.explanation.capacity_note for assignment in result.assignments)
+    assert all(assignment.explanation.first_choice_note for assignment in result.assignments)
 
 
 def test_skill_requirements_block_ineligible_assignments():
