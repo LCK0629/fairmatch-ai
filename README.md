@@ -6,7 +6,7 @@ It is a constraint optimisation and decision support platform. It is not an LLM 
 
 Product positioning:
 
-FairMatch AI is an explainable fairness-aware allocation platform for university project allocation. It helps administrators and academic coordinators move beyond manual assignment lists by producing valid allocations, measuring fairness, explaining decisions, and comparing fairness-aware outcomes against baseline alternatives.
+FairMatch AI is an Explainable Fairness-Aware Allocation Platform for university project allocation. It helps administrators and academic coordinators move beyond manual assignment lists by producing valid allocations, measuring fairness, explaining decisions, and comparing fairness-aware outcomes against baseline alternatives.
 
 It supports two allocation modes:
 
@@ -109,14 +109,14 @@ to launch the FairMatch AI dashboard.
 
 The launcher checks for the local `.venv`, activates it, opens the browser, and starts Streamlit. If `.venv` is missing, it shows setup instructions instead.
 
-The dashboard follows a two-stage product flow:
+The Streamlit product experience follows a two-stage product flow:
 
-- landing page introducing the allocation problem and FairMatch AI value
-- Start Dashboard flow into the product workspace
-- scenario panel for sample dataset selection and custom JSON upload
-- tabbed workspace for allocation, fairness, counterfactual comparison, and dataset review
+- premium landing page introducing the value before asking for data
+- Start Experience flow into the decision support workspace
+- collapsed scenario setup for sample dataset selection and custom JSON upload
+- tabbed workspace for Overview, Allocation, Fairness, Explanations, and Comparison
 - large fairness metric cards for presentation
-- compact assignment table with a focused explanation detail panel
+- professional allocation table and readable explanation cards
 - counterfactual fairness comparison for baseline vs fairness-aware runs
 
 ## Data Model

@@ -113,7 +113,7 @@ These items improve usability and demonstration value but are not core to the op
 ### Streamlit Dashboard
 
 Description:
-Build a simple dashboard to upload or select datasets, run allocation, view assignments, inspect fairness metrics, and read explanations.
+Build a product-style dashboard to upload or select datasets, run allocation, view assignments, inspect fairness metrics, read explanations, and compare fairness-aware outcomes.
 
 Motivation:
 A dashboard would make the project easier to demonstrate to non-technical users.
@@ -125,7 +125,7 @@ Implementation Complexity:
 Medium.
 
 Current Status:
-Completed as a product-style Streamlit presentation layer with landing page, scenario panel, tabbed result views, compact explanations, and counterfactual comparison. More advanced dashboard features remain optional future enhancements.
+Completed as a product-style Streamlit presentation layer with premium landing page, collapsed scenario setup, Overview, Allocation, Fairness, Explanations, and Comparison tabs. More advanced dashboard features remain optional future enhancements.
 
 ### PDF Report Export
 

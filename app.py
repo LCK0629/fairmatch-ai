@@ -52,20 +52,24 @@ def apply_theme() -> None:
         """
         <style>
         :root {
-            --bg: #f5f7fa;
+            --bg: #f6f7f9;
             --surface: #ffffff;
-            --surface-soft: #f9fafb;
-            --ink: #182230;
+            --surface-soft: #fafbfc;
+            --ink: #101828;
             --muted: #667085;
-            --line: #d8dee8;
+            --quiet: #98a2b3;
+            --line: #d9dee7;
             --primary: #145c72;
-            --primary-dark: #0f3f50;
-            --accent: #8a5a12;
-            --positive: #176b4d;
+            --primary-dark: #0f4050;
+            --primary-soft: #e7f1f4;
+            --gold: #9a6a1f;
+            --green: #166c4d;
         }
 
         .stApp {
-            background: var(--bg);
+            background:
+                radial-gradient(circle at top left, rgba(20, 92, 114, 0.08), transparent 30%),
+                var(--bg);
             color: var(--ink);
         }
 
@@ -79,7 +83,7 @@ def apply_theme() -> None:
 
         .block-container {
             max-width: 1180px;
-            padding-top: 1.35rem;
+            padding-top: 1.25rem;
             padding-bottom: 2.5rem;
         }
 
@@ -87,14 +91,10 @@ def apply_theme() -> None:
             letter-spacing: 0;
         }
 
-        h1, h2, h3 {
-            color: var(--ink);
-        }
-
         .stButton > button {
-            border-radius: 6px;
-            min-height: 42px;
-            font-weight: 650;
+            border-radius: 8px;
+            min-height: 44px;
+            font-weight: 700;
             border: 1px solid var(--line);
             background: #ffffff;
             color: var(--ink);
@@ -125,21 +125,12 @@ def apply_theme() -> None:
             color: #ffffff;
         }
 
-        div[data-testid="stMetric"] {
-            background: var(--surface);
-            border: 1px solid var(--line);
-            border-radius: 8px;
-            padding: 16px 18px;
-        }
-
-        div[data-testid="stMetric"] * {
-            color: var(--ink);
-            opacity: 1;
-        }
-
-        div[data-testid="stMetric"] label,
-        div[data-testid="stMetric"] [data-testid="stMetricLabel"] {
-            color: var(--muted);
+        [data-testid="stWidgetLabel"],
+        [data-testid="stWidgetLabel"] *,
+        [data-testid="stRadio"] p,
+        [data-testid="stRadio"] span {
+            color: var(--ink) !important;
+            opacity: 1 !important;
         }
 
         label[data-baseweb="radio"] > div:first-child {
@@ -162,14 +153,6 @@ def apply_theme() -> None:
             accent-color: var(--primary) !important;
         }
 
-        [data-testid="stWidgetLabel"],
-        [data-testid="stWidgetLabel"] *,
-        [data-testid="stRadio"] p,
-        [data-testid="stRadio"] span {
-            color: var(--ink) !important;
-            opacity: 1 !important;
-        }
-
         [data-baseweb="select"] > div,
         [data-baseweb="input"] > div,
         [data-baseweb="base-input"] {
@@ -185,13 +168,10 @@ def apply_theme() -> None:
             color: var(--ink) !important;
         }
 
-        [data-testid="stNumberInput"] button {
+        [data-testid="stNumberInput"] button,
+        [data-testid="stFileUploader"] button {
             background: #ffffff !important;
-            border-color: var(--line) !important;
-            color: var(--ink) !important;
-        }
-
-        [data-testid="stNumberInput"] button * {
+            border: 1px solid var(--line) !important;
             color: var(--ink) !important;
         }
 
@@ -205,25 +185,16 @@ def apply_theme() -> None:
             color: var(--ink) !important;
         }
 
-        [data-testid="stFileUploader"] button {
-            background: #ffffff !important;
-            border: 1px solid var(--line) !important;
-            color: var(--ink) !important;
-        }
-
         button[data-baseweb="tab"] {
             color: var(--muted) !important;
+            font-weight: 700 !important;
         }
 
         button[data-baseweb="tab"] * {
             color: var(--muted) !important;
         }
 
-        button[data-baseweb="tab"][aria-selected="true"] {
-            color: var(--primary) !important;
-            border-bottom-color: var(--primary) !important;
-        }
-
+        button[data-baseweb="tab"][aria-selected="true"],
         button[data-baseweb="tab"][aria-selected="true"] * {
             color: var(--primary) !important;
         }
@@ -232,27 +203,27 @@ def apply_theme() -> None:
             background-color: var(--primary) !important;
         }
 
-        .fm-topbar {
+        .fm-nav {
             display: flex;
             align-items: center;
             justify-content: space-between;
             gap: 16px;
-            margin-bottom: 16px;
+            margin-bottom: 20px;
         }
 
         .fm-brand {
             display: flex;
             align-items: center;
             gap: 12px;
-            font-weight: 750;
+            font-weight: 800;
             color: var(--ink);
         }
 
         .fm-logo {
-            width: 38px;
-            height: 38px;
-            border-radius: 7px;
-            background: var(--primary);
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            background: var(--ink);
             color: #ffffff;
             display: flex;
             align-items: center;
@@ -266,190 +237,256 @@ def apply_theme() -> None:
             font-size: 0.92rem;
         }
 
-        .fm-landing {
-            background: var(--surface);
+        .fm-hero {
+            background: linear-gradient(180deg, #ffffff 0%, #fbfcfd 100%);
             border: 1px solid var(--line);
-            border-radius: 8px;
-            min-height: 520px;
-            padding: 34px;
+            border-radius: 14px;
+            min-height: 560px;
+            padding: 52px;
             display: grid;
-            grid-template-columns: minmax(0, 1.1fr) minmax(300px, 0.9fr);
-            gap: 34px;
+            grid-template-columns: minmax(0, 1.05fr) minmax(320px, 0.95fr);
+            gap: 44px;
             align-items: center;
+            box-shadow: 0 18px 50px rgba(16, 24, 40, 0.06);
         }
 
         .fm-kicker {
             color: var(--primary);
             font-size: 0.92rem;
-            font-weight: 750;
-            margin-bottom: 12px;
+            font-weight: 800;
+            margin-bottom: 14px;
+            text-transform: uppercase;
         }
 
-        .fm-title {
+        .fm-hero-title {
             color: var(--ink);
-            font-size: 2.75rem;
-            line-height: 1.12;
-            margin: 0 0 18px;
-            max-width: 760px;
+            font-size: 4rem;
+            line-height: 1;
+            margin: 0 0 16px;
+            font-weight: 850;
         }
 
-        .fm-lede {
-            color: var(--muted);
-            font-size: 1.04rem;
-            line-height: 1.7;
-            max-width: 720px;
-            margin-bottom: 26px;
-        }
-
-        .fm-hero-panel {
-            border: 1px solid var(--line);
-            border-radius: 8px;
-            background: var(--surface-soft);
-            padding: 22px;
-        }
-
-        .fm-panel-title {
-            font-weight: 750;
-            color: var(--ink);
-            margin-bottom: 12px;
-        }
-
-        .fm-signal-grid {
-            display: grid;
-            grid-template-columns: repeat(2, minmax(0, 1fr));
-            gap: 10px;
-            margin-top: 14px;
-        }
-
-        .fm-signal {
-            border: 1px solid var(--line);
-            border-radius: 7px;
-            background: #ffffff;
-            padding: 13px;
-        }
-
-        .fm-signal-value {
+        .fm-hero-subtitle {
             color: var(--ink);
             font-size: 1.35rem;
-            font-weight: 800;
-            line-height: 1.1;
-        }
-
-        .fm-signal-label {
-            color: var(--muted);
-            font-size: 0.82rem;
-            margin-top: 4px;
-        }
-
-        .fm-flow {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            margin-top: 20px;
-        }
-
-        .fm-chip {
-            border: 1px solid var(--line);
-            border-radius: 999px;
-            background: #ffffff;
-            color: var(--ink);
-            font-size: 0.84rem;
-            padding: 7px 11px;
-        }
-
-        .fm-dashboard-header {
-            background: var(--surface);
-            border: 1px solid var(--line);
-            border-radius: 8px;
-            padding: 22px;
+            font-weight: 750;
             margin-bottom: 18px;
         }
 
-        .fm-dashboard-title {
+        .fm-hero-copy {
+            color: var(--muted);
+            font-size: 1.12rem;
+            line-height: 1.75;
+            max-width: 680px;
+            margin-bottom: 26px;
+        }
+
+        .fm-preview {
+            border: 1px solid var(--line);
+            border-radius: 14px;
+            background: #ffffff;
+            padding: 20px;
+            box-shadow: 0 14px 34px rgba(16, 24, 40, 0.08);
+        }
+
+        .fm-preview-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            padding: 12px 0;
+            border-bottom: 1px solid #edf1f5;
+        }
+
+        .fm-preview-row:last-child {
+            border-bottom: none;
+        }
+
+        .fm-preview-label {
+            color: var(--muted);
+            font-size: 0.86rem;
+        }
+
+        .fm-preview-value {
+            color: var(--ink);
+            font-size: 1.28rem;
+            font-weight: 850;
+        }
+
+        .fm-section {
+            margin-top: 26px;
+        }
+
+        .fm-section-heading {
+            color: var(--ink);
             font-size: 1.75rem;
             line-height: 1.2;
-            font-weight: 800;
-            margin: 0 0 8px;
+            font-weight: 850;
+            margin: 0 0 10px;
+        }
+
+        .fm-section-copy {
+            color: var(--muted);
+            line-height: 1.7;
+            max-width: 820px;
+            margin-bottom: 16px;
+        }
+
+        .fm-card-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 16px;
+        }
+
+        .fm-value-card {
+            background: #ffffff;
+            border: 1px solid var(--line);
+            border-radius: 12px;
+            padding: 24px;
+            min-height: 178px;
+            box-shadow: 0 8px 24px rgba(16, 24, 40, 0.04);
+        }
+
+        .fm-card-title {
             color: var(--ink);
+            font-size: 1.15rem;
+            font-weight: 850;
+            margin-bottom: 10px;
+        }
+
+        .fm-card-copy {
+            color: var(--muted);
+            line-height: 1.65;
+            font-size: 0.96rem;
+        }
+
+        .fm-problem {
+            background: var(--ink);
+            color: #ffffff;
+            border-radius: 14px;
+            padding: 34px;
+            display: grid;
+            grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+            gap: 28px;
+            align-items: start;
+        }
+
+        .fm-problem .fm-section-heading,
+        .fm-problem strong {
+            color: #ffffff;
+        }
+
+        .fm-problem .fm-section-copy,
+        .fm-problem p {
+            color: #d0d5dd;
+        }
+
+        .fm-flow-box {
+            background: #ffffff;
+            border: 1px solid var(--line);
+            border-radius: 14px;
+            padding: 28px;
+        }
+
+        .fm-arch-flow {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 8px;
+            max-width: 560px;
+            margin: 0 auto;
+        }
+
+        .fm-arch-step {
+            border: 1px solid var(--line);
+            border-radius: 10px;
+            padding: 16px;
+            background: var(--surface-soft);
+            text-align: center;
+            color: var(--ink);
+            font-weight: 800;
+            min-height: 86px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .fm-arch-arrow {
+            color: var(--primary);
+            font-weight: 850;
+            text-align: center;
+            font-size: 1.1rem;
+            line-height: 1;
+        }
+
+        .fm-cta-band {
+            background: #ffffff;
+            border: 1px solid var(--line);
+            border-radius: 14px;
+            padding: 28px;
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) 260px;
+            gap: 18px;
+            align-items: center;
+        }
+
+        .fm-dashboard-shell {
+            background: #ffffff;
+            border: 1px solid var(--line);
+            border-radius: 14px;
+            padding: 28px;
+            margin-bottom: 18px;
+            box-shadow: 0 12px 36px rgba(16, 24, 40, 0.05);
+        }
+
+        .fm-dashboard-title {
+            color: var(--ink);
+            font-size: 2.1rem;
+            line-height: 1.1;
+            font-weight: 850;
+            margin: 0 0 10px;
         }
 
         .fm-dashboard-copy {
             color: var(--muted);
-            line-height: 1.6;
-            max-width: 860px;
+            max-width: 820px;
+            line-height: 1.65;
             margin: 0;
         }
 
-        .fm-band {
-            background: var(--surface);
+        .fm-control-panel {
+            background: #ffffff;
             border: 1px solid var(--line);
-            border-radius: 8px;
+            border-radius: 12px;
             padding: 18px;
-            margin-bottom: 16px;
+            margin-bottom: 18px;
         }
 
-        .fm-section-label {
+        .fm-label {
             color: var(--muted);
-            font-size: 0.82rem;
-            font-weight: 750;
-            margin-bottom: 6px;
+            font-size: 0.78rem;
+            font-weight: 850;
             text-transform: uppercase;
+            margin-bottom: 7px;
         }
 
-        .fm-section-title {
+        .fm-title {
             color: var(--ink);
-            font-size: 1.18rem;
-            font-weight: 800;
-            margin-bottom: 8px;
+            font-size: 1.2rem;
+            font-weight: 850;
+            margin-bottom: 10px;
         }
 
         .fm-note {
             color: var(--muted);
-            font-size: 0.92rem;
-            line-height: 1.55;
-        }
-
-        .fm-card {
-            background: var(--surface);
-            border: 1px solid var(--line);
-            border-radius: 8px;
-            padding: 16px;
-            min-height: 120px;
-        }
-
-        .fm-metric-card {
-            background: var(--surface);
-            border: 1px solid var(--line);
-            border-radius: 8px;
-            padding: 18px;
-            min-height: 112px;
-        }
-
-        .fm-metric-label {
-            color: var(--muted);
-            font-size: 0.84rem;
-            font-weight: 650;
-            margin-bottom: 8px;
-        }
-
-        .fm-metric-value {
-            color: var(--ink);
-            font-size: 2rem;
-            font-weight: 800;
-            line-height: 1.1;
-        }
-
-        .fm-metric-hint {
-            color: var(--muted);
-            font-size: 0.8rem;
-            margin-top: 7px;
+            font-size: 0.94rem;
+            line-height: 1.6;
         }
 
         .fm-status-line {
             display: flex;
             flex-wrap: wrap;
             gap: 10px;
-            margin-top: 12px;
+            margin-top: 14px;
         }
 
         .fm-pill {
@@ -457,7 +494,7 @@ def apply_theme() -> None:
             border: 1px solid var(--line);
             background: var(--surface-soft);
             color: var(--ink);
-            padding: 7px 10px;
+            padding: 8px 11px;
             font-size: 0.84rem;
         }
 
@@ -465,26 +502,44 @@ def apply_theme() -> None:
             color: var(--primary);
         }
 
-        .fm-explanation-title {
-            color: var(--ink);
-            font-weight: 800;
-            font-size: 1.05rem;
-            margin-bottom: 8px;
+        .fm-executive-grid,
+        .fm-metric-grid {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 14px;
         }
 
-        .fm-explanation-summary {
-            color: var(--ink);
-            line-height: 1.55;
-            margin-bottom: 12px;
+        .fm-exec-card,
+        .fm-metric-card {
+            background: #ffffff;
+            border: 1px solid var(--line);
+            border-radius: 12px;
+            padding: 22px;
+            min-height: 130px;
         }
 
-        .fm-explanation-note {
-            border-top: 1px solid var(--line);
-            padding-top: 10px;
-            margin-top: 10px;
+        .fm-exec-label,
+        .fm-metric-label {
             color: var(--muted);
-            line-height: 1.5;
-            font-size: 0.92rem;
+            font-size: 0.82rem;
+            font-weight: 750;
+            margin-bottom: 10px;
+        }
+
+        .fm-exec-value,
+        .fm-metric-value {
+            color: var(--ink);
+            font-size: 2.35rem;
+            font-weight: 850;
+            line-height: 1;
+        }
+
+        .fm-exec-hint,
+        .fm-metric-hint {
+            color: var(--muted);
+            font-size: 0.84rem;
+            margin-top: 10px;
+            line-height: 1.45;
         }
 
         .fm-table {
@@ -492,23 +547,23 @@ def apply_theme() -> None:
             border-collapse: collapse;
             background: #ffffff;
             border: 1px solid var(--line);
-            border-radius: 8px;
+            border-radius: 12px;
             overflow: hidden;
-            font-size: 0.92rem;
+            font-size: 0.94rem;
         }
 
         .fm-table th {
             background: #f8fafc;
             color: var(--muted);
-            font-weight: 750;
+            font-weight: 800;
             text-align: left;
-            padding: 11px 12px;
+            padding: 13px 14px;
             border-bottom: 1px solid var(--line);
         }
 
         .fm-table td {
             color: var(--ink);
-            padding: 11px 12px;
+            padding: 13px 14px;
             border-bottom: 1px solid #edf1f5;
             vertical-align: top;
         }
@@ -517,38 +572,105 @@ def apply_theme() -> None:
             border-bottom: none;
         }
 
-        @media (max-width: 920px) {
-            .fm-landing {
+        .fm-explain-card {
+            background: #ffffff;
+            border: 1px solid var(--line);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 12px;
+        }
+
+        .fm-explain-title {
+            color: var(--ink);
+            font-size: 1.08rem;
+            font-weight: 850;
+            margin-bottom: 8px;
+        }
+
+        .fm-explain-copy {
+            color: var(--muted);
+            line-height: 1.65;
+        }
+
+        .fm-compare-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 16px;
+        }
+
+        .fm-compare-card {
+            background: #ffffff;
+            border: 1px solid var(--line);
+            border-radius: 12px;
+            padding: 20px;
+            min-height: 190px;
+        }
+
+        .fm-compare-title {
+            color: var(--ink);
+            font-weight: 850;
+            font-size: 1.12rem;
+            margin-bottom: 12px;
+        }
+
+        .fm-compare-line {
+            display: flex;
+            justify-content: space-between;
+            gap: 14px;
+            border-top: 1px solid #edf1f5;
+            padding: 10px 0;
+            color: var(--muted);
+        }
+
+        .fm-compare-line strong {
+            color: var(--ink);
+        }
+
+        @media (max-width: 980px) {
+            .fm-hero,
+            .fm-problem,
+            .fm-cta-band {
                 grid-template-columns: 1fr;
-                min-height: auto;
             }
 
-            .fm-title {
-                font-size: 2.25rem;
+            .fm-card-grid,
+            .fm-arch-flow,
+            .fm-executive-grid,
+            .fm-metric-grid,
+            .fm-compare-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
             }
 
-            .fm-topbar {
-                align-items: flex-start;
-                flex-direction: column;
+            .fm-hero-title {
+                font-size: 3rem;
             }
         }
 
-        @media (max-width: 620px) {
+        @media (max-width: 640px) {
             .block-container {
                 padding-left: 1rem;
                 padding-right: 1rem;
             }
 
-            .fm-landing {
-                padding: 22px;
+            .fm-hero {
+                padding: 28px;
             }
 
-            .fm-title {
-                font-size: 2rem;
+            .fm-hero-title {
+                font-size: 2.45rem;
             }
 
-            .fm-signal-grid {
+            .fm-card-grid,
+            .fm-arch-flow,
+            .fm-executive-grid,
+            .fm-metric-grid,
+            .fm-compare-grid {
                 grid-template-columns: 1fr;
+            }
+
+            .fm-nav {
+                align-items: flex-start;
+                flex-direction: column;
             }
         }
         </style>
@@ -560,52 +682,51 @@ def apply_theme() -> None:
 def render_landing_page() -> None:
     st.markdown(
         """
-        <div class="fm-topbar">
+        <div class="fm-nav">
             <div class="fm-brand">
                 <div class="fm-logo">FM</div>
                 <div>FairMatch AI</div>
             </div>
             <div class="fm-small">CSIT-26-S3-06</div>
         </div>
-        <section class="fm-landing">
+
+        <section class="fm-hero">
             <div>
-                <div class="fm-kicker">Explainable fairness-aware allocation</div>
-                <h1 class="fm-title">Decision support for student-project allocation</h1>
-                <div class="fm-lede">
-                    FairMatch AI helps coordinators produce valid allocations, inspect fairness
-                    trade-offs, and explain allocation decisions using a constraint optimisation
-                    engine built on Google OR-Tools CP-SAT.
+                <div class="fm-kicker">Explainable Fairness-Aware Allocation Engine</div>
+                <h1 class="fm-hero-title">FairMatch AI</h1>
+                <div class="fm-hero-subtitle">Explainable Fairness-Aware Allocation Engine</div>
+                <div class="fm-hero-copy">
+                    Make allocation decisions transparent,<br>
+                    fair and explainable.
                 </div>
-                <div class="fm-flow">
-                    <div class="fm-chip">School Mode first</div>
-                    <div class="fm-chip">Fairness metrics</div>
-                    <div class="fm-chip">Structured explanations</div>
-                    <div class="fm-chip">Counterfactual comparison</div>
+                <div class="fm-note">
+                    FairMatch AI helps universities move from manual assignment lists to
+                    evidence-backed allocation decisions with optimisation, fairness evaluation,
+                    structured explanations, and counterfactual comparison.
                 </div>
             </div>
-            <div class="fm-hero-panel">
-                <div class="fm-panel-title">Core demonstration flow</div>
-                <div class="fm-note">
-                    Start with a dataset, run the allocation engine, inspect fairness metrics,
-                    then compare fairness-aware and baseline outcomes.
+            <div class="fm-preview">
+                <div class="fm-label">Decision preview</div>
+                <div class="fm-preview-row">
+                    <div>
+                        <div class="fm-preview-label">Allocation quality</div>
+                        <div class="fm-preview-value">Valid</div>
+                    </div>
+                    <div class="fm-pill"><strong>Checked</strong></div>
                 </div>
-                <div class="fm-signal-grid">
-                    <div class="fm-signal">
-                        <div class="fm-signal-value">1</div>
-                        <div class="fm-signal-label">School Mode scope</div>
+                <div class="fm-preview-row">
+                    <div>
+                        <div class="fm-preview-label">Fairness signal</div>
+                        <div class="fm-preview-value">Measured</div>
                     </div>
-                    <div class="fm-signal">
-                        <div class="fm-signal-value">24</div>
-                        <div class="fm-signal-label">verified tests</div>
+                    <div class="fm-pill"><strong>Gini</strong></div>
+                </div>
+                <div class="fm-preview-row">
+                    <div>
+                        <div class="fm-preview-label">Decision logic</div>
+                        <div class="fm-preview-value">Explainable</div>
                     </div>
-                    <div class="fm-signal">
-                        <div class="fm-signal-value">5</div>
-                        <div class="fm-signal-label">fairness measures</div>
-                    </div>
-                    <div class="fm-signal">
-                        <div class="fm-signal-value">0</div>
-                        <div class="fm-signal-label">LLM decisions</div>
-                    </div>
+                    <div class="fm-pill"><strong>Structured</strong></div>
                 </div>
             </div>
         </section>
@@ -614,56 +735,159 @@ def render_landing_page() -> None:
     )
 
     st.write("")
-    start_column, note_column = st.columns([0.24, 0.76])
-    with start_column:
-        if st.button("Start Dashboard", type="primary", use_container_width=True):
+    cta_column, spacer_column = st.columns([0.28, 0.72])
+    with cta_column:
+        if st.button("Start Experience", type="primary", use_container_width=True):
             st.session_state.dashboard_started = True
             st.session_state.comparison_fairness_weight = DEFAULT_FAIRNESS_WEIGHT
             st.rerun()
-    with note_column:
+    with spacer_column:
         st.markdown(
-            '<div class="fm-note">The dashboard uses the existing backend solver and comparison helpers.</div>',
+            '<div class="fm-note">Open the decision support workspace when you are ready to run an allocation scenario.</div>',
             unsafe_allow_html=True,
         )
+
+    render_product_value_section()
+    render_problem_section()
+    render_architecture_section()
+    render_landing_cta()
+
+
+def render_product_value_section() -> None:
+    st.markdown(
+        """
+        <section class="fm-section">
+            <h2 class="fm-section-heading">Built for fairer allocation decisions</h2>
+            <div class="fm-section-copy">
+                FairMatch AI is designed around the questions coordinators need to answer:
+                who was assigned, whether the outcome is balanced, and how the decision can be explained.
+            </div>
+            <div class="fm-card-grid">
+                <div class="fm-value-card">
+                    <div class="fm-card-title">Fair Allocation</div>
+                    <div class="fm-card-copy">Balance preferences, skills, capacity and workload.</div>
+                </div>
+                <div class="fm-value-card">
+                    <div class="fm-card-title">Transparent Decisions</div>
+                    <div class="fm-card-copy">Every allocation includes explanation details.</div>
+                </div>
+                <div class="fm-value-card">
+                    <div class="fm-card-title">Counterfactual Analysis</div>
+                    <div class="fm-card-copy">Understand how fairness changes outcomes.</div>
+                </div>
+            </div>
+        </section>
+        """,
+        unsafe_allow_html=True,
+    )
+
+
+def render_problem_section() -> None:
+    st.markdown(
+        """
+        <section class="fm-section fm-problem">
+            <div>
+                <div class="fm-label">Problem</div>
+                <h2 class="fm-section-heading">Allocation is easy to list, hard to justify.</h2>
+            </div>
+            <div>
+                <p>
+                    Universities struggle to allocate students fairly when projects are
+                    oversubscribed and resources are limited.
+                </p>
+                <p>
+                    FairMatch AI provides optimisation, fairness evaluation and decision
+                    transparency so coordinators can review allocation quality instead of only
+                    accepting a final assignment list.
+                </p>
+            </div>
+        </section>
+        """,
+        unsafe_allow_html=True,
+    )
+
+
+def render_architecture_section() -> None:
+    st.markdown(
+        """
+        <section class="fm-section fm-flow-box">
+            <div class="fm-label">Architecture</div>
+            <h2 class="fm-section-heading">From input data to explainable decisions</h2>
+            <div class="fm-arch-flow">
+                <div class="fm-arch-step">Input</div>
+                <div class="fm-arch-arrow">&darr;</div>
+                <div class="fm-arch-step">Constraint Solver</div>
+                <div class="fm-arch-arrow">&darr;</div>
+                <div class="fm-arch-step">Fairness Evaluation</div>
+                <div class="fm-arch-arrow">&darr;</div>
+                <div class="fm-arch-step">Explanation Engine</div>
+                <div class="fm-arch-arrow">&darr;</div>
+                <div class="fm-arch-step">Decision Support Dashboard</div>
+            </div>
+        </section>
+        """,
+        unsafe_allow_html=True,
+    )
+
+
+def render_landing_cta() -> None:
+    st.markdown(
+        """
+        <section class="fm-section fm-cta-band">
+            <div>
+                <div class="fm-label">Start experience</div>
+                <h2 class="fm-section-heading">Review allocation as a decision, not a spreadsheet.</h2>
+                <div class="fm-section-copy">
+                    Enter the product workspace to run allocation, inspect fairness,
+                    read explanations, and compare fairness-aware outcomes.
+                </div>
+            </div>
+            <div></div>
+        </section>
+        """,
+        unsafe_allow_html=True,
+    )
+    cta_column, _ = st.columns([0.24, 0.76])
+    with cta_column:
+        if st.button("Launch Dashboard", type="primary", use_container_width=True):
+            st.session_state.dashboard_started = True
+            st.session_state.comparison_fairness_weight = DEFAULT_FAIRNESS_WEIGHT
+            st.rerun()
 
 
 def render_dashboard() -> None:
     render_dashboard_header()
-    render_scenario_panel()
+    render_scenario_controls()
 
-    tabs = st.tabs(["Allocation", "Fairness", "Counterfactual", "Dataset"])
+    tabs = st.tabs(["Overview", "Allocation", "Fairness", "Explanations", "Comparison"])
     with tabs[0]:
-        render_allocation_workspace(st.session_state.allocation_result)
+        render_overview()
     with tabs[1]:
-        render_fairness_workspace(st.session_state.allocation_result)
+        render_allocation()
     with tabs[2]:
-        render_counterfactual_workspace(
-            st.session_state.comparison,
-            st.session_state.baseline_result,
-            st.session_state.fairness_result,
-            st.session_state.comparison_warning,
-        )
+        render_fairness()
     with tabs[3]:
-        render_dataset_workspace(st.session_state.active_payload)
+        render_explanations()
+    with tabs[4]:
+        render_comparison()
 
 
 def render_dashboard_header() -> None:
     st.markdown(
         """
-        <div class="fm-topbar">
+        <div class="fm-nav">
             <div class="fm-brand">
                 <div class="fm-logo">FM</div>
                 <div>FairMatch AI</div>
             </div>
-            <div class="fm-small">Decision Support Console</div>
+            <div class="fm-small">Decision Support Workspace</div>
         </div>
-        <section class="fm-dashboard-header">
-            <div class="fm-section-label">School Mode</div>
-            <h1 class="fm-dashboard-title">Project allocation workspace</h1>
+        <section class="fm-dashboard-shell">
+            <div class="fm-label">Product workspace</div>
+            <h1 class="fm-dashboard-title">Allocation decisions, explained.</h1>
             <p class="fm-dashboard-copy">
-                Select a scenario, run the optimiser, and review allocation quality through
-                assignments, fairness metrics, structured explanations, and counterfactual
-                fairness comparison.
+                Run a school allocation scenario, inspect the result, measure fairness,
+                read decision explanations, and compare what changes when fairness is prioritised.
             </p>
         </section>
         """,
@@ -671,49 +895,42 @@ def render_dashboard_header() -> None:
     )
 
 
-def render_scenario_panel() -> None:
-    st.markdown('<div class="fm-section-label">Scenario</div>', unsafe_allow_html=True)
-    st.markdown('<div class="fm-section-title">Dataset and run controls</div>', unsafe_allow_html=True)
+def render_scenario_controls() -> None:
+    with st.expander("Scenario setup", expanded=False):
+        source_column, dataset_column, upload_column = st.columns([0.22, 0.34, 0.44])
+        with source_column:
+            source = st.radio("Input source", ["Sample dataset", "Upload JSON"], index=0)
+        with dataset_column:
+            selected_name = st.selectbox("Sample dataset", list(SAMPLE_DATASETS))
+        with upload_column:
+            uploaded_file = st.file_uploader("Custom allocation JSON", type=["json"])
 
-    source_column, dataset_column, upload_column = st.columns([0.24, 0.34, 0.42])
-    with source_column:
-        source = st.radio(
-            "Input source",
-            ["Sample dataset", "Upload JSON"],
-            index=0,
-            horizontal=False,
-        )
-    with dataset_column:
-        selected_name = st.selectbox("Sample dataset", list(SAMPLE_DATASETS))
-    with upload_column:
-        uploaded_file = st.file_uploader("Custom allocation JSON", type=["json"])
+        payload = resolve_payload(source, selected_name, uploaded_file)
+        if payload is not None:
+            st.session_state.active_payload = payload
+            st.session_state.active_dataset_name = selected_name if source == "Sample dataset" else "Uploaded JSON"
 
-    payload = resolve_payload(source, selected_name, uploaded_file)
-    if payload is not None:
-        st.session_state.active_payload = payload
-        st.session_state.active_dataset_name = selected_name if source == "Sample dataset" else "Uploaded JSON"
+        render_dataset_summary(st.session_state.active_payload, st.session_state.active_dataset_name)
 
-    render_dataset_summary(st.session_state.active_payload, st.session_state.active_dataset_name)
-
-    action_columns = st.columns([0.2, 0.24, 0.2, 0.36])
-    with action_columns[0]:
-        if st.button("Run Allocation", type="primary", use_container_width=True):
-            st.session_state.allocation_result = solve_payload(st.session_state.active_payload)
-    with action_columns[1]:
-        if st.button("Run Fairness Comparison", use_container_width=True):
-            run_fairness_comparison(int(st.session_state.comparison_fairness_weight))
-    with action_columns[2]:
-        st.number_input(
-            "Fairness weight",
-            min_value=0,
-            max_value=20,
-            step=1,
-            key="comparison_fairness_weight",
-        )
-    with action_columns[3]:
-        if st.button("Back to Landing Page", use_container_width=True):
-            st.session_state.dashboard_started = False
-            st.rerun()
+        action_columns = st.columns([0.22, 0.26, 0.2, 0.32])
+        with action_columns[0]:
+            if st.button("Run Allocation", type="primary", use_container_width=True):
+                st.session_state.allocation_result = solve_payload(st.session_state.active_payload)
+        with action_columns[1]:
+            if st.button("Run Fairness Comparison", use_container_width=True):
+                run_fairness_comparison(int(st.session_state.comparison_fairness_weight))
+        with action_columns[2]:
+            st.number_input(
+                "Fairness weight",
+                min_value=0,
+                max_value=20,
+                step=1,
+                key="comparison_fairness_weight",
+            )
+        with action_columns[3]:
+            if st.button("Back to Landing Page", use_container_width=True):
+                st.session_state.dashboard_started = False
+                st.rerun()
 
 
 def resolve_payload(
@@ -764,53 +981,78 @@ def run_fairness_comparison(fairness_weight: int) -> None:
 
 
 def render_dataset_summary(payload: dict[str, Any], dataset_name: str) -> None:
-    people_count = len(payload.get("people", []))
-    item_count = len(payload.get("items", []))
-    fairness_weight = int(payload.get("fairness_weight", 0))
-    mode = str(payload.get("mode", "unknown"))
     st.markdown(
         f"""
         <div class="fm-status-line">
-            <div class="fm-pill"><strong>Dataset</strong> {escape(dataset_name)}</div>
-            <div class="fm-pill"><strong>Mode</strong> {escape(mode)}</div>
-            <div class="fm-pill"><strong>People</strong> {people_count}</div>
-            <div class="fm-pill"><strong>Projects</strong> {item_count}</div>
-            <div class="fm-pill"><strong>Fairness Weight</strong> {fairness_weight}</div>
+            <div class="fm-pill"><strong>Scenario</strong> {escape(dataset_name)}</div>
+            <div class="fm-pill"><strong>Students</strong> {len(payload.get("people", []))}</div>
+            <div class="fm-pill"><strong>Projects</strong> {len(payload.get("items", []))}</div>
+            <div class="fm-pill"><strong>Fairness Weight</strong> {int(payload.get("fairness_weight", 0))}</div>
         </div>
         """,
         unsafe_allow_html=True,
     )
 
 
-def render_allocation_workspace(result: AllocationResult | None) -> None:
+def render_overview() -> None:
+    payload = st.session_state.active_payload
+    result = st.session_state.allocation_result
+    cards = [
+        ("Students", len(payload.get("people", [])), "Included in current scenario"),
+        ("Projects", len(payload.get("items", [])), "Available allocation options"),
+        ("Assignments", len(result.assignments) if result else 0, "Generated by the solver"),
+        ("Status", result.status.title() if result else "Ready", "Current allocation state"),
+    ]
+    render_exec_cards(cards)
+
+    st.markdown(
+        """
+        <section class="fm-section fm-flow-box">
+            <div class="fm-label">Executive summary</div>
+            <h2 class="fm-section-heading">FairMatch AI reviews allocation quality from four angles.</h2>
+            <div class="fm-section-copy">
+                The workspace separates the decision into assignment outcome, fairness quality,
+                explanation clarity, and counterfactual impact. This keeps the experience focused
+                on decision support rather than data administration.
+            </div>
+        </section>
+        """,
+        unsafe_allow_html=True,
+    )
+
+
+def render_exec_cards(cards: list[tuple[str, Any, str]]) -> None:
+    html = '<div class="fm-executive-grid">'
+    for label, value, hint in cards:
+        html += (
+            '<div class="fm-exec-card">'
+            f'<div class="fm-exec-label">{escape(str(label))}</div>'
+            f'<div class="fm-exec-value">{escape(str(value))}</div>'
+            f'<div class="fm-exec-hint">{escape(str(hint))}</div>'
+            "</div>"
+        )
+    html += "</div>"
+    st.markdown(html, unsafe_allow_html=True)
+
+
+def render_allocation() -> None:
+    result = st.session_state.allocation_result
     if result is None:
-        render_empty_state("Run Allocation to review project assignments and decision explanations.")
+        render_empty_state("Run Allocation from Scenario setup to view assigned projects.")
         return
 
     st.markdown(
-        f"""
-        <div class="fm-status-line">
-            <div class="fm-pill"><strong>Status</strong> {escape(result.status)}</div>
-            <div class="fm-pill"><strong>Objective</strong> {result.objective_value}</div>
-            <div class="fm-pill"><strong>Total Satisfaction</strong> {result.total_satisfaction}</div>
-            <div class="fm-pill"><strong>Fairness Gap</strong> {result.fairness_gap}</div>
+        """
+        <div class="fm-label">Allocation</div>
+        <h2 class="fm-section-heading">Assigned projects</h2>
+        <div class="fm-section-copy">
+            Each student receives one project assignment. The table keeps the outcome readable:
+            who was assigned, to which project, and how closely the assignment matched preference.
         </div>
         """,
         unsafe_allow_html=True,
     )
-
-    table_column, explanation_column = st.columns([0.64, 0.36])
-    with table_column:
-        st.markdown('<div class="fm-section-title">Assigned Projects</div>', unsafe_allow_html=True)
-        rows = allocation_rows(result)
-        if rows:
-            render_html_table(rows)
-        else:
-            st.warning("No assignments were returned by the solver.")
-
-    with explanation_column:
-        st.markdown('<div class="fm-section-title">Decision Detail</div>', unsafe_allow_html=True)
-        render_explanation_detail(result)
+    render_html_table(allocation_rows(result))
 
 
 def allocation_rows(result: AllocationResult) -> list[dict[str, Any]]:
@@ -825,169 +1067,177 @@ def allocation_rows(result: AllocationResult) -> list[dict[str, Any]]:
     ]
 
 
-def render_explanation_detail(result: AllocationResult) -> None:
-    if not result.assignments:
-        st.info("No explanations are available.")
+def render_fairness() -> None:
+    result = st.session_state.allocation_result
+    if result is None:
+        render_empty_state("Run Allocation to inspect fairness metrics.")
         return
 
-    names = [f"{assignment.person_name} -> {assignment.item_name}" for assignment in result.assignments]
-    selected = st.selectbox("Student explanation", names)
-    assignment = result.assignments[names.index(selected)]
-    explanation = assignment.explanation
-
     st.markdown(
-        f"""
-        <div class="fm-card">
-            <div class="fm-explanation-title">{escape(assignment.person_name)} assigned to {escape(assignment.item_name)}</div>
-            <div class="fm-explanation-summary">{escape(explanation.summary)}</div>
-            <div class="fm-explanation-note"><strong>First choice:</strong> {escape(explanation.first_choice_note)}</div>
-            <div class="fm-explanation-note"><strong>Fairness:</strong> {escape(explanation.fairness_note)}</div>
-            <div class="fm-explanation-note"><strong>Workload:</strong> {escape(explanation.workload_note)}</div>
+        """
+        <div class="fm-label">Fairness</div>
+        <h2 class="fm-section-heading">Fairness is measured, not assumed.</h2>
+        <div class="fm-section-copy">
+            These metrics show whether preference satisfaction is balanced across students.
+            Total satisfaction is useful, but fairness metrics reveal whether weaker outcomes
+            are concentrated on a small group.
         </div>
         """,
         unsafe_allow_html=True,
     )
-
-
-def render_fairness_workspace(result: AllocationResult | None) -> None:
-    if result is None:
-        render_empty_state("Run Allocation to inspect satisfaction and fairness metrics.")
-        return
-
-    st.markdown('<div class="fm-section-title">Fairness Overview</div>', unsafe_allow_html=True)
-    metric_cards(
+    render_metric_cards(
         [
             ("Total Satisfaction", result.total_satisfaction, "Overall preference score"),
             ("Average Satisfaction", f"{result.average_satisfaction:.2f}", "Mean student outcome"),
-            ("Fairness Gap", result.fairness_gap, "Highest minus lowest satisfaction"),
-            ("Max-Min Value", result.max_min_value, "Worst student satisfaction"),
-            ("Gini Coefficient", f"{result.gini_coefficient:.3f}", "Distribution inequality"),
+            ("Fairness Gap", result.fairness_gap, "Difference between highest and lowest satisfaction"),
+            ("Max-Min Value", result.max_min_value, "Worst individual satisfaction outcome"),
+            ("Gini Coefficient", f"{result.gini_coefficient:.3f}", "Inequality across satisfaction distribution"),
             ("Workload Gap", result.workload_gap, "Spread in assigned workload"),
         ]
     )
 
+
+def render_metric_cards(metrics: list[tuple[str, Any, str]]) -> None:
+    html = '<div class="fm-metric-grid">'
+    for label, value, hint in metrics:
+        html += (
+            '<div class="fm-metric-card">'
+            f'<div class="fm-metric-label">{escape(str(label))}</div>'
+            f'<div class="fm-metric-value">{escape(str(value))}</div>'
+            f'<div class="fm-metric-hint">{escape(str(hint))}</div>'
+            "</div>"
+        )
+    html += "</div>"
+    st.markdown(html, unsafe_allow_html=True)
+
+
+def render_explanations() -> None:
+    result = st.session_state.allocation_result
+    if result is None:
+        render_empty_state("Run Allocation to review structured explanation details.")
+        return
+
     st.markdown(
         """
-        <div class="fm-band">
-            <div class="fm-section-label">Interpretation</div>
-            <div class="fm-note">
-                Lower fairness gap and lower Gini coefficient indicate more balanced outcomes.
-                Total satisfaction should be read together with fairness metrics because a high
-                total score can still hide uneven individual outcomes.
+        <div class="fm-label">Explanations</div>
+        <h2 class="fm-section-heading">Every allocation should be readable.</h2>
+        <div class="fm-section-copy">
+            Review one student at a time. Each card summarises the assignment and keeps
+            first-choice, fairness, and workload notes separate.
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
+    names = [f"{assignment.person_name} -> {assignment.item_name}" for assignment in result.assignments]
+    selected = st.selectbox("Choose student", names)
+    selected_index = names.index(selected)
+
+    for index, assignment in enumerate(result.assignments):
+        title = f"{assignment.person_name} -> {assignment.item_name}"
+        expanded = index == selected_index
+        with st.expander(title, expanded=expanded):
+            explanation = assignment.explanation
+            st.markdown(
+                f"""
+                <div class="fm-explain-card">
+                    <div class="fm-explain-title">{escape(assignment.person_name)} assigned to {escape(assignment.item_name)}</div>
+                    <div class="fm-explain-copy">{escape(explanation.summary)}</div>
+                </div>
+                <div class="fm-explain-card">
+                    <div class="fm-explain-title">First-choice note</div>
+                    <div class="fm-explain-copy">{escape(explanation.first_choice_note)}</div>
+                </div>
+                <div class="fm-explain-card">
+                    <div class="fm-explain-title">Fairness note</div>
+                    <div class="fm-explain-copy">{escape(explanation.fairness_note)}</div>
+                </div>
+                <div class="fm-explain-card">
+                    <div class="fm-explain-title">Workload note</div>
+                    <div class="fm-explain-copy">{escape(explanation.workload_note)}</div>
+                </div>
+                """,
+                unsafe_allow_html=True,
+            )
+
+
+def render_comparison() -> None:
+    comparison = st.session_state.comparison
+    baseline_result = st.session_state.baseline_result
+    fairness_result = st.session_state.fairness_result
+
+    if comparison is None or baseline_result is None or fairness_result is None:
+        render_empty_state("Run Fairness Comparison from Scenario setup to compare baseline and fairness-aware outcomes.")
+        return
+
+    if st.session_state.comparison_warning:
+        st.warning(st.session_state.comparison_warning)
+
+    st.markdown(
+        """
+        <div class="fm-label">Comparison</div>
+        <h2 class="fm-section-heading">Before fairness, after fairness, and what changed.</h2>
+        """,
+        unsafe_allow_html=True,
+    )
+    st.markdown(
+        f"""
+        <div class="fm-compare-grid">
+            <div class="fm-compare-card">
+                <div class="fm-compare-title">Before Fairness</div>
+                {comparison_line("Total satisfaction", comparison.baseline_total_satisfaction)}
+                {comparison_line("Fairness gap", comparison.baseline_fairness_gap)}
+                {comparison_line("Gini coefficient", f"{comparison.baseline_gini_coefficient:.3f}")}
+            </div>
+            <div class="fm-compare-card">
+                <div class="fm-compare-title">After Fairness</div>
+                {comparison_line("Total satisfaction", comparison.fairness_total_satisfaction)}
+                {comparison_line("Fairness gap", comparison.fairness_fairness_gap)}
+                {comparison_line("Gini coefficient", f"{comparison.fairness_gini_coefficient:.3f}")}
+            </div>
+            <div class="fm-compare-card">
+                <div class="fm-compare-title">Why It Matters</div>
+                <div class="fm-explain-copy">
+                    Fairness-aware optimisation can reduce uneven satisfaction outcomes.
+                    In this comparison, fairness improved: <strong>{escape("Yes" if comparison.fairness_improved else "No")}</strong>.
+                    Changed assignments: <strong>{len(comparison.changed_assignments)}</strong>.
+                </div>
             </div>
         </div>
         """,
         unsafe_allow_html=True,
     )
 
-
-def metric_cards(metrics: list[tuple[str, Any, str]]) -> None:
-    for start in range(0, len(metrics), 3):
-        columns = st.columns(3)
-        for column, (label, value, hint) in zip(columns, metrics[start : start + 3]):
-            with column:
-                st.markdown(
-                    f"""
-                    <div class="fm-metric-card">
-                        <div class="fm-metric-label">{escape(str(label))}</div>
-                        <div class="fm-metric-value">{escape(str(value))}</div>
-                        <div class="fm-metric-hint">{escape(str(hint))}</div>
-                    </div>
-                    """,
-                    unsafe_allow_html=True,
-                )
+    st.markdown('<div class="fm-section"></div><h2 class="fm-section-heading">What Changed</h2>', unsafe_allow_html=True)
+    changed_assignment_rows = [
+        {
+            "Student ID": person_id,
+            "Before Fairness": baseline_item,
+            "After Fairness": fairness_item,
+        }
+        for person_id, (baseline_item, fairness_item) in sorted(comparison.changed_assignments.items())
+    ]
+    if changed_assignment_rows:
+        render_html_table(changed_assignment_rows)
+    else:
+        st.info("No assignment changes were detected.")
 
 
-def render_counterfactual_workspace(
-    comparison: CounterfactualComparison | None,
-    baseline_result: AllocationResult | None,
-    fairness_result: AllocationResult | None,
-    warning: str,
-) -> None:
-    if comparison is None or baseline_result is None or fairness_result is None:
-        render_empty_state("Run Fairness Comparison to compare baseline and fairness-aware outcomes.")
-        return
-
-    if warning:
-        st.warning(warning)
-
-    st.markdown('<div class="fm-section-title">Baseline vs Fairness-Aware Run</div>', unsafe_allow_html=True)
-    metric_cards(
-        [
-            (
-                "Total Satisfaction",
-                f"{comparison.baseline_total_satisfaction} -> {comparison.fairness_total_satisfaction}",
-                "Preference trade-off",
-            ),
-            (
-                "Fairness Gap",
-                f"{comparison.baseline_fairness_gap} -> {comparison.fairness_fairness_gap}",
-                "Lower is better",
-            ),
-            (
-                "Gini Coefficient",
-                f"{comparison.baseline_gini_coefficient:.3f} -> {comparison.fairness_gini_coefficient:.3f}",
-                "Lower is more equal",
-            ),
-            (
-                "Max-Min Value",
-                f"{comparison.baseline_max_min_value} -> {comparison.fairness_max_min_value}",
-                "Worst-outcome comparison",
-            ),
-            ("Fairness Improved", "Yes" if comparison.fairness_improved else "No", "Metric comparison result"),
-            ("Changed Assignments", len(comparison.changed_assignments), "Students assigned differently"),
-        ]
+def comparison_line(label: str, value: Any) -> str:
+    return (
+        '<div class="fm-compare-line">'
+        f'<span>{escape(str(label))}</span>'
+        f'<strong>{escape(str(value))}</strong>'
+        "</div>"
     )
-
-    changed_column, satisfaction_column = st.columns(2)
-    with changed_column:
-        st.markdown('<div class="fm-section-title">Changed Assignments</div>', unsafe_allow_html=True)
-        changed_assignment_rows = [
-            {
-                "Student ID": person_id,
-                "Baseline Project": baseline_item,
-                "Fairness Project": fairness_item,
-            }
-            for person_id, (baseline_item, fairness_item) in sorted(comparison.changed_assignments.items())
-        ]
-        if changed_assignment_rows:
-            render_html_table(changed_assignment_rows)
-        else:
-            st.info("No assignment changes were detected.")
-
-    with satisfaction_column:
-        st.markdown('<div class="fm-section-title">Changed Satisfaction</div>', unsafe_allow_html=True)
-        changed_satisfaction_rows = [
-            {
-                "Student ID": person_id,
-                "Baseline Satisfaction": baseline_score,
-                "Fairness Satisfaction": fairness_score,
-            }
-            for person_id, (baseline_score, fairness_score) in sorted(comparison.changed_satisfaction.items())
-        ]
-        if changed_satisfaction_rows:
-            render_html_table(changed_satisfaction_rows)
-        else:
-            st.info("No satisfaction changes were detected.")
-
-
-def render_dataset_workspace(payload: dict[str, Any]) -> None:
-    left_column, right_column = st.columns([0.36, 0.64])
-    with left_column:
-        st.markdown('<div class="fm-section-title">Scenario Summary</div>', unsafe_allow_html=True)
-        render_dataset_summary(payload, st.session_state.active_dataset_name)
-    with right_column:
-        st.markdown('<div class="fm-section-title">Raw Dataset</div>', unsafe_allow_html=True)
-        st.json(payload)
 
 
 def render_empty_state(message: str) -> None:
     st.markdown(
         f"""
-        <div class="fm-band">
-            <div class="fm-section-label">Ready</div>
+        <section class="fm-flow-box">
+            <div class="fm-label">Ready</div>
             <div class="fm-note">{escape(message)}</div>
-        </div>
+        </section>
         """,
         unsafe_allow_html=True,
     )
@@ -1005,12 +1255,7 @@ def render_html_table(rows: list[dict[str, Any]]) -> None:
         body_html += f"<tr>{cells}</tr>"
 
     st.markdown(
-        f"""
-        <table class="fm-table">
-            <thead><tr>{header_html}</tr></thead>
-            <tbody>{body_html}</tbody>
-        </table>
-        """,
+        f'<table class="fm-table"><thead><tr>{header_html}</tr></thead><tbody>{body_html}</tbody></table>',
         unsafe_allow_html=True,
     )
 

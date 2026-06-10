@@ -191,7 +191,7 @@ Suggested chapter focus:
 - `docs/PRODUCT_STORY.md`
   - non-technical product flow
 - `app.py`
-  - dashboard flow: landing page, scenario panel, tabbed workspace
+  - product flow: premium landing page, collapsed scenario setup, tabbed decision workspace
 
 ### Missing Content Still Required
 
@@ -210,10 +210,10 @@ Suggested chapter focus:
 
 ### Recommended Screenshots
 
-- Dashboard scenario panel.
+- Dashboard scenario setup.
 - Allocation tab with assignment table and decision detail panel.
 - Fairness tab with metric cards.
-- Counterfactual tab.
+- Comparison tab.
 
 ### Recommended Tables
 
@@ -309,8 +309,8 @@ Suggested chapter focus:
 - `app.py`
   - Streamlit dashboard
   - landing page
-  - scenario panel
-  - allocation, fairness, counterfactual, and dataset tabs
+  - collapsed scenario setup
+  - Overview, Allocation, Fairness, Explanations, and Comparison tabs
 - `data/school_sample.json`
   - main School Mode sample dataset
 - `data/school_cases/fairness_weight_tradeoff.json`
@@ -333,7 +333,7 @@ Suggested chapter focus:
 - Streamlit landing page.
 - Streamlit allocation tab.
 - Streamlit fairness tab.
-- Streamlit counterfactual tab.
+- Streamlit Comparison tab.
 
 ### Recommended Tables
 
@@ -368,13 +368,17 @@ cli.py / app.py
 ```text
 Landing Page
   ->
-Scenario Panel
+Scenario Setup
+  ->
+Overview Tab
   ->
 Allocation Tab
   ->
 Fairness Tab
   ->
-Counterfactual Tab
+Explanations Tab
+  ->
+Comparison Tab
 ```
 
 ## Chapter 5 - Evaluation
@@ -434,7 +438,7 @@ Suggested chapter focus:
 - CLI normal allocation output.
 - CLI counterfactual output.
 - Dashboard fairness metric cards.
-- Dashboard counterfactual comparison.
+- Dashboard comparison tab.
 
 ### Recommended Tables
 
@@ -586,7 +590,7 @@ Counterfactual Comparison
 - `backend/fairmatch/fairness.py`: fairness metric helpers
 - `backend/fairmatch/counterfactual.py`: fairness comparison helper
 - `backend/fairmatch/cli.py`: CLI output
-- `app.py`: Streamlit dashboard
+- `app.py`: Streamlit product experience
 
 ### Data and Tests
 

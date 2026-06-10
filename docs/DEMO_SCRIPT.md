@@ -2,7 +2,7 @@
 
 ## Demo Title
 
-FairMatch AI: Explainable Fairness-Aware Project Allocation Engine
+FairMatch AI: Explainable Fairness-Aware Allocation Platform
 
 FYP topic:
 
@@ -34,7 +34,7 @@ The system focuses on:
 3. Explanation
 4. Validation
 
-The Streamlit dashboard is a lightweight presentation layer on top of the verified backend.
+The Streamlit product experience is a presentation layer on top of the verified backend.
 
 ## Pre-Demo Setup
 
@@ -109,18 +109,18 @@ Point out:
 
 - product-style landing page
 - `Start` button
-- scenario panel
+- collapsed scenario setup
 - sample dataset options
 - custom JSON upload
 - `Run Allocation`
 - `Run Fairness Comparison`
-- tabbed Allocation, Fairness, Counterfactual, and Dataset views
+- tabbed Overview, Allocation, Fairness, Explanations, and Comparison views
 
 Say:
 
 ```text
-The app starts with a product-style landing page and then moves into the dashboard.
-The dashboard is organised as a product workspace rather than a debug screen.
+The app starts with a premium product landing page and then moves into the decision support workspace.
+The dashboard is organised as a product experience rather than an internal admin screen.
 The optimisation logic is not implemented inside the UI.
 It reuses the existing backend functions: load_allocation_input, solve_allocation, and compare_fairness_runs.
 ```
@@ -139,9 +139,10 @@ The product dashboard opens.
 
 Point out:
 
-- scenario controls at the top of the workspace
+- executive overview cards
 - allocation results in a dedicated tab
 - fairness metrics in a dedicated tab
+- explanations in a dedicated tab
 - counterfactual comparison in a dedicated tab
 
 ## Demo Part 1: Normal Allocation
@@ -275,7 +276,7 @@ Run Fairness Comparison
 4. Open:
 
 ```text
-Counterfactual
+Comparison
 ```
 
 Expected result:
@@ -420,7 +421,7 @@ Before presenting:
 - review at least one student explanation in the detail panel
 - select `Fairness Weight Trade-Off`
 - click `Run Fairness Comparison`
-- open the Counterfactual tab
+- open the Comparison tab
 - explain assignment changes and fairness metric changes
 
 ## Common Questions

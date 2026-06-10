@@ -407,3 +407,25 @@ The previous dashboard was functional but still felt like an internal tool. A ma
 
 Next Step:
 Verify the redesigned dashboard visually and rehearse the final presentation flow.
+
+## Round 21 - Version 1 Release Preparation
+
+Status:
+Completed
+
+Completed:
+- Reviewed repository status, runtime artifacts, documentation, tests, dashboard, and backend structure
+- Confirmed `.gitignore` covers `.venv/`, `__pycache__/`, `.pytest_cache/`, and Python bytecode files
+- Cleaned product documentation wording for FairMatch AI and Explainable Fairness-Aware Allocation Platform positioning
+- Created Version 1 release notes
+- Created Version 2 roadmap planning document
+- Verified compile success
+- Verified test suite success
+- Verified CLI output still runs
+- Verified dashboard HTTP response
+
+Rationale:
+The allocation engine is complete for Version 1. The project needs a stable release checkpoint before future frontend and platform work begins.
+
+Next Step:
+Create the `v1.0` Git tag after committing the release preparation changes.

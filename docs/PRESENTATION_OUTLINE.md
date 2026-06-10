@@ -8,7 +8,7 @@ Suggested duration:
 
 Presentation goal:
 
-Show FairMatch AI as an explainable fairness-aware allocation platform for university student-project allocation.
+Show FairMatch AI as an Explainable Fairness-Aware Allocation Platform for university student-project allocation.
 
 ## Slide 1 - Problem
 
@@ -95,7 +95,7 @@ Recommended visuals/screenshots:
   - Fair Allocation
   - Transparent Decisions
   - Counterfactual Analysis
-- Screenshot of dashboard tabs: Allocation, Fairness, Counterfactual, Dataset.
+- Screenshot of dashboard tabs: Overview, Allocation, Fairness, Explanations, Comparison.
 
 ## Slide 5 - System Architecture
 
@@ -204,7 +204,7 @@ fairness-aware: fairness_weight > 0
 
 Recommended visuals/screenshots:
 
-- Screenshot of the Counterfactual tab.
+- Screenshot of the Comparison tab.
 - Before/after metric cards:
   - Total satisfaction
   - Fairness gap
@@ -226,7 +226,7 @@ Key talking points:
 - Open the Fairness tab and explain metric cards.
 - Select `Fairness Weight Trade-Off`.
 - Run fairness comparison.
-- Open Counterfactual tab and explain changed outcomes.
+- Open Comparison tab and explain changed outcomes.
 
 Recommended visuals/screenshots:
 
@@ -235,7 +235,7 @@ Recommended visuals/screenshots:
   - Landing page
   - Allocation tab
   - Fairness tab
-  - Counterfactual tab
+  - Comparison tab
 
 Timing suggestion:
 
