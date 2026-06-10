@@ -1,0 +1,21 @@
+{
+  "mode": "work",
+  "fairness_weight": 2,
+  "people": [
+    {"id": "e1", "name": "Nur Aisyah"},
+    {"id": "e2", "name": "Marcus Chen"},
+    {"id": "e3", "name": "Priya Nair"},
+    {"id": "e4", "name": "Owen Goh"}
+  ],
+  "items": [
+    {"id": "t1", "name": "Prepare Sprint Report", "capacity": 1},
+    {"id": "t2", "name": "Review User Feedback", "capacity": 1},
+    {"id": "t3", "name": "Build Allocation Demo", "capacity": 2}
+  ],
+  "preferences": {
+    "e1": ["t2", "t3", "t1"],
+    "e2": ["t3", "t1", "t2"],
+    "e3": ["t1", "t2", "t3"],
+    "e4": ["t3", "t2", "t1"]
+  }
+}

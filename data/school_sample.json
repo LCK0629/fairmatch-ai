@@ -1,0 +1,21 @@
+{
+  "mode": "school",
+  "fairness_weight": 2,
+  "people": [
+    {"id": "s1", "name": "Alicia Tan"},
+    {"id": "s2", "name": "Benjamin Lee"},
+    {"id": "s3", "name": "Chloe Wong"},
+    {"id": "s4", "name": "Daniel Lim"}
+  ],
+  "items": [
+    {"id": "p1", "name": "AI Timetable Assistant", "capacity": 2},
+    {"id": "p2", "name": "Cybersecurity Training Lab", "capacity": 1},
+    {"id": "p3", "name": "Smart Campus Feedback Portal", "capacity": 1}
+  ],
+  "preferences": {
+    "s1": ["p1", "p2", "p3"],
+    "s2": ["p2", "p1", "p3"],
+    "s3": ["p1", "p3", "p2"],
+    "s4": ["p3", "p2", "p1"]
+  }
+}
