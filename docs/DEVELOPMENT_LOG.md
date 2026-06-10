@@ -388,3 +388,22 @@ The backend and dashboard are functional. A more mature two-stage UI improves th
 
 Next Step:
 Use the dashboard flow to prepare the final FYP presentation slides and demo rehearsal.
+
+## Round 20 - Mature Product Flow Redesign
+
+Status:
+Completed
+
+Completed:
+- Redesigned the Streamlit app into a clearer landing page and product dashboard flow
+- Replaced the administrative sidebar layout with a top scenario panel
+- Added tabbed views for allocation, fairness metrics, counterfactual comparison, and dataset review
+- Enlarged fairness metric presentation for demo readability
+- Reworked explanations into a focused student detail panel instead of full-page stacked expanders
+- Updated README, demo script, and future work documentation
+
+Rationale:
+The previous dashboard was functional but still felt like an internal tool. A mature FYP product demo needs stronger visual hierarchy, clearer value introduction, and a cleaner workflow without changing backend optimisation logic.
+
+Next Step:
+Verify the redesigned dashboard visually and rehearse the final presentation flow.

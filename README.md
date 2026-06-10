@@ -87,7 +87,7 @@ python -m backend.fairmatch.cli data\school_cases\fairness_weight_tradeoff.json 
 
 ## Run Dashboard
 
-FairMatch AI also includes a lightweight Streamlit dashboard for demonstration:
+FairMatch AI also includes a Streamlit product demo for presentation:
 
 ```powershell
 streamlit run app.py
@@ -105,16 +105,15 @@ to launch the FairMatch AI dashboard.
 
 The launcher checks for the local `.venv`, activates it, opens the browser, and starts Streamlit. If `.venv` is missing, it shows setup instructions instead.
 
-The dashboard supports:
+The dashboard follows a two-stage product flow:
 
-- product-style landing page
-- start button into the dashboard
-- sample dataset selection
-- custom JSON upload
-- allocation result table
-- fairness metrics
-- structured explanations
-- counterfactual fairness comparison
+- landing page introducing the allocation problem and FairMatch AI value
+- Start Dashboard flow into the product workspace
+- scenario panel for sample dataset selection and custom JSON upload
+- tabbed workspace for allocation, fairness, counterfactual comparison, and dataset review
+- large fairness metric cards for presentation
+- compact assignment table with a focused explanation detail panel
+- counterfactual fairness comparison for baseline vs fairness-aware runs
 
 ## Data Model
 

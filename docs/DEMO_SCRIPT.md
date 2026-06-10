@@ -109,17 +109,18 @@ Point out:
 
 - product-style landing page
 - `Start` button
-- dataset selection in the sidebar
+- scenario panel
 - sample dataset options
 - custom JSON upload
 - `Run Allocation`
 - `Run Fairness Comparison`
+- tabbed Allocation, Fairness, Counterfactual, and Dataset views
 
 Say:
 
 ```text
 The app starts with a product-style landing page and then moves into the dashboard.
-The dashboard is intentionally lightweight.
+The dashboard is organised as a product workspace rather than a debug screen.
 The optimisation logic is not implemented inside the UI.
 It reuses the existing backend functions: load_allocation_input, solve_allocation, and compare_fairness_runs.
 ```
@@ -135,6 +136,13 @@ Start
 Expected result:
 
 The product dashboard opens.
+
+Point out:
+
+- scenario controls at the top of the workspace
+- allocation results in a dedicated tab
+- fairness metrics in a dedicated tab
+- counterfactual comparison in a dedicated tab
 
 ## Demo Part 1: Normal Allocation
 
@@ -157,9 +165,8 @@ Expected result:
 The dashboard displays:
 
 - solver status
-- fairness metrics
 - allocation table
-- explanation expanders
+- focused explanation detail panel
 
 Say:
 
@@ -182,7 +189,7 @@ first choice is 3, second choice is 2, third choice is 1, and unranked is 0.
 
 Action:
 
-Point to the fairness metric cards.
+Open the Fairness tab and point to the metric cards.
 
 Explain each metric briefly:
 
@@ -207,7 +214,7 @@ This is important because a high total score can still hide unfair individual ou
 
 Action:
 
-Open one or two explanation expanders.
+Open the Allocation tab and use the student explanation selector.
 
 Recommended examples:
 
@@ -263,6 +270,12 @@ Fairness Weight Trade-Off
 
 ```text
 Run Fairness Comparison
+```
+
+4. Open:
+
+```text
+Counterfactual
 ```
 
 Expected result:
@@ -404,9 +417,10 @@ Before presenting:
 - click `Start`
 - select `School Sample`
 - click `Run Allocation`
-- open at least one explanation expander
+- review at least one student explanation in the detail panel
 - select `Fairness Weight Trade-Off`
 - click `Run Fairness Comparison`
+- open the Counterfactual tab
 - explain assignment changes and fairness metric changes
 
 ## Common Questions

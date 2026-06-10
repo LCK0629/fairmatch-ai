@@ -125,7 +125,7 @@ Implementation Complexity:
 Medium.
 
 Current Status:
-Completed as a lightweight Streamlit presentation layer. More advanced dashboard features remain optional future enhancements.
+Completed as a product-style Streamlit presentation layer with landing page, scenario panel, tabbed result views, compact explanations, and counterfactual comparison. More advanced dashboard features remain optional future enhancements.
 
 ### PDF Report Export
 
