@@ -1,0 +1,21 @@
+{
+  "mode": "school",
+  "fairness_weight": 2,
+  "workload_balance_weight": 1,
+  "people": [
+    {"id": "s1", "name": "Student With Low Workload Limit", "skills": ["python"], "max_workload": 1}
+  ],
+  "items": [
+    {
+      "id": "p1",
+      "name": "High Effort AI Project",
+      "capacity": 1,
+      "required_skills": ["python"],
+      "workload": 2,
+      "supervisor_id": "sup_ai"
+    }
+  ],
+  "preferences": {
+    "s1": ["p1"]
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "mode": "school",
+  "fairness_weight": 2,
+  "workload_balance_weight": 1,
+  "people": [
+    {"id": "s1", "name": "Student One", "skills": ["python"], "max_workload": 3}
+  ],
+  "items": [
+    {
+      "id": "p1",
+      "name": "Valid Python Project",
+      "capacity": 1,
+      "required_skills": ["python"],
+      "workload": 1,
+      "supervisor_id": "sup_ai"
+    }
+  ],
+  "preferences": {
+    "s1": ["p_missing"]
+  }
+}

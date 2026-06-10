@@ -1,0 +1,35 @@
+{
+  "mode": "school",
+  "fairness_weight": 1,
+  "workload_balance_weight": 1,
+  "supervisor_limits": {
+    "sup_ai": 1,
+    "sup_web": 1
+  },
+  "people": [
+    {"id": "s_python", "name": "Python Specialist", "skills": ["python"], "max_workload": 3},
+    {"id": "s_web", "name": "Web Specialist", "skills": ["web"], "max_workload": 3}
+  ],
+  "items": [
+    {
+      "id": "p_python",
+      "name": "Python Allocation Tool",
+      "capacity": 1,
+      "required_skills": ["python"],
+      "workload": 2,
+      "supervisor_id": "sup_ai"
+    },
+    {
+      "id": "p_web",
+      "name": "Project Showcase Website",
+      "capacity": 1,
+      "required_skills": ["web"],
+      "workload": 2,
+      "supervisor_id": "sup_web"
+    }
+  ],
+  "preferences": {
+    "s_python": ["p_web", "p_python"],
+    "s_web": ["p_python", "p_web"]
+  }
+}

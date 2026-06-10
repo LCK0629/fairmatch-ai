@@ -1,0 +1,25 @@
+{
+  "mode": "school",
+  "fairness_weight": 2,
+  "workload_balance_weight": 1,
+  "people": [
+    {"id": "s1", "name": "Student One", "skills": ["python"], "max_workload": 3},
+    {"id": "s2", "name": "Student Two", "skills": ["python"], "max_workload": 3},
+    {"id": "s3", "name": "Student Three", "skills": ["python"], "max_workload": 3}
+  ],
+  "items": [
+    {
+      "id": "p1",
+      "name": "Small Python Project",
+      "capacity": 2,
+      "required_skills": ["python"],
+      "workload": 1,
+      "supervisor_id": "sup_ai"
+    }
+  ],
+  "preferences": {
+    "s1": ["p1"],
+    "s2": ["p1"],
+    "s3": ["p1"]
+  }
+}

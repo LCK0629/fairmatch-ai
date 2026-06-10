@@ -1,0 +1,21 @@
+{
+  "mode": "school",
+  "fairness_weight": 2,
+  "workload_balance_weight": 1,
+  "people": [
+    {"id": "s1", "name": "Student Without Security Skill", "skills": ["web"], "max_workload": 3}
+  ],
+  "items": [
+    {
+      "id": "p_security",
+      "name": "Cybersecurity Training Lab",
+      "capacity": 1,
+      "required_skills": ["security"],
+      "workload": 2,
+      "supervisor_id": "sup_cyber"
+    }
+  ],
+  "preferences": {
+    "s1": ["p_security"]
+  }
+}

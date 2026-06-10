@@ -70,7 +70,7 @@ School Mode and Work Mode have similar allocation structure.
 
 Decision:
 
-Represent both modes as people allocated to items.
+Represent both modes as people allocated to items internally.
 
 Rationale:
 
@@ -78,7 +78,7 @@ This keeps the model reusable while allowing mode-specific labels and extensions
 
 Consequences:
 
-Students and employees share the `Person` model. Projects, tasks, and shifts share the `Item` model.
+Students and employees can share the `Person` model. Projects, tasks, and shifts can share the `Item` model. The roadmap still prioritises School Mode first.
 
 ## Decision 4: Add Skills and Workload to Core Model
 
@@ -92,7 +92,7 @@ The initial model was preference-based only and too simple for the final FYP req
 
 Decision:
 
-Add person skills, item required skills, person workload limits, item workload, and supervisor limits.
+Add person skills, item required skills, workload limits, item workload, and supervisor limits.
 
 Rationale:
 
@@ -123,3 +123,31 @@ Premature interface work would distract from the core optimisation model.
 Consequences:
 
 The project remains CLI-based for now.
+
+## Decision 6: Refocus Roadmap on School Mode First
+
+Date: 2026-06-10
+
+Status: Accepted
+
+Context:
+
+The official requirement emphasises a scheduling and allocation engine with fairness, workload balance, stakeholder preferences, and transparent decision logic. The project had been documenting both School Mode and Work Mode as parallel directions, which risks spreading effort too broadly.
+
+Decision:
+
+Refocus the roadmap so Phase 1 delivers School Mode end-to-end first:
+
+```text
+Student -> Project allocation
+```
+
+Work Mode remains a future extension unless time allows.
+
+Rationale:
+
+A complete and explainable Student to Project allocation engine is stronger for the FYP than two partially finished modes. School Mode directly demonstrates allocation, fairness, supervisor workload, stakeholder preferences, and transparent decision logic.
+
+Consequences:
+
+Immediate implementation should prioritise School Mode datasets, constraints, explanations, tests, and fairness evaluation. Dashboard work is nice-to-have and should not distract from the core engine.

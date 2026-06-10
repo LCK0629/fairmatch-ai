@@ -1,136 +1,155 @@
 # Constraints
 
+## Scope Priority
+
+The constraint roadmap now prioritises School Mode first:
+
+```text
+students -> projects
+```
+
+Work Mode constraints should remain documented as possible future extensions, but implementation priority should stay on a complete Student to Project allocation engine.
+
 ## Decision Variables
 
-The core decision variable is:
+The core School Mode decision variable is:
 
 ```text
-x[person, item] = 1 if person is assigned to item
-x[person, item] = 0 otherwise
+x[student, project] = 1 if student is assigned to project
+x[student, project] = 0 otherwise
 ```
 
-Examples:
+Generic form:
 
 ```text
-x[s1, p1] = 1
-x[e1, t1] = 1
+x[person, item]
 ```
 
-## Hard Constraints
+The generic form may support Work Mode later, but School Mode should drive the immediate design.
+
+## Phase 1 Hard Constraints
 
 Hard constraints must be satisfied.
 
-### One Assignment Per Person
+### One Project Per Student
 
-Each person currently receives exactly one item.
+Each student should receive exactly one project.
 
 ```text
-sum(x[person, item] for item in items) = 1
+sum(x[student, project] for project in projects) = 1
 ```
 
-### Item Capacity
+### Project Capacity
 
-An item cannot exceed its capacity.
+A project cannot exceed its student capacity.
 
 ```text
-sum(x[person, item] for person in people) <= capacity[item]
+sum(x[student, project] for student in students) <= capacity[project]
 ```
 
 ### Skill Eligibility
 
-A person cannot be assigned to an item unless they satisfy all required skills.
+A student should only be assigned to a project when the student's skills satisfy the project's required skills.
 
 ```text
-x[person, item] = 0 if required_skills[item] is not a subset of skills[person]
-```
-
-### Person Workload Limit
-
-A person cannot exceed their maximum workload.
-
-```text
-current_workload[person] + assigned_workload[person] <= max_workload[person]
+x[student, project] = 0
+if required_skills[project] is not a subset of skills[student]
 ```
 
 ### Supervisor Workload Limit
 
-When supervisor limits are provided, the total number of people assigned to that supervisor's items cannot exceed the limit.
+Each supervisor should have a maximum number of assigned students or supervised project load.
 
 ```text
-sum(x[person, item] for item supervised by supervisor) <= supervisor_limit[supervisor]
+sum(x[student, project] for project supervised by supervisor) <= supervisor_limit[supervisor]
 ```
 
-## Soft Constraints
+### Valid Input References
 
-Soft constraints affect solution quality and are represented through the objective function.
+All preferences and constraints must reference valid student, project, and supervisor IDs.
 
-### Preference Satisfaction
+## Phase 1 Soft Constraints
 
-Higher-ranked choices receive higher satisfaction scores.
+Soft constraints affect solution quality and may be traded off.
+
+### Student Preference Satisfaction
+
+Higher-ranked projects should receive higher satisfaction scores.
 
 ```text
 first choice > second choice > third choice > unranked
 ```
 
-### Satisfaction Fairness
+### Fairness Across Students
 
-The solver penalises a large satisfaction gap.
+The solver should avoid extreme differences in satisfaction.
 
-```text
-fairness_gap = max_satisfaction - min_satisfaction
-```
-
-### Workload Balance
-
-The solver penalises a large workload gap.
+Initial metric:
 
 ```text
-workload_gap = max_workload - min_workload
+fairness_gap = max_student_satisfaction - min_student_satisfaction
 ```
 
-## Objective Function
+### Supervisor Workload Balance
 
-Current objective:
+The solver should avoid unnecessary workload concentration among supervisors.
+
+Possible metric:
 
 ```text
-maximise total_satisfaction
-         - fairness_weight * fairness_gap
-         - workload_balance_weight * workload_gap
+supervisor_workload_gap = max_supervisor_load - min_supervisor_load
 ```
 
-This means the solver prefers allocations that:
+This is a Phase 1 priority because the official topic includes workload balance.
 
-- satisfy preferences
-- avoid unfair satisfaction spread
-- avoid uneven workload spread
+## Objective Function Direction
 
-## Fairness Modelling
-
-Fairness is modelled as a measurable optimisation term, not as a vague rule.
-
-Current fairness metric:
+Phase 1 objective direction:
 
 ```text
-max_satisfaction - min_satisfaction
+maximise student_preference_satisfaction
+         - fairness_penalty
+         - supervisor_workload_penalty
 ```
 
-Future fairness extensions may include:
+The exact mathematical objective can evolve, but it should remain explainable.
 
-- minimum satisfaction floor
-- number of first-choice assignments
-- number of low-satisfaction assignments
-- workload variance
-- supervisor workload distribution
+## Fairness Modelling Direction
+
+Fairness should be mathematically grounded and documented.
+
+Phase 1 starts with satisfaction gap.
+
+Phase 3 should expand evaluation with metrics such as:
+
+- minimum satisfaction
+- satisfaction distribution
+- count of first-choice assignments
+- count of low-ranked assignments
+- supervisor load distribution
+- fairness-performance trade-off analysis
 
 ## Transparent Decision Logic
 
-Every assignment should explain:
+Every assignment should eventually explain:
 
+- assigned student
+- assigned project
 - preference rank
 - satisfaction score
-- skill eligibility
-- resulting workload
-- capacity compliance
-- supervisor limit check
+- skill match
+- project capacity status
+- supervisor workload impact
+- fairness trade-off
 
-This supports decision review by users and assessors.
+## Future Work Mode Constraints
+
+Work Mode may later reuse the generic model for:
+
+- employee task preferences
+- employee skills
+- task or shift requirements
+- employee workload limits
+- shift coverage constraints
+
+These are future extension constraints, not Phase 1 priority.

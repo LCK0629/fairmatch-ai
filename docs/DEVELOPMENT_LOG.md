@@ -82,3 +82,49 @@ The original allocation demo only considered preferences, capacity, and satisfac
 Next Step:
 
 Review the upgraded sample datasets and define additional realistic edge cases for testing.
+
+## Round 4 - School Mode Roadmap Refocus
+
+Completed:
+
+- Refocused project context around the main FYP scope
+- Defined the main scope as Explainable Fairness-Aware Project Allocation Engine
+- Clarified that School Mode is Phase 1 priority
+- Moved Work Mode to future extension status
+- Updated constraint documentation for Student to Project allocation first
+- Added roadmap documentation
+- Added decision record for the School Mode first strategy
+- Preserved dashboard as nice-to-have rather than core priority
+
+Rationale:
+
+The official requirement emphasises a scheduling and allocation engine with fairness, workload balance, stakeholder preferences, and transparent decision logic. A complete School Mode engine is a stronger FYP delivery target than spreading effort across School Mode, Work Mode, and dashboard work too early.
+
+Next Step:
+
+Define concrete School Mode sample datasets and edge cases for Student to Project allocation.
+
+## Round 5 - School Mode Edge Cases and Solver Validation Tests
+
+Completed:
+
+- Created `data/school_cases/` for School Mode edge case datasets
+- Added balanced feasible Student to Project allocation case
+- Added skill bottleneck feasible case
+- Added insufficient capacity validation case
+- Added skill gap infeasible case
+- Added supervisor limit infeasible case
+- Added workload limit infeasible case
+- Added invalid preference reference validation case
+- Revised the main School Mode sample so multiple students compete for a popular AI project
+- Adjusted the main School Mode sample so supervisor limits add a real constraint beyond project capacity
+- Added School Mode tests that load the JSON edge cases
+- Added assertions for assignment completeness, skill eligibility, explanations, fairness metrics, workload metrics, validation errors, and infeasible solver outcomes
+
+Rationale:
+
+Phase 1 requires a complete School Mode allocation engine. Concrete edge cases make the solver behaviour testable against project capacity, skill matching, supervisor workload, workload limits, invalid inputs, and transparent explanation requirements.
+
+Next Step:
+
+Install test dependencies in a virtual environment and run the School Mode validation suite with OR-Tools available.
