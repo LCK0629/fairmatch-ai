@@ -125,7 +125,7 @@ Implementation Complexity:
 Medium.
 
 Current Status:
-Deferred. The project deliberately prioritised backend, fairness, explanation, validation, and CLI output before UI.
+Completed as a lightweight Streamlit presentation layer. More advanced dashboard features remain optional future enhancements.
 
 ### PDF Report Export
 

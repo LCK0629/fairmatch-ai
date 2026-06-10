@@ -349,3 +349,23 @@ The project has completed the core allocation engine and must be verified in a c
 
 Next Step:
 Build a lightweight Streamlit dashboard if runtime verification remains stable.
+
+## Round 18 - Lightweight Streamlit Dashboard
+
+Status:
+Completed
+
+Completed:
+- Added Streamlit dependency
+- Built lightweight dashboard
+- Added dataset selection
+- Added allocation result table
+- Added fairness metrics display
+- Added explanation display
+- Added counterfactual fairness comparison
+
+Rationale:
+The backend and CLI are verified. A lightweight dashboard improves demonstration quality without changing optimisation logic.
+
+Next Step:
+Prepare FYP report, presentation slides, and demo script.

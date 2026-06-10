@@ -85,6 +85,23 @@ Counterfactual comparison can also be emitted as JSON:
 python -m backend.fairmatch.cli data\school_cases\fairness_weight_tradeoff.json --compare-fairness --output json
 ```
 
+## Run Dashboard
+
+FairMatch AI also includes a lightweight Streamlit dashboard for demonstration:
+
+```powershell
+streamlit run app.py
+```
+
+The dashboard supports:
+
+- sample dataset selection
+- custom JSON upload
+- allocation result table
+- fairness metrics
+- structured explanations
+- counterfactual fairness comparison
+
 ## Data Model
 
 Each input JSON file contains:
