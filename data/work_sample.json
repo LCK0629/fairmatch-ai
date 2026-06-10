@@ -1,16 +1,17 @@
 {
   "mode": "work",
   "fairness_weight": 2,
+  "workload_balance_weight": 2,
   "people": [
-    {"id": "e1", "name": "Nur Aisyah"},
-    {"id": "e2", "name": "Marcus Chen"},
-    {"id": "e3", "name": "Priya Nair"},
-    {"id": "e4", "name": "Owen Goh"}
+    {"id": "e1", "name": "Nur Aisyah", "skills": ["analysis", "communication"], "max_workload": 5, "current_workload": 1},
+    {"id": "e2", "name": "Marcus Chen", "skills": ["python", "reporting"], "max_workload": 5, "current_workload": 2},
+    {"id": "e3", "name": "Priya Nair", "skills": ["analysis", "python"], "max_workload": 4, "current_workload": 1},
+    {"id": "e4", "name": "Owen Goh", "skills": ["frontend", "communication"], "max_workload": 4, "current_workload": 0}
   ],
   "items": [
-    {"id": "t1", "name": "Prepare Sprint Report", "capacity": 1},
-    {"id": "t2", "name": "Review User Feedback", "capacity": 1},
-    {"id": "t3", "name": "Build Allocation Demo", "capacity": 2}
+    {"id": "t1", "name": "Prepare Sprint Report", "capacity": 1, "required_skills": ["reporting"], "workload": 2},
+    {"id": "t2", "name": "Review User Feedback", "capacity": 1, "required_skills": ["analysis"], "workload": 2},
+    {"id": "t3", "name": "Build Allocation Demo", "capacity": 2, "required_skills": ["python"], "workload": 2}
   ],
   "preferences": {
     "e1": ["t2", "t3", "t1"],

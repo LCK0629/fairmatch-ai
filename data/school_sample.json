@@ -1,16 +1,43 @@
 {
   "mode": "school",
   "fairness_weight": 2,
+  "workload_balance_weight": 1,
+  "supervisor_limits": {
+    "sup_ai": 2,
+    "sup_cyber": 1,
+    "sup_web": 1
+  },
   "people": [
-    {"id": "s1", "name": "Alicia Tan"},
-    {"id": "s2", "name": "Benjamin Lee"},
-    {"id": "s3", "name": "Chloe Wong"},
-    {"id": "s4", "name": "Daniel Lim"}
+    {"id": "s1", "name": "Alicia Tan", "skills": ["python", "data"], "max_workload": 3},
+    {"id": "s2", "name": "Benjamin Lee", "skills": ["security", "python"], "max_workload": 3},
+    {"id": "s3", "name": "Chloe Wong", "skills": ["python", "web"], "max_workload": 3},
+    {"id": "s4", "name": "Daniel Lim", "skills": ["web", "ux"], "max_workload": 3}
   ],
   "items": [
-    {"id": "p1", "name": "AI Timetable Assistant", "capacity": 2},
-    {"id": "p2", "name": "Cybersecurity Training Lab", "capacity": 1},
-    {"id": "p3", "name": "Smart Campus Feedback Portal", "capacity": 1}
+    {
+      "id": "p1",
+      "name": "AI Timetable Assistant",
+      "capacity": 2,
+      "required_skills": ["python"],
+      "workload": 2,
+      "supervisor_id": "sup_ai"
+    },
+    {
+      "id": "p2",
+      "name": "Cybersecurity Training Lab",
+      "capacity": 1,
+      "required_skills": ["security"],
+      "workload": 2,
+      "supervisor_id": "sup_cyber"
+    },
+    {
+      "id": "p3",
+      "name": "Smart Campus Feedback Portal",
+      "capacity": 1,
+      "required_skills": ["web"],
+      "workload": 1,
+      "supervisor_id": "sup_web"
+    }
   ],
   "preferences": {
     "s1": ["p1", "p2", "p3"],

@@ -1,11 +1,13 @@
 # FairMatch AI
 
-FairMatch AI is a fairness-aware allocation platform for CSIT-26-S3-06.
+FairMatch AI is a fairness-aware allocation platform for CSIT-26-S3-06: Intelligent Scheduling and Allocation System with Fairness Constraints.
+
+It is a constraint optimisation and decision support platform. It is not an LLM recommendation system.
 
 It supports two allocation modes:
 
-- School Mode: allocate students to projects.
-- Work Mode: allocate employees to tasks.
+- School Mode: allocate students to projects while considering preferences, skill match, project capacity, supervisor workload, and fairness.
+- Work Mode: allocate employees to tasks or shifts while considering preferences, skill match, task requirements, workload limits, and fairness.
 
 The backend is written in Python and uses Google OR-Tools CP-SAT as the optimisation engine.
 
@@ -22,6 +24,14 @@ fairMatch/
   data/
     school_sample.json
     work_sample.json
+  docs/
+    PROJECT_CONTEXT.md
+    ARCHITECTURE.md
+    DATA_MODEL.md
+    CONSTRAINTS.md
+    SYSTEM_FLOW.md
+    DECISIONS.md
+    DEVELOPMENT_LOG.md
   tests/
     test_solver.py
   requirements.txt
@@ -56,7 +66,11 @@ Each input JSON file contains:
 - `mode`: `school` or `work`.
 - `people`: students or employees.
 - `items`: projects or tasks.
+- `people`: students or employees, including skills and workload limits.
+- `items`: projects, tasks, or shifts, including capacity, required skills, workload, and optional supervisor ID.
 - `preferences`: ranked item choices for each person.
+- `supervisor_limits`: optional supervisor workload limits.
 - `fairness_weight`: how strongly the solver should reduce satisfaction gaps.
+- `workload_balance_weight`: how strongly the solver should reduce workload gaps.
 
-The solver maximises preference satisfaction while penalising unfair spread between the most and least satisfied assigned people.
+The solver maximises preference satisfaction while penalising unfair spread between the most and least satisfied assigned people and uneven workload distribution. Each assignment includes a transparent explanation with preference rank, skill match, workload impact, and capacity reasoning.
