@@ -1,0 +1,292 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>FairMatch AI | Version 2 Prototype</title>
+    <meta
+      name="description"
+      content="FairMatch AI is an Explainable Fairness-Aware Allocation Platform for transparent, fair, and explainable allocation decisions."
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <nav class="nav-shell" aria-label="Primary navigation">
+        <a class="brand" href="#top" aria-label="FairMatch AI home">
+          <span class="brand-mark">FM</span>
+          <span>FairMatch AI</span>
+        </a>
+        <button class="nav-toggle" type="button" aria-label="Open navigation" aria-expanded="false">
+          <span></span>
+          <span></span>
+        </button>
+        <div class="nav-links" data-nav-links>
+          <a href="#modes">Modes</a>
+          <a href="#platform">Platform</a>
+          <a href="#architecture">Architecture</a>
+          <a href="#preview">Preview</a>
+          <a href="#future">Future</a>
+        </div>
+      </nav>
+    </header>
+
+    <main id="top">
+      <section class="hero section">
+        <div class="hero-content">
+          <div class="eyebrow">Version 2 product prototype</div>
+          <h1>Fair allocation decisions, explained with confidence.</h1>
+          <p class="hero-copy">
+            FairMatch AI is an Explainable Fairness-Aware Allocation Platform for universities
+            that need transparent, balanced, and defensible project allocation decisions.
+          </p>
+          <div class="hero-actions">
+            <a class="button primary" href="#modes">Choose Experience</a>
+            <a class="button secondary" href="#architecture">See Architecture</a>
+          </div>
+        </div>
+
+        <aside class="hero-panel" aria-label="Product highlights">
+          <div class="panel-topline">
+            <span>School Mode</span>
+            <strong>Allocation Review</strong>
+          </div>
+          <div class="signal-grid">
+            <div>
+              <span>Students</span>
+              <strong>100</strong>
+            </div>
+            <div>
+              <span>Projects</span>
+              <strong>20</strong>
+            </div>
+            <div>
+              <span>Fairness Gap</span>
+              <strong>2</strong>
+            </div>
+            <div>
+              <span>Status</span>
+              <strong>Ready</strong>
+            </div>
+          </div>
+          <div class="decision-card">
+            <span class="card-label">Decision explanation</span>
+            <p>
+              Allocation outcomes include preference rank, skill eligibility, capacity notes,
+              fairness context, and workload signals.
+            </p>
+          </div>
+        </aside>
+      </section>
+
+      <section id="modes" class="section mode-section">
+        <div class="section-heading mode-heading">
+          <div class="eyebrow">Choose experience</div>
+          <h2>Choose an Allocation Scenario</h2>
+          <p>
+            The FairMatch AI engine can support multiple allocation domains through the same
+            explainable fairness-aware optimisation framework.
+          </p>
+        </div>
+        <div class="mode-grid">
+          <article class="mode-card mode-card-primary">
+            <div class="mode-card-topline">
+              <span class="mode-kicker">Available now</span>
+              <span class="status-pill">School Mode</span>
+            </div>
+            <h3>School Mode</h3>
+            <p>
+              Allocate students to projects while balancing the constraints and priorities
+              that shape real academic allocation decisions.
+            </p>
+            <ul class="mode-list" aria-label="School Mode allocation factors">
+              <li>Preferences</li>
+              <li>Skills</li>
+              <li>Capacity</li>
+              <li>Workload</li>
+              <li>Fairness</li>
+            </ul>
+            <a class="button primary mode-button" href="dashboard.html">Explore School Mode</a>
+          </article>
+
+          <article class="mode-card mode-card-disabled" aria-label="Work Mode coming soon">
+            <div class="mode-card-topline">
+              <span class="mode-kicker">Future extension</span>
+              <span class="coming-soon-badge">Coming Soon</span>
+            </div>
+            <h3>Work Mode</h3>
+            <p>
+              Allocate employees to tasks or shifts while balancing operational needs with
+              individual workload and fairness constraints.
+            </p>
+            <ul class="mode-list" aria-label="Work Mode allocation factors">
+              <li>Skills</li>
+              <li>Availability</li>
+              <li>Workload</li>
+              <li>Fairness</li>
+            </ul>
+            <button class="button secondary mode-button disabled-button" type="button" disabled>
+              Coming Soon
+            </button>
+          </article>
+        </div>
+      </section>
+
+      <section id="platform" class="section">
+        <div class="section-heading">
+          <div class="eyebrow">Product pillars</div>
+          <h2>A decision-support platform, not just an assignment list.</h2>
+        </div>
+        <div class="pillar-grid">
+          <article class="pillar-card">
+            <div class="pillar-icon">01</div>
+            <h3>Fair Allocation</h3>
+            <p>Balance student preferences, skills, project capacity, and workload constraints.</p>
+          </article>
+          <article class="pillar-card">
+            <div class="pillar-icon">02</div>
+            <h3>Transparent Decisions</h3>
+            <p>Show why each allocation was selected and why first choices may not be assigned.</p>
+          </article>
+          <article class="pillar-card">
+            <div class="pillar-icon">03</div>
+            <h3>Counterfactual Analysis</h3>
+            <p>Compare baseline and fairness-aware outcomes to understand what changed.</p>
+          </article>
+        </div>
+      </section>
+
+      <section id="architecture" class="section architecture-section">
+        <div class="section-heading compact">
+          <div class="eyebrow">Architecture</div>
+          <h2>Designed to reuse the verified backend.</h2>
+          <p>
+            Version 2 separates product frontend work from the existing allocation engine.
+            The solver remains stable and is accessed through a future API layer.
+          </p>
+        </div>
+        <div class="architecture-flow" aria-label="Version 2 architecture flow">
+          <div class="flow-node">
+            <span>01</span>
+            <strong>Frontend</strong>
+            <p>HTML, CSS, JavaScript product experience.</p>
+          </div>
+          <div class="flow-line"></div>
+          <div class="flow-node">
+            <span>02</span>
+            <strong>FastAPI Layer</strong>
+            <p>Planned API wrapper for product integration.</p>
+          </div>
+          <div class="flow-line"></div>
+          <div class="flow-node">
+            <span>03</span>
+            <strong>Existing Backend</strong>
+            <p>Validated FairMatch models, metrics, and explanations.</p>
+          </div>
+          <div class="flow-line"></div>
+          <div class="flow-node">
+            <span>04</span>
+            <strong>OR-Tools Solver</strong>
+            <p>Frozen optimisation engine from Version 1.</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="preview" class="section preview-section">
+        <div class="section-heading">
+          <div class="eyebrow">Static dashboard preview</div>
+          <h2>What the product workspace could become.</h2>
+        </div>
+        <div class="dashboard-preview">
+          <div class="preview-sidebar">
+            <div class="mini-brand">
+              <span class="brand-mark small">FM</span>
+              <span>Workspace</span>
+            </div>
+            <a class="active" href="#preview">Overview</a>
+            <a href="#preview">Allocation</a>
+            <a href="#preview">Fairness</a>
+            <a href="#preview">Explanations</a>
+            <a href="#preview">Comparison</a>
+          </div>
+          <div class="preview-main">
+            <div class="preview-header">
+              <div>
+                <span class="card-label">School Mode</span>
+                <h3>Allocation summary</h3>
+              </div>
+              <span class="status-pill">Prototype UI</span>
+            </div>
+            <div class="metric-row">
+              <div class="metric-card">
+                <span>Total Satisfaction</span>
+                <strong>18</strong>
+              </div>
+              <div class="metric-card">
+                <span>Fairness Gap</span>
+                <strong>1</strong>
+              </div>
+              <div class="metric-card">
+                <span>Gini Coefficient</span>
+                <strong>0.12</strong>
+              </div>
+            </div>
+            <div class="table-card">
+              <div class="table-row table-head">
+                <span>Student</span>
+                <span>Assigned Project</span>
+                <span>Rank</span>
+                <span>Reason</span>
+              </div>
+              <div class="table-row">
+                <span>Alicia</span>
+                <span>AI Scheduling</span>
+                <span>1</span>
+                <span>Preference and skill match</span>
+              </div>
+              <div class="table-row">
+                <span>Benjamin</span>
+                <span>Security Review</span>
+                <span>2</span>
+                <span>Capacity-aware allocation</span>
+              </div>
+              <div class="table-row">
+                <span>Chloe</span>
+                <span>Data Visualisation</span>
+                <span>1</span>
+                <span>Fairness objective active</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="future" class="section future-section">
+        <div class="future-card">
+          <div>
+            <div class="eyebrow">Future direction</div>
+            <h2>From FYP system to portfolio product.</h2>
+            <p>
+              Version 2 will gradually add a real API layer, product dashboard pages,
+              responsive design polish, and portfolio-ready presentation flows while
+              preserving the validated Version 1 allocation engine.
+            </p>
+          </div>
+          <ul class="future-list">
+            <li>FastAPI wrapper for allocation and fairness comparison</li>
+            <li>Mode selection with School Mode active and Work Mode marked coming soon</li>
+            <li>Dedicated fairness, explanation, and comparison pages</li>
+            <li>What-if simulation and PDF reporting as later extensions</li>
+          </ul>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <span>FairMatch AI Version 2 Prototype</span>
+      <span>Made by LCK</span>
+    </footer>
+
+    <script src="app.js"></script>
+  </body>
+</html>

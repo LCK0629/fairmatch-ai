@@ -504,10 +504,15 @@ def apply_theme() -> None:
             color: var(--primary);
         }
 
-        .fm-executive-grid,
-        .fm-metric-grid {
+        .fm-executive-grid {
             display: grid;
             grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 14px;
+        }
+
+        .fm-metric-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
             gap: 14px;
         }
 
@@ -931,7 +936,7 @@ def render_scenario_controls() -> None:
 
         render_dataset_summary(st.session_state.active_payload, st.session_state.active_dataset_name)
 
-        action_columns = st.columns([0.22, 0.26, 0.2, 0.32])
+        action_columns = st.columns([0.28, 0.34, 0.2])
         with action_columns[0]:
             if st.button("Run Allocation", type="primary", use_container_width=True):
                 st.session_state.allocation_result = solve_payload(st.session_state.active_payload)
@@ -946,11 +951,6 @@ def render_scenario_controls() -> None:
                 step=1,
                 key="comparison_fairness_weight",
             )
-        with action_columns[3]:
-            if st.button("Back to Landing Page", use_container_width=True):
-                st.session_state.started = False
-                st.session_state.dashboard_started = False
-                st.rerun()
 
 
 def resolve_payload(
@@ -976,8 +976,12 @@ def read_json_file(path: Path) -> dict[str, Any]:
     return json.loads(path.read_text(encoding="utf-8"))
 
 
-def solve_payload(payload: dict[str, Any]) -> AllocationResult:
-    return solve_allocation(load_allocation_input(payload))
+def solve_payload(payload: dict[str, Any]) -> AllocationResult | None:
+    try:
+        return solve_allocation(load_allocation_input(payload))
+    except ValueError as exc:
+        st.error(f"Allocation failed: {exc}")
+        return None
 
 
 def run_fairness_comparison(fairness_weight: int) -> None:
@@ -988,6 +992,13 @@ def run_fairness_comparison(fairness_weight: int) -> None:
 
     baseline_result = solve_payload(baseline_payload)
     fairness_result = solve_payload(fairness_payload)
+    if baseline_result is None or fairness_result is None:
+        st.session_state.baseline_result = baseline_result
+        st.session_state.fairness_result = fairness_result
+        st.session_state.comparison = None
+        st.session_state.comparison_warning = ""
+        return
+
     comparison = compare_fairness_runs(baseline_result, fairness_result)
 
     st.session_state.baseline_result = baseline_result

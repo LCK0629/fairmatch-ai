@@ -429,3 +429,78 @@ The allocation engine is complete for Version 1. The project needs a stable rele
 
 Next Step:
 Create the `v1.0` Git tag after committing the release preparation changes.
+
+## Round 22 - Version 2 Frontend Planning
+
+Status:
+Completed
+
+Completed:
+- Created and switched to the `v2-frontend` branch
+- Created Version 2 frontend planning documentation
+- Documented the product frontend vision
+- Documented the planned frontend, FastAPI, backend, and solver architecture
+- Documented planned pages and API endpoints
+- Created placeholder `frontend/` and `api/` folders
+- Confirmed Version 1.0 remains stable and untouched
+
+Rationale:
+FairMatch AI Version 1.0 is complete and frozen as the FYP system. Version 2 should evolve the project into a portfolio-ready product experience while reusing the existing backend and preserving the validated solver.
+
+Next Step:
+Create a static Version 2 landing page prototype in the `frontend/` folder.
+
+## Round 24 - Streamlit UI Polish Fixes
+
+Status:
+Completed
+
+Completed:
+- Removed duplicate landing navigation
+- Fixed fairness metric grid layout
+- Added invalid JSON error handling
+- Verified tests still pass
+
+Rationale:
+The Streamlit app should remain stable and presentation-ready while Version 2 frontend work begins. These fixes reduce duplicate navigation, improve fairness metric readability, and prevent invalid uploaded allocation data from breaking the app.
+
+Next Step:
+Continue Version 2 frontend prototyping after confirming the Streamlit app remains stable.
+
+## Round 25 - Product Mode Selection Experience
+
+Status:
+Completed
+
+Completed:
+- Added a product-focused Mode Selection section to the Version 2 static frontend
+- Added School Mode as the active allocation experience
+- Added Work Mode as a Coming Soon placeholder
+- Updated landing-page navigation and hero action to guide users into scenario selection
+- Added premium SaaS card styling, hover treatment, badges, and responsive layout
+
+Rationale:
+Version 2 should feel like a product experience rather than a generic prototype. Mode selection introduces FairMatch AI as a multi-domain allocation platform while keeping School Mode as the active, validated path.
+
+Next Step:
+Create a static `dashboard.html` placeholder for the School Mode product workspace.
+
+## Round 26 - Static V2 School Mode Dashboard Prototype
+
+Status:
+Completed
+
+Completed:
+- Created static School Mode dashboard page
+- Added allocation overview cards
+- Added allocation result table
+- Added fairness metrics section
+- Added explanation panel
+- Added counterfactual comparison preview
+- Linked dashboard from Version 2 landing page
+
+Rationale:
+The Version 2 product frontend needs a real destination after Mode Selection. This static dashboard prototype shows how School Mode will look before FastAPI backend integration.
+
+Next Step:
+Create FastAPI wrapper around the existing FairMatch backend.

@@ -1,0 +1,264 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>FairMatch AI | School Mode Dashboard</title>
+    <meta
+      name="description"
+      content="Static Version 2 School Mode dashboard prototype for FairMatch AI."
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <nav class="nav-shell" aria-label="Dashboard navigation">
+        <a class="brand" href="index.html" aria-label="FairMatch AI home">
+          <span class="brand-mark">FM</span>
+          <span>FairMatch AI</span>
+        </a>
+        <button class="nav-toggle" type="button" aria-label="Open navigation" aria-expanded="false">
+          <span></span>
+          <span></span>
+        </button>
+        <div class="nav-links" data-nav-links>
+          <a href="#dashboard">Dashboard</a>
+          <a href="#fairness">Fairness</a>
+          <a href="#explanations">Explanations</a>
+          <a href="#comparison">Comparison</a>
+          <a href="index.html">Back to Home</a>
+        </div>
+      </nav>
+    </header>
+
+    <main id="dashboard">
+      <section class="section dashboard-hero">
+        <div>
+          <div class="eyebrow">School Mode</div>
+          <h1>Student-to-Project Allocation</h1>
+          <p class="hero-copy">
+            Allocate students to projects while balancing preferences, skills, capacity,
+            workload, and fairness.
+          </p>
+        </div>
+        <div class="scenario-stat-grid" aria-label="Static scenario statistics">
+          <div class="scenario-stat">
+            <span>Students</span>
+            <strong>100</strong>
+          </div>
+          <div class="scenario-stat">
+            <span>Projects</span>
+            <strong>20</strong>
+          </div>
+          <div class="scenario-stat">
+            <span>Supervisors</span>
+            <strong>5</strong>
+          </div>
+          <div class="scenario-stat">
+            <span>Mode</span>
+            <strong>Fairness-Aware</strong>
+          </div>
+        </div>
+      </section>
+
+      <section class="section dashboard-section">
+        <div class="section-heading compact">
+          <div class="eyebrow">Static prototype data</div>
+          <h2>Allocation overview</h2>
+          <p>
+            These cards demonstrate the Version 2 product interface before live backend
+            integration.
+          </p>
+        </div>
+        <div class="dashboard-card-grid">
+          <article class="dashboard-card">
+            <span>Allocation Status</span>
+            <strong>Optimised</strong>
+            <p>Static status display for the School Mode prototype.</p>
+          </article>
+          <article class="dashboard-card">
+            <span>Total Satisfaction</span>
+            <strong>13</strong>
+            <p>Combined preference satisfaction across assigned students.</p>
+          </article>
+          <article class="dashboard-card">
+            <span>Fairness Gap</span>
+            <strong>1</strong>
+            <p>Lower gap indicates more balanced satisfaction outcomes.</p>
+          </article>
+          <article class="dashboard-card">
+            <span>Gini Coefficient</span>
+            <strong>0.092</strong>
+            <p>Lower inequality indicates a fairer satisfaction distribution.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="section dashboard-section">
+        <div class="section-heading compact">
+          <div class="eyebrow">Allocation results</div>
+          <h2>Assigned projects</h2>
+        </div>
+        <div class="product-table" role="table" aria-label="Static allocation results">
+          <div class="product-table-row product-table-head" role="row">
+            <span>Student</span>
+            <span>Assigned Project</span>
+            <span>Preference Rank</span>
+            <span>Satisfaction</span>
+            <span>Skill Match</span>
+            <span>Explanation Status</span>
+          </div>
+          <div class="product-table-row" role="row">
+            <span>Alicia Tan</span>
+            <span>AI Timetable Assistant</span>
+            <span>1st</span>
+            <span>3</span>
+            <span class="positive-text">Matched</span>
+            <span>Explained</span>
+          </div>
+          <div class="product-table-row" role="row">
+            <span>Benjamin Lee</span>
+            <span>AI Timetable Assistant</span>
+            <span>2nd</span>
+            <span>2</span>
+            <span class="positive-text">Matched</span>
+            <span>Explained</span>
+          </div>
+          <div class="product-table-row" role="row">
+            <span>Chloe Wong</span>
+            <span>Smart Campus Feedback Portal</span>
+            <span>2nd</span>
+            <span>2</span>
+            <span class="positive-text">Matched</span>
+            <span>Explained</span>
+          </div>
+          <div class="product-table-row" role="row">
+            <span>Daniel Lim</span>
+            <span>Smart Campus Feedback Portal</span>
+            <span>1st</span>
+            <span>3</span>
+            <span class="positive-text">Matched</span>
+            <span>Explained</span>
+          </div>
+          <div class="product-table-row" role="row">
+            <span>Evelyn Goh</span>
+            <span>Student Performance Dashboard</span>
+            <span>3rd</span>
+            <span>1</span>
+            <span class="positive-text">Matched</span>
+            <span>Explained</span>
+          </div>
+        </div>
+      </section>
+
+      <section id="fairness" class="section dashboard-section">
+        <div class="section-heading compact">
+          <div class="eyebrow">Fairness metrics</div>
+          <h2>Fairness is measured, not guessed.</h2>
+          <p>
+            Lower fairness gap is better. Lower Gini is better. Higher max-min value is better.
+          </p>
+        </div>
+        <div class="fairness-metric-grid">
+          <article class="metric-card">
+            <span>Total Satisfaction</span>
+            <strong>13</strong>
+            <p>Overall preference score.</p>
+          </article>
+          <article class="metric-card">
+            <span>Average Satisfaction</span>
+            <strong>2.60</strong>
+            <p>Mean student outcome.</p>
+          </article>
+          <article class="metric-card">
+            <span>Fairness Gap</span>
+            <strong>1</strong>
+            <p>Lower is better.</p>
+          </article>
+          <article class="metric-card">
+            <span>Max-Min Value</span>
+            <strong>2</strong>
+            <p>Higher is better.</p>
+          </article>
+          <article class="metric-card">
+            <span>Gini Coefficient</span>
+            <strong>0.092</strong>
+            <p>Lower is better.</p>
+          </article>
+          <article class="metric-card">
+            <span>Workload Gap</span>
+            <strong>1</strong>
+            <p>Lower spread means better workload balance.</p>
+          </article>
+        </div>
+      </section>
+
+      <section id="explanations" class="section dashboard-section">
+        <div class="explanation-layout">
+          <div class="section-heading compact">
+            <div class="eyebrow">Explanation panel</div>
+            <h2>Chloe Wong</h2>
+            <p>
+              Focused explanations make allocation decisions easier to inspect and defend.
+            </p>
+          </div>
+          <article class="explanation-card">
+            <div class="explanation-header">
+              <div>
+                <span class="card-label">Assigned project</span>
+                <h3>Smart Campus Feedback Portal</h3>
+              </div>
+              <span class="status-pill">Explained</span>
+            </div>
+            <ul class="explanation-list">
+              <li>First-choice project reached capacity.</li>
+              <li>Supervisor limit affected the feasible set.</li>
+              <li>Fairness objective may have influenced allocation.</li>
+              <li>Workload balancing may have influenced allocation.</li>
+            </ul>
+          </article>
+        </div>
+      </section>
+
+      <section id="comparison" class="section dashboard-section">
+        <div class="section-heading compact">
+          <div class="eyebrow">Counterfactual comparison preview</div>
+          <h2>Before fairness and after fairness.</h2>
+        </div>
+        <div class="comparison-shell">
+          <div class="comparison-column">
+            <span class="card-label">Baseline</span>
+            <h3>fairness_weight = 0</h3>
+            <div class="comparison-stat"><span>Total Satisfaction</span><strong>7</strong></div>
+            <div class="comparison-stat"><span>Fairness Gap</span><strong>2</strong></div>
+            <div class="comparison-stat"><span>Gini</span><strong>0.190</strong></div>
+          </div>
+          <div class="comparison-arrow" aria-hidden="true">→</div>
+          <div class="comparison-column highlighted">
+            <span class="card-label">Fairness-aware</span>
+            <h3>fairness_weight = 3</h3>
+            <div class="comparison-stat"><span>Total Satisfaction</span><strong>5</strong></div>
+            <div class="comparison-stat"><span>Fairness Gap</span><strong>1</strong></div>
+            <div class="comparison-stat"><span>Gini</span><strong>0.133</strong></div>
+          </div>
+          <div class="comparison-column">
+            <span class="card-label">What changed</span>
+            <h3>Changed Assignments</h3>
+            <div class="changed-count">3</div>
+            <p>
+              This static preview demonstrates the Version 2 product interface. Real backend
+              integration is planned through FastAPI.
+            </p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <span>FairMatch AI School Mode Dashboard</span>
+      <span>Made by LCK</span>
+    </footer>
+
+    <script src="app.js"></script>
+  </body>
+</html>
