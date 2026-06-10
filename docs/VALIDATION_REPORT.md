@@ -294,6 +294,44 @@ Explanation limitation:
 
 The fairness note in `first_choice_note` is a heuristic explanation signal. It confirms that the fairness objective was active in a run where the student did not receive their first choice, but it does not prove that fairness was the sole or decisive cause for that individual rejection. Stronger causal attribution would require counterfactual checks or controlled reruns that compare alternative objective settings for the same student-project decision.
 
+## Counterfactual Fairness Comparison Status
+
+The project now includes a counterfactual comparison helper in:
+
+```text
+backend/fairmatch/counterfactual.py
+```
+
+The helper compares a baseline run against a fairness-weighted run:
+
+```text
+baseline: fairness_weight = 0
+fairness run: fairness_weight > 0
+```
+
+It reports:
+
+- baseline and fairness-run total satisfaction
+- baseline and fairness-run satisfaction gap
+- baseline and fairness-run max-min value
+- baseline and fairness-run Gini coefficient
+- students whose assignments changed
+- students whose satisfaction scores changed
+- whether fairness improved according to the reported metrics
+
+The controlled test uses `data/school_cases/fairness_weight_tradeoff.json`.
+
+Validated behaviour:
+
+- assignments changed between the baseline and fairness-weighted run
+- `fairness_gap` improved in the fairness-weighted run
+- total satisfaction may decrease when fairness weighting is prioritised
+- changed students are identified through `changed_assignments`
+
+Limitation:
+
+This comparison provides stronger evidence than an objective-aware note, but it is still scenario-level evidence. It shows that fairness weighting changed the allocation result between two runs. It does not prove that fairness was the only possible cause for every individual assignment change unless the compared inputs are controlled and all other parameters remain unchanged.
+
 ## Overall Assessment
 
 The School Mode solver is not merely reading fields passively. It actively uses most of the School Mode fields in constraints or objective terms.
@@ -306,13 +344,36 @@ Strong areas:
 - workload limits are hard constraints
 - preference order affects optimisation
 - fairness and workload balance are represented in the objective
+- fairness metrics are available through a code-level helper layer
 - assignment explanations now use structured explanation fields
 
 Main issues to address next:
 
 1. Supervisor workload balance is not yet a soft objective metric.
 2. More tests should compare solver output under different `workload_balance_weight` values.
-3. Explanation notes identify fairness and workload settings, but deeper counterfactual reasoning is still future work.
+3. Counterfactual comparison currently covers fairness weighting, but not workload balancing or individual first-choice causal proof.
+
+## Fairness Metric Helper Status
+
+Fairness reporting has moved from documentation-only formulas into code.
+
+Implemented in `backend/fairmatch/fairness.py`:
+
+- `calculate_satisfaction_gap()`
+- `calculate_max_min_value()`
+- `calculate_total_satisfaction()`
+- `calculate_average_satisfaction()`
+- `calculate_gini_coefficient()`
+
+Integrated into `AllocationResult`:
+
+- `total_satisfaction`
+- `average_satisfaction`
+- `fairness_gap`
+- `max_min_value`
+- `gini_coefficient`
+
+This helper layer supports post-solve evaluation only. It does not modify the CP-SAT optimisation objective.
 
 ## Phase 2 Structured Explanation Engine Status
 

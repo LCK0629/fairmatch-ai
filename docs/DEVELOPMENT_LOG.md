@@ -253,3 +253,41 @@ The explanation engine currently adds fairness and workload "may have" notes whe
 
 Next Step:
 Design counterfactual explanation checks that compare alternative allocations or rerun controlled scenarios to support stronger causal claims.
+
+## Round 13 - Fairness Metric Helper Layer
+
+Status:
+Completed
+
+Completed:
+- Added `backend/fairmatch/fairness.py`
+- Implemented satisfaction gap, max-min value, total satisfaction, average satisfaction, and Gini coefficient helpers
+- Integrated fairness reporting metrics into `AllocationResult`
+- Added tests for fairness helper functions
+- Added tests proving solver results expose the new fairness metrics
+- Updated fairness and validation documentation
+
+Rationale:
+Fairness metrics should be executable, testable project logic instead of documentation-only formulas. A helper layer makes the metrics reusable for solver results, validation reports, and future explanation work.
+
+Next Step:
+Use the helper layer to compare controlled School Mode scenarios and design counterfactual explanation checks.
+
+## Round 14 - Counterfactual Fairness Explanation
+
+Status:
+Completed
+
+Completed:
+- Added counterfactual comparison helper
+- Compared fairness and non-fairness allocations
+- Identified assignment changes caused by fairness weighting
+- Strengthened transparent decision logic
+
+Rationale:
+The previous explanation engine could identify that fairness was active, but could not determine whether fairness actually changed assignments.
+
+Counterfactual comparison provides stronger evidence.
+
+Next Step:
+Expose fairness comparison results through CLI output and future dashboard visualisation.

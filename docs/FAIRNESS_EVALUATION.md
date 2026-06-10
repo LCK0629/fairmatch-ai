@@ -270,6 +270,7 @@ Recommended Phase 1 use:
 - keep Satisfaction Gap in the solver objective
 - report Max-Min Value in solver output
 - report Gini Coefficient in evaluation output
+- report total satisfaction and average satisfaction beside fairness metrics
 
 Recommended Phase 3 use:
 
@@ -278,12 +279,28 @@ Recommended Phase 3 use:
 - show total satisfaction beside fairness metrics
 - explain that equal outcomes can still be poor if all satisfaction scores are low
 
-## Next Step
+## Code-Level Helper Layer
 
-Add code-level fairness evaluation helpers so solver results can automatically report:
+Fairness metrics are now implemented in:
+
+```text
+backend/fairmatch/fairness.py
+```
+
+Current helper functions:
 
 - satisfaction gap
 - max-min value
 - Gini coefficient
 - total satisfaction
 - average satisfaction
+
+These helpers are integrated into `AllocationResult` for feasible solver runs. Infeasible runs report zero-valued fairness metrics because no allocation distribution exists.
+
+Important:
+
+The helper layer is a reporting and evaluation layer. It does not change the OR-Tools optimisation objective.
+
+## Next Step
+
+Use the helper layer to compare fairness results across controlled School Mode scenarios and future counterfactual explanation checks.

@@ -73,9 +73,12 @@ class AllocationResult:
     objective_value: float
     assignments: list[Assignment]
     total_satisfaction: int
+    average_satisfaction: float
     min_satisfaction: int
     max_satisfaction: int
     fairness_gap: int
+    max_min_value: int
+    gini_coefficient: float
     min_workload: int
     max_workload: int
     workload_gap: int

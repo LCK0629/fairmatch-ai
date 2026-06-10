@@ -2,6 +2,13 @@ from __future__ import annotations
 
 from ortools.sat.python import cp_model
 
+from .fairness import (
+    calculate_average_satisfaction,
+    calculate_gini_coefficient,
+    calculate_max_min_value,
+    calculate_satisfaction_gap,
+    calculate_total_satisfaction,
+)
 from .models import AllocationInput, AllocationResult, Assignment, ExplanationDetail, Item, Person
 
 
@@ -110,9 +117,12 @@ def solve_allocation(problem: AllocationInput) -> AllocationResult:
             objective_value=0,
             assignments=[],
             total_satisfaction=0,
+            average_satisfaction=0.0,
             min_satisfaction=0,
             max_satisfaction=0,
             fairness_gap=0,
+            max_min_value=0,
+            gini_coefficient=0.0,
             min_workload=0,
             max_workload=0,
             workload_gap=0,
@@ -160,15 +170,20 @@ def solve_allocation(problem: AllocationInput) -> AllocationResult:
                     )
                 )
 
+    satisfaction_scores = [assignment.satisfaction for assignment in assignments]
+
     return AllocationResult(
         mode=problem.mode,
         status=readable_status,
         objective_value=solver.objective_value,
         assignments=assignments,
-        total_satisfaction=sum(assignment.satisfaction for assignment in assignments),
+        total_satisfaction=calculate_total_satisfaction(satisfaction_scores),
+        average_satisfaction=calculate_average_satisfaction(satisfaction_scores),
         min_satisfaction=int(solver.value(min_satisfaction)),
         max_satisfaction=int(solver.value(max_satisfaction)),
-        fairness_gap=int(solver.value(fairness_gap)),
+        fairness_gap=calculate_satisfaction_gap(satisfaction_scores),
+        max_min_value=calculate_max_min_value(satisfaction_scores),
+        gini_coefficient=calculate_gini_coefficient(satisfaction_scores),
         min_workload=int(solver.value(min_workload)),
         max_workload=int(solver.value(max_workload)),
         workload_gap=int(solver.value(workload_gap)),

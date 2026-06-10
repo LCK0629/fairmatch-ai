@@ -63,9 +63,59 @@ If the assigned project is the student's first choice, the note states that dire
 
 Fairness and workload notes are heuristic indicators. The current implementation adds these notes when the corresponding objective weight is active and the student did not receive their first choice. This is useful decision context, but it does not prove that fairness or workload balancing was the decisive cause for that specific student's rejected first choice.
 
+## Objective-Aware Explanation
+
+Objective-aware explanations describe which optimisation objectives were active during a solver run.
+
+Example:
+
+```text
+fairness objective may have influenced the allocation
+```
+
+Meaning:
+
+The fairness objective was active in the optimisation. This is useful context, but it does not prove that fairness changed a specific assignment.
+
+## Counterfactual Explanation
+
+Counterfactual explanations compare two completed solver runs.
+
+For fairness, the comparison is:
+
+```text
+fairness_weight = 0
+```
+
+versus:
+
+```text
+fairness_weight > 0
+```
+
+Example:
+
+```text
+Comparing fairness_weight = 0 and fairness_weight = 3 shows that Student One's assignment changed and fairness_gap improved.
+```
+
+Meaning:
+
+Fairness demonstrably changed the allocation result for at least one student and improved at least one fairness metric.
+
+The counterfactual comparison helper reports:
+
+- total satisfaction before and after fairness weighting
+- satisfaction gap before and after fairness weighting
+- max-min value before and after fairness weighting
+- Gini coefficient before and after fairness weighting
+- students whose assigned projects changed
+- students whose satisfaction scores changed
+- whether fairness improved according to the reported metrics
+
 ## Current Limitations
 
-The current Explanation Engine provides structured evidence and likely reasons. It does not yet produce a formal counterfactual proof.
+The current Explanation Engine provides structured evidence and likely reasons. It now includes a fairness-run counterfactual comparison, but it does not yet produce a formal counterfactual proof for every rejected alternative.
 
 This means the system can say:
 
@@ -73,7 +123,7 @@ This means the system can say:
 First choice was not assigned because the project reached capacity and fairness may have favoured another assignment.
 ```
 
-But it cannot yet prove that one specific constraint was the only decisive cause.
+But the assignment-level note cannot yet prove that one specific constraint was the only decisive cause for every individual first-choice rejection.
 
 In particular:
 
@@ -93,13 +143,13 @@ Current tests cover:
 - skill-driven first-choice rejection
 - workload-driven first-choice rejection
 - fairness heuristic note when a non-first-choice assignment occurs under an active fairness objective
+- counterfactual fairness comparison between `fairness_weight = 0` and `fairness_weight > 0`
 
 ## Future Plan
 
 Future explanation work should add:
 
 - counterfactual checks for first-choice projects
-- fairness trade-off explanation comparing low and high fairness-weight runs
 - workload trade-off explanation comparing low and high workload-balance-weight runs
 - objective attribution checks that rerun controlled variants to determine whether fairness or workload balancing changed a specific assignment
 - infeasibility explanations for failed allocation runs
@@ -119,7 +169,8 @@ Completed so far:
 - fairness notes
 - workload notes
 - human-readable summaries
+- counterfactual fairness comparison helper
 
 Next step:
 
-Add tests for first-choice rejection and constraint-driven explanations.
+Expose counterfactual fairness comparison results through CLI output and future dashboard visualisation.

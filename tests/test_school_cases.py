@@ -4,6 +4,7 @@ from pathlib import Path
 
 import pytest
 
+from backend.fairmatch.counterfactual import compare_fairness_runs
 from backend.fairmatch.models import load_allocation_input
 from backend.fairmatch.solver import solve_allocation
 
@@ -94,6 +95,31 @@ def test_fairness_weight_changes_optimisation_behaviour():
         for assignment in high_fairness_result.assignments
         if assignment.preference_rank != 1
     )
+
+
+def test_counterfactual_fairness_comparison_identifies_changed_result():
+    payload = load_case("fairness_weight_tradeoff.json")
+    baseline_payload = deepcopy(payload)
+    fairness_payload = deepcopy(payload)
+    baseline_payload["fairness_weight"] = 0
+    fairness_payload["fairness_weight"] = 3
+
+    baseline_result = solve_allocation(load_allocation_input(baseline_payload))
+    fairness_result = solve_allocation(load_allocation_input(fairness_payload))
+    comparison = compare_fairness_runs(baseline_result, fairness_result)
+
+    assert baseline_result.status in {"OPTIMAL", "FEASIBLE"}
+    assert fairness_result.status in {"OPTIMAL", "FEASIBLE"}
+    assert comparison.changed_assignments
+    assert set(comparison.changed_assignments) == {
+        person_id
+        for person_id in assignment_by_person(baseline_result)
+        if assignment_by_person(baseline_result)[person_id] != assignment_by_person(fairness_result)[person_id]
+    }
+    assert comparison.fairness_improved is True
+    assert comparison.baseline_fairness_gap > comparison.fairness_fairness_gap
+    assert comparison.baseline_total_satisfaction >= comparison.fairness_total_satisfaction
+    assert comparison.changed_satisfaction
 
 
 def test_first_choice_rejection_explains_capacity_reason():
