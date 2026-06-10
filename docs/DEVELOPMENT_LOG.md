@@ -369,3 +369,22 @@ The backend and CLI are verified. A lightweight dashboard improves demonstration
 
 Next Step:
 Prepare FYP report, presentation slides, and demo script.
+
+## Round 19 - Product-Style Landing Page and Dashboard UI
+
+Status:
+Completed
+
+Completed:
+- Added a product-style landing page
+- Added Start flow into the dashboard
+- Upgraded dashboard visual structure and spacing
+- Preserved dataset selection and custom JSON upload
+- Preserved allocation results, fairness metrics, explanations, and counterfactual comparison
+- Updated README and demo script for the new dashboard flow
+
+Rationale:
+The backend and dashboard are functional. A more mature two-stage UI improves the FYP demonstration experience without changing backend optimisation logic.
+
+Next Step:
+Use the dashboard flow to prepare the final FYP presentation slides and demo rehearsal.

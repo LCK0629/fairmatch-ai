@@ -93,8 +93,22 @@ FairMatch AI also includes a lightweight Streamlit dashboard for demonstration:
 streamlit run app.py
 ```
 
+## One-Click Launch
+
+Double click:
+
+```text
+START_FAIRMATCH.bat
+```
+
+to launch the FairMatch AI dashboard.
+
+The launcher checks for the local `.venv`, activates it, opens the browser, and starts Streamlit. If `.venv` is missing, it shows setup instructions instead.
+
 The dashboard supports:
 
+- product-style landing page
+- start button into the dashboard
 - sample dataset selection
 - custom JSON upload
 - allocation result table

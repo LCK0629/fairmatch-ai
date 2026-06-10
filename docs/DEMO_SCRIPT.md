@@ -107,6 +107,8 @@ Open the Streamlit dashboard.
 
 Point out:
 
+- product-style landing page
+- `Start` button
 - dataset selection in the sidebar
 - sample dataset options
 - custom JSON upload
@@ -116,10 +118,23 @@ Point out:
 Say:
 
 ```text
-This dashboard is intentionally lightweight.
+The app starts with a product-style landing page and then moves into the dashboard.
+The dashboard is intentionally lightweight.
 The optimisation logic is not implemented inside the UI.
 It reuses the existing backend functions: load_allocation_input, solve_allocation, and compare_fairness_runs.
 ```
+
+Action:
+
+Click:
+
+```text
+Start
+```
+
+Expected result:
+
+The product dashboard opens.
 
 ## Demo Part 1: Normal Allocation
 
@@ -386,6 +401,7 @@ Before presenting:
 - confirm `.venv` is activated
 - confirm `streamlit run app.py` starts
 - confirm dashboard opens at `http://localhost:8501`
+- click `Start`
 - select `School Sample`
 - click `Run Allocation`
 - open at least one explanation expander
