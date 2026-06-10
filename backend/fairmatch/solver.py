@@ -6,6 +6,10 @@ from .models import AllocationInput, AllocationResult, Assignment, Item, Person
 
 
 UNKNOWN_PREFERENCE_SCORE = 0
+FIRST_CHOICE_SCORE = 3
+SECOND_CHOICE_SCORE = 2
+THIRD_CHOICE_SCORE = 1
+MAX_PREFERENCE_SCORE = FIRST_CHOICE_SCORE
 
 
 def solve_allocation(problem: AllocationInput) -> AllocationResult:
@@ -44,7 +48,7 @@ def solve_allocation(problem: AllocationInput) -> AllocationResult:
 
     satisfaction_terms = []
     satisfaction_by_person: dict[str, cp_model.IntVar] = {}
-    max_score = max((len(choices) for choices in problem.preferences.values()), default=0)
+    max_score = MAX_PREFERENCE_SCORE
     workload_by_person: dict[str, cp_model.IntVar] = {}
     max_possible_workload = max(
         (person.current_workload + max((item.workload for item in problem.items), default=0) for person in problem.people),
@@ -157,7 +161,8 @@ def solve_allocation(problem: AllocationInput) -> AllocationResult:
 def _preference_score(item_id: str, ranked_choices: list[str]) -> int:
     if item_id not in ranked_choices:
         return UNKNOWN_PREFERENCE_SCORE
-    return len(ranked_choices) - ranked_choices.index(item_id)
+    rank_index = ranked_choices.index(item_id)
+    return max(MAX_PREFERENCE_SCORE - rank_index, UNKNOWN_PREFERENCE_SCORE)
 
 
 def _preference_rank(item_id: str, ranked_choices: list[str]) -> int | None:

@@ -128,3 +128,22 @@ Phase 1 requires a complete School Mode allocation engine. Concrete edge cases m
 Next Step:
 
 Install test dependencies in a virtual environment and run the School Mode validation suite with OR-Tools available.
+
+## Round 6 - Fixed Preference Satisfaction Scoring
+
+Completed:
+
+- Replaced preference-list-length-based satisfaction scoring
+- Added fixed satisfaction scale: 1st choice = 3, 2nd choice = 2, 3rd choice = 1, unranked or lower-ranked = 0
+- Updated solver satisfaction variable bounds to use the fixed maximum score
+- Added regression test for students with different preference list lengths receiving equal first-choice satisfaction scores
+- Updated constraint documentation
+- Updated validation report to mark the scoring issue as resolved
+
+Rationale:
+
+Fairness metrics require comparable satisfaction scores across students. The previous scoring method gave higher maximum scores to students who submitted longer preference lists, which could distort `fairness_gap`.
+
+Next Step:
+
+Add controlled tests showing how different `fairness_weight` values affect allocation decisions.

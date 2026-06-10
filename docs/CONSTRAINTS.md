@@ -77,8 +77,13 @@ Soft constraints affect solution quality and may be traded off.
 Higher-ranked projects should receive higher satisfaction scores.
 
 ```text
-first choice > second choice > third choice > unranked
+1st choice = 3
+2nd choice = 2
+3rd choice = 1
+unranked or lower-ranked = 0
 ```
+
+The fixed scale keeps satisfaction scores comparable across students even when students submit preference lists of different lengths.
 
 ### Fairness Across Students
 
