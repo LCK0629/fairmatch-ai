@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from copy import deepcopy
 from dataclasses import asdict
+import json
 from pathlib import Path
 from typing import Any
 
@@ -109,15 +110,6 @@ def _allocation_response(result) -> dict[str, Any]:
 
 def _read_sample_payload(path: str) -> dict[str, Any]:
     try:
-        import json
-
         return json.loads(Path(path).read_text(encoding="utf-8"))
     except (OSError, json.JSONDecodeError) as exc:
         raise HTTPException(status_code=500, detail=f"Unable to load sample dataset: {exc}") from exc
-
-
-def sample_path(sample_id: str) -> Path:
-    for sample in SAMPLES:
-        if sample["id"] == sample_id:
-            return Path(sample["path"])
-    raise ValueError(f"Unknown sample id: {sample_id}")

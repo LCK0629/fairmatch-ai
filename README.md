@@ -144,8 +144,22 @@ The launcher:
 
 - checks that `.venv` exists
 - starts FastAPI in a separate terminal window
-- opens `frontend/index.html` in the default browser
+- starts a local frontend server in a separate terminal window
+- opens `http://127.0.0.1:5500/index.html` in the default browser
 - launches the Version 2 product experience
+
+## Version 2 Localhost Launch
+
+Double click:
+
+```text
+START_V2.bat
+```
+
+This starts:
+
+- FastAPI API at `http://127.0.0.1:8000`
+- Frontend at `http://127.0.0.1:5500`
 
 ## One-Click Launch
 

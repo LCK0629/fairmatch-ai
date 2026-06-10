@@ -586,3 +586,38 @@ The Version 2 frontend depends on the local FastAPI service. Startup timing can 
 
 Next Step:
 Run `START_V2.bat` manually for an end-to-end browser check.
+
+## Round 31 - V2 Prototype Cleanup
+
+Status:
+Completed
+
+Completed:
+- Removed duplicate Streamlit back-to-landing action
+- Removed unused API helper code
+- Moved local import to top-level
+- Documented permissive CORS as a prototype-only setting
+- Verified tests still pass
+
+Rationale:
+Before UX review, the Version 2 prototype should be cleaned of small duplication, dead code, and undocumented prototype assumptions.
+
+Next Step:
+Perform Version 2 UX review and visual polish.
+
+## Round 32 - Localhost Frontend Server
+
+Status:
+Completed
+
+Completed:
+- Added localhost frontend server
+- Updated launcher
+- Opens frontend through localhost
+- Preserved FastAPI integration
+
+Rationale:
+Serving frontend through localhost provides a more realistic product experience than opening raw HTML files.
+
+Next Step:
+Perform Version 2 UX review and visual polish.
