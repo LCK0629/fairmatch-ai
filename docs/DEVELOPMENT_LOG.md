@@ -237,3 +237,19 @@ Add code-level fairness metric helpers for:
 - Gini coefficient
 - total satisfaction
 - average satisfaction
+
+## Round 12 - Explanation Heuristic Documentation Alignment
+
+Status:
+Completed
+
+Completed:
+- Documented that fairness and workload first-choice notes are heuristic indicators
+- Clarified that current explanation logic does not prove causal attribution
+- Updated validation wording for fairness-influenced explanation tests
+
+Rationale:
+The explanation engine currently adds fairness and workload "may have" notes when the corresponding objective weights are active. This is useful context, but it is not a counterfactual proof, so documentation must not overclaim causality.
+
+Next Step:
+Design counterfactual explanation checks that compare alternative allocations or rerun controlled scenarios to support stronger causal claims.

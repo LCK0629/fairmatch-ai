@@ -61,6 +61,8 @@ When the assigned project is not the student's first choice, the engine checks f
 
 If the assigned project is the student's first choice, the note states that directly.
 
+Fairness and workload notes are heuristic indicators. The current implementation adds these notes when the corresponding objective weight is active and the student did not receive their first choice. This is useful decision context, but it does not prove that fairness or workload balancing was the decisive cause for that specific student's rejected first choice.
+
 ## Current Limitations
 
 The current Explanation Engine provides structured evidence and likely reasons. It does not yet produce a formal counterfactual proof.
@@ -73,6 +75,12 @@ First choice was not assigned because the project reached capacity and fairness 
 
 But it cannot yet prove that one specific constraint was the only decisive cause.
 
+In particular:
+
+- Capacity, skill eligibility, supervisor limit, and max workload notes are based on directly checked constraint conditions.
+- Fairness and workload balancing notes are based on active objective weights.
+- A fairness or workload note should be read as "this objective may have influenced the allocation", not as confirmed causal attribution.
+
 Reason:
 
 Google OR-Tools CP-SAT returns an optimal or feasible assignment, but it does not automatically return a causal explanation for every rejected alternative.
@@ -84,7 +92,7 @@ Current tests cover:
 - capacity-driven first-choice rejection
 - skill-driven first-choice rejection
 - workload-driven first-choice rejection
-- fairness-influenced first-choice rejection
+- fairness heuristic note when a non-first-choice assignment occurs under an active fairness objective
 
 ## Future Plan
 
@@ -93,6 +101,7 @@ Future explanation work should add:
 - counterfactual checks for first-choice projects
 - fairness trade-off explanation comparing low and high fairness-weight runs
 - workload trade-off explanation comparing low and high workload-balance-weight runs
+- objective attribution checks that rerun controlled variants to determine whether fairness or workload balancing changed a specific assignment
 - infeasibility explanations for failed allocation runs
 - user-facing explanation formatting for a future dashboard
 

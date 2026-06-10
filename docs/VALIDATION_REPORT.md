@@ -284,10 +284,15 @@ The corresponding test verifies:
 - low `fairness_weight` produces higher total satisfaction
 - high `fairness_weight` produces a lower fairness gap
 - low and high `fairness_weight` produce different assignment behaviour
+- the high-fairness run includes a non-first-choice assignment with a fairness objective note
 
 Status:
 
 The validation report and test coverage are now aligned. The controlled test is implemented in `tests/test_school_cases.py` as `test_fairness_weight_changes_optimisation_behaviour`.
+
+Explanation limitation:
+
+The fairness note in `first_choice_note` is a heuristic explanation signal. It confirms that the fairness objective was active in a run where the student did not receive their first choice, but it does not prove that fairness was the sole or decisive cause for that individual rejection. Stronger causal attribution would require counterfactual checks or controlled reruns that compare alternative objective settings for the same student-project decision.
 
 ## Overall Assessment
 
@@ -334,6 +339,10 @@ This closes the first Phase 2 design step by making explanations structured and 
 Current limitation:
 
 First-choice rejection notes are not yet formal counterfactual proofs. They identify likely constraint and objective factors such as capacity, skill eligibility, supervisor limits, fairness weighting, and workload balancing. Exact causal attribution remains future work.
+
+Documentation consistency note:
+
+Capacity, skill eligibility, supervisor limit, and max workload notes are derived from direct constraint checks. Fairness and workload balancing notes are derived from whether the corresponding objective weights are active, so they should be read as "may have influenced the allocation" rather than confirmed causal explanations.
 
 ## Recommended Next Step
 
