@@ -25,7 +25,7 @@ def main() -> None:
     apply_theme()
     initialise_state()
 
-    if st.session_state.dashboard_started:
+    if st.session_state.started:
         render_dashboard()
     else:
         render_landing_page()
@@ -33,6 +33,7 @@ def main() -> None:
 
 def initialise_state() -> None:
     defaults = {
+        "started": False,
         "dashboard_started": False,
         "active_payload": read_json_file(SAMPLE_DATASETS["School Sample"]),
         "active_dataset_name": "School Sample",
@@ -45,6 +46,7 @@ def initialise_state() -> None:
     }
     for key, value in defaults.items():
         st.session_state.setdefault(key, value)
+    st.session_state.started = bool(st.session_state.started or st.session_state.dashboard_started)
 
 
 def apply_theme() -> None:
@@ -738,6 +740,7 @@ def render_landing_page() -> None:
     cta_column, spacer_column = st.columns([0.28, 0.72])
     with cta_column:
         if st.button("Start Experience", type="primary", use_container_width=True):
+            st.session_state.started = True
             st.session_state.dashboard_started = True
             st.session_state.comparison_fairness_weight = DEFAULT_FAIRNESS_WEIGHT
             st.rerun()
@@ -850,6 +853,7 @@ def render_landing_cta() -> None:
     cta_column, _ = st.columns([0.24, 0.76])
     with cta_column:
         if st.button("Launch Dashboard", type="primary", use_container_width=True):
+            st.session_state.started = True
             st.session_state.dashboard_started = True
             st.session_state.comparison_fairness_weight = DEFAULT_FAIRNESS_WEIGHT
             st.rerun()
@@ -857,6 +861,7 @@ def render_landing_cta() -> None:
 
 def render_dashboard() -> None:
     render_dashboard_header()
+    render_home_action()
     render_scenario_controls()
 
     tabs = st.tabs(["Overview", "Allocation", "Fairness", "Explanations", "Comparison"])
@@ -870,6 +875,20 @@ def render_dashboard() -> None:
         render_explanations()
     with tabs[4]:
         render_comparison()
+
+
+def render_home_action() -> None:
+    home_column, note_column = st.columns([0.24, 0.76])
+    with home_column:
+        if st.button("Back to Introduction", use_container_width=True):
+            st.session_state.started = False
+            st.session_state.dashboard_started = False
+            st.rerun()
+    with note_column:
+        st.markdown(
+            '<div class="fm-note">Return to the product introduction without changing the current allocation data.</div>',
+            unsafe_allow_html=True,
+        )
 
 
 def render_dashboard_header() -> None:
@@ -929,6 +948,7 @@ def render_scenario_controls() -> None:
             )
         with action_columns[3]:
             if st.button("Back to Landing Page", use_container_width=True):
+                st.session_state.started = False
                 st.session_state.dashboard_started = False
                 st.rerun()
 
