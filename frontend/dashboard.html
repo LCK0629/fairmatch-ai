@@ -58,8 +58,11 @@
           </div>
           <div class="scenario-stat api-status-card">
             <span>API Status</span>
-            <div class="status-pill status-pill-compact" data-api-status>Checking</div>
-            <p>Backend connection for live allocation.</p>
+            <div class="status-inline" data-api-status>
+              <span class="status-dot pending" aria-hidden="true"></span>
+              <span data-api-status-text>Checking</span>
+            </div>
+            <p>Live Backend</p>
           </div>
         </div>
       </section>
@@ -160,7 +163,7 @@
             <span>Preference Rank</span>
             <span>Satisfaction</span>
             <span>Skill Match</span>
-            <span>Explanation Status</span>
+            <span>Explanation</span>
           </div>
           <div data-allocation-rows>
             <div class="product-table-row" role="row">
@@ -169,7 +172,7 @@
               <span>1st</span>
               <span>3</span>
               <span class="positive-text">Matched</span>
-              <span>Explained</span>
+              <span><button class="explain-action" type="button">View Explanation</button></span>
             </div>
             <div class="product-table-row" role="row">
               <span>Benjamin Lee</span>
@@ -177,7 +180,7 @@
               <span>2nd</span>
               <span>2</span>
               <span class="positive-text">Matched</span>
-              <span>Explained</span>
+              <span><button class="explain-action" type="button">View Explanation</button></span>
             </div>
             <div class="product-table-row" role="row">
               <span>Chloe Wong</span>
@@ -185,7 +188,7 @@
               <span>2nd</span>
               <span>2</span>
               <span class="positive-text">Matched</span>
-              <span>Explained</span>
+              <span><button class="explain-action" type="button">View Explanation</button></span>
             </div>
           </div>
         </div>
@@ -237,7 +240,7 @@
         <div class="explanation-layout">
           <div class="section-heading compact">
             <div class="eyebrow">Explanation panel</div>
-            <h2 data-explanation-person>Chloe Wong</h2>
+            <h2 data-explanation-person>Select an assignment</h2>
             <p>
               Focused explanations make allocation decisions easier to inspect and defend.
             </p>
@@ -246,15 +249,12 @@
             <div class="explanation-header">
               <div>
                 <span class="card-label">Assigned project</span>
-                <h3 data-explanation-project>Smart Campus Feedback Portal</h3>
+                <h3 data-explanation-project>No assignment selected</h3>
               </div>
               <span class="status-pill">Explained</span>
             </div>
             <ul class="explanation-list" data-explanation-list>
-              <li>First-choice project reached capacity.</li>
-              <li>Supervisor limit affected the feasible set.</li>
-              <li>Fairness objective may have influenced allocation.</li>
-              <li>Workload balancing may have influenced allocation.</li>
+              <li>Run allocation and select an assigned student to inspect explanation details.</li>
             </ul>
           </article>
         </div>

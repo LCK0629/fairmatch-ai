@@ -5,6 +5,8 @@ const navLinks = document.querySelector("[data-nav-links]");
 
 let samplePayloads = new Map();
 let selectedPayload = null;
+let currentAssignments = [];
+let selectedAssignmentIndex = 0;
 
 if (navToggle && navLinks) {
   navToggle.addEventListener("click", () => {
@@ -45,17 +47,17 @@ async function checkHealth({ retries = 1, delayMs = 0 } = {}) {
   for (let attempt = 1; attempt <= retries; attempt += 1) {
     try {
       const health = await requestJson("/health");
-      setText("[data-api-status]", health.status === "ok" ? "Connected" : "Offline");
+      setApiStatus(health.status === "ok" ? "Online" : "Offline");
       return true;
     } catch (error) {
       if (attempt < retries) {
-        setText("[data-api-status]", "Connecting");
+        setApiStatus("Connecting");
         showMessage(`Waiting for API startup... attempt ${attempt + 1}/${retries}`, "info");
         await sleep(delayMs);
         continue;
       }
 
-      setText("[data-api-status]", "Offline");
+      setApiStatus("Offline");
       showMessage("API Offline. Start the backend with: uvicorn api.main:app --reload", "error");
       return false;
     }
@@ -172,8 +174,10 @@ function renderAllocationResult(result) {
   setText("[data-metric-gini]", formatDecimal(result.gini_coefficient, 3));
   setText("[data-metric-workload]", result.workload_gap);
 
-  renderAllocationRows(result.assignments);
-  renderExplanation(result.assignments[0]);
+  currentAssignments = result.assignments;
+  selectedAssignmentIndex = 0;
+  renderAllocationRows(currentAssignments);
+  renderExplanation(currentAssignments[0]);
 }
 
 function renderAllocationRows(assignments) {
@@ -182,27 +186,77 @@ function renderAllocationRows(assignments) {
     return;
   }
 
+  if (!assignments.length) {
+    container.innerHTML = `
+      <div class="product-table-row product-table-empty" role="row">
+        <span>No allocation rows available.</span>
+      </div>
+    `;
+    renderExplanation(null);
+    return;
+  }
+
   container.innerHTML = assignments
-    .map((assignment) => {
+    .map((assignment, index) => {
       const rank = assignment.preference_rank ?? "Unranked";
       const skillText = assignment.skill_match ? "Matched" : "Not matched";
       const skillClass = assignment.skill_match ? "positive-text" : "";
+      const selectedClass = index === selectedAssignmentIndex ? " is-selected" : "";
       return `
-        <div class="product-table-row" role="row">
+        <div
+          class="product-table-row${selectedClass}"
+          role="button"
+          tabindex="0"
+          data-assignment-index="${index}"
+          aria-pressed="${index === selectedAssignmentIndex ? "true" : "false"}"
+          aria-label="View explanation for ${escapeHtml(assignment.person_name)}"
+        >
           <span>${escapeHtml(assignment.person_name)}</span>
           <span>${escapeHtml(assignment.item_name)}</span>
           <span>${escapeHtml(String(rank))}</span>
           <span>${escapeHtml(String(assignment.satisfaction))}</span>
           <span class="${skillClass}">${skillText}</span>
-          <span>${assignment.explanation ? "Explained" : "Pending"}</span>
+          <span>
+            <button class="explain-action" type="button">
+              ${assignment.explanation ? "View Explanation" : "Pending"}
+            </button>
+          </span>
         </div>
       `;
     })
     .join("");
+
+  container.querySelectorAll("[data-assignment-index]").forEach((row) => {
+    row.addEventListener("click", () => selectAssignment(row.dataset.assignmentIndex));
+    row.addEventListener("keydown", (event) => {
+      if (event.key === "Enter" || event.key === " ") {
+        event.preventDefault();
+        selectAssignment(row.dataset.assignmentIndex);
+      }
+    });
+  });
+}
+
+function selectAssignment(indexValue) {
+  const nextIndex = Number(indexValue);
+  if (!Number.isInteger(nextIndex) || !currentAssignments[nextIndex]) {
+    return;
+  }
+
+  selectedAssignmentIndex = nextIndex;
+  renderAllocationRows(currentAssignments);
+  renderExplanation(currentAssignments[selectedAssignmentIndex]);
 }
 
 function renderExplanation(assignment) {
   if (!assignment || !assignment.explanation) {
+    setText("[data-explanation-person]", "Select an assignment");
+    setText("[data-explanation-project]", "No assignment selected");
+    renderExplanationNotes([
+      assignment
+        ? "No explanation details are available for this assignment."
+        : "Run allocation and select an assigned student to inspect explanation details.",
+    ]);
     return;
   }
 
@@ -220,6 +274,12 @@ function renderExplanation(assignment) {
     explanation.workload_note,
   ].filter(Boolean);
 
+  renderExplanationNotes(
+    notes.length ? notes : ["No explanation details are available for this assignment."]
+  );
+}
+
+function renderExplanationNotes(notes) {
   const list = document.querySelector("[data-explanation-list]");
   if (list) {
     list.innerHTML = notes.map((note) => `<li>${escapeHtml(note)}</li>`).join("");
@@ -298,6 +358,20 @@ function setText(selector, value) {
   const element = document.querySelector(selector);
   if (element) {
     element.textContent = value;
+  }
+}
+
+function setApiStatus(status) {
+  const statusText = document.querySelector("[data-api-status-text]");
+  const statusDot = document.querySelector(".status-dot");
+
+  if (statusText) {
+    statusText.textContent = status;
+  }
+
+  if (statusDot) {
+    statusDot.classList.toggle("offline", status === "Offline");
+    statusDot.classList.toggle("pending", status === "Checking" || status === "Connecting");
   }
 }
 

@@ -15,6 +15,7 @@ through a polished web experience that feels like a real decision-support produc
 Version 2 must reuse the existing FairMatch backend. The solver, fairness helpers, counterfactual logic, and explanation logic remain stable.
 
 Version 2.2 focuses on product polish, visual hierarchy and dashboard readability.
+Version 2.2 also includes interactive per-assignment explanation viewing in the School Mode dashboard.
 
 ## Architecture
 
@@ -288,6 +289,7 @@ Created:
 - Complete product navigation
 - Product polish for visual hierarchy and dashboard readability
 - School Mode dashboard with real FastAPI integration
+- Per-assignment explanation viewer in the School Mode dashboard
 - Work Mode product preview page
 - Cross-mode frontend navigation between School Mode and Work Mode
 - FastAPI wrapper

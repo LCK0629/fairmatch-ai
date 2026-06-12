@@ -659,6 +659,45 @@ Version 2.1 established the multi-mode product experience. Version 2.2 improves 
 Next Step:
 Perform final browser screenshot review and commit Version 2.2.
 
+## Round 37 - API Status Card Polish
+
+Status:
+Completed
+
+Completed:
+- Replaced oversized Connected badge with compact Online status
+- Added status dot styling
+- Reduced API card text length
+- Improved card row consistency
+- Verified responsive layout remains stable
+
+Rationale:
+The API status card was still visually overflowing and looked inconsistent with the main metric cards. Compact status wording improves product polish and dashboard readability.
+
+Next Step:
+Perform final V2.2 screenshot review, then commit the product frontend.
+
+## Round 38 - Per-Assignment Explanation Viewer
+
+Status:
+Completed
+
+Completed:
+- Added selected assignment state to the Version 2 dashboard
+- Made allocation rows selectable
+- Added View Explanation action for each assignment
+- Updated the explanation panel based on selected assignment
+- Added selected-row visual highlighting
+- Preserved default first-assignment explanation after allocation
+- Added empty-state handling for missing explanation details
+- Documented per-assignment explanation inspection
+
+Rationale:
+Transparent decision logic is a core product value of FairMatch AI. Users should be able to inspect explanations for every assigned student/project pair, not only the first allocation result.
+
+Next Step:
+Perform final Version 2.2 browser UX review and screenshot capture.
+
 ## Round 35 - Complete Product Navigation
 
 Status:

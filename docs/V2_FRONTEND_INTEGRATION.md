@@ -68,6 +68,14 @@ Updates:
 - changed satisfaction
 - warning message when applicable
 
+## Per-Assignment Explanation Viewer
+
+The Version 2 School Mode dashboard supports per-assignment explanation inspection.
+
+After allocation results are loaded, each allocation row can be selected. Selecting a row updates the explanation panel with the explanation details for that student/project assignment.
+
+This supports the product goal of transparent decision logic because users can inspect why each assignment was produced, rather than only seeing a single default explanation.
+
 ## Frontend Data Flow
 
 ```text
