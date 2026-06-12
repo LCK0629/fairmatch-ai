@@ -45,7 +45,7 @@ async function checkHealth({ retries = 1, delayMs = 0 } = {}) {
   for (let attempt = 1; attempt <= retries; attempt += 1) {
     try {
       const health = await requestJson("/health");
-      setText("[data-api-status]", health.status === "ok" ? "API Connected" : "API Offline");
+      setText("[data-api-status]", health.status === "ok" ? "Connected" : "Offline");
       return true;
     } catch (error) {
       if (attempt < retries) {
@@ -55,7 +55,7 @@ async function checkHealth({ retries = 1, delayMs = 0 } = {}) {
         continue;
       }
 
-      setText("[data-api-status]", "API Offline");
+      setText("[data-api-status]", "Offline");
       showMessage("API Offline. Start the backend with: uvicorn api.main:app --reload", "error");
       return false;
     }
@@ -160,6 +160,10 @@ function renderAllocationResult(result) {
   setText("[data-overview-total]", result.total_satisfaction);
   setText("[data-overview-gap]", result.fairness_gap);
   setText("[data-overview-gini]", formatDecimal(result.gini_coefficient, 3));
+  setText("[data-summary-status]", result.status === "OPTIMAL" ? "Completed" : result.status);
+  setText("[data-summary-assigned]", result.assignments.length);
+  setText("[data-summary-projects]", selectedPayload?.items?.length ?? "N/A");
+  setText("[data-summary-result]", "Fairness-Aware");
 
   setText("[data-metric-total]", result.total_satisfaction);
   setText("[data-metric-average]", formatDecimal(result.average_satisfaction, 2));

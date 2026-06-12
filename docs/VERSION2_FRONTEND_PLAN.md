@@ -14,6 +14,8 @@ through a polished web experience that feels like a real decision-support produc
 
 Version 2 must reuse the existing FairMatch backend. The solver, fairness helpers, counterfactual logic, and explanation logic remain stable.
 
+Version 2.2 focuses on product polish, visual hierarchy and dashboard readability.
+
 ## Architecture
 
 ```text
@@ -27,6 +29,31 @@ OR-Tools Solver
 ```
 
 The backend must be reused. Version 2 must not rewrite the solver or replace OR-Tools.
+
+## Product Navigation
+
+Version 2.1 includes product-level navigation across the main frontend pages.
+
+Navigation links:
+- Product
+- Architecture
+- Demo
+- Future Work
+- School Mode
+- Work Mode
+- Home
+
+Section anchors exist on the landing page:
+- `#product`
+- `#architecture`
+- `#demo`
+- `#future-work`
+
+Cross-mode navigation exists between:
+- School Mode dashboard: `dashboard.html`
+- Work Mode product preview: `work.html`
+
+Work Mode remains a product preview. Backend implementation remains future work.
 
 ## Planned Pages
 
@@ -49,14 +76,18 @@ Let users choose the allocation context.
 
 Modes:
 - School Mode
-- Work Mode (Coming Soon)
+- Work Mode
 
-School Mode remains the active product path. Work Mode is a future extension and should be visually marked as unavailable or coming soon.
+School Mode remains the active product path with real backend integration.
 
-### 3. Dashboard
+Work Mode product preview added in Version 2.1. Backend implementation remains future work.
+
+School Mode and Work Mode are connected through frontend navigation. Users can move directly between the School Mode dashboard and Work Mode product preview without returning to the landing page.
+
+### 3. School Mode Dashboard
 
 Purpose:
-Provide the main decision-support workspace.
+Provide the main decision-support workspace for student-to-project allocation.
 
 Sections:
 - Overview
@@ -67,7 +98,23 @@ Sections:
 
 The dashboard should present results clearly without exposing internal debug details.
 
-### 4. Future Work Page
+### 4. Work Mode Product Preview
+
+Purpose:
+Show how FairMatch AI can extend into employee-to-task and employee-to-shift allocation.
+
+Status:
+Product preview added in Version 2.1. Backend implementation remains future work.
+
+Content:
+- Work Mode hero
+- Employee-to-task and employee-to-shift scenario
+- Planned capabilities
+- School Mode vs Work Mode comparison
+- Shared Person-to-Item engine concept
+- Work Mode roadmap
+
+### 5. Future Work Page
 
 Purpose:
 Show the portfolio roadmap and planned extensions.
@@ -227,20 +274,28 @@ Make FairMatch AI presentable as a professional portfolio product.
 - No optimisation objective change is planned.
 - Existing tests remain valid.
 - Version 2 work happens on the `v2-frontend` branch.
+- Work Mode backend is not implemented in Version 2.1.
 
 ## Current Status
 
 Status:
-Planning only.
+Version 2.2 product frontend prototype.
 
 Created:
 - Version 2 frontend plan
-- `frontend/` placeholder folder
-- `api/` placeholder folder
+- Static landing page
+- Product section anchors
+- Complete product navigation
+- Product polish for visual hierarchy and dashboard readability
+- School Mode dashboard with real FastAPI integration
+- Work Mode product preview page
+- Cross-mode frontend navigation between School Mode and Work Mode
+- FastAPI wrapper
+- Localhost launcher
 
 Not implemented yet:
 - React
 - Next.js
-- FastAPI
 - Database
-- Full frontend dashboard
+- Authentication
+- Work Mode backend allocation

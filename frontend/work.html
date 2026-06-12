@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>FairMatch AI | Work Mode Preview</title>
+    <meta
+      name="description"
+      content="Work Mode product preview for FairMatch AI Version 2.1."
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <nav class="nav-shell" aria-label="Work Mode navigation">
+        <a class="brand" href="index.html" aria-label="FairMatch AI home">
+          <span class="brand-mark">FM</span>
+          <span>FairMatch AI</span>
+        </a>
+        <button class="nav-toggle" type="button" aria-label="Open navigation" aria-expanded="false">
+          <span></span>
+          <span></span>
+        </button>
+        <div class="nav-links" data-nav-links>
+          <a href="index.html#product">Product</a>
+          <a href="index.html#architecture">Architecture</a>
+          <a href="index.html#demo">Demo</a>
+          <a href="index.html#future-work">Future Work</a>
+          <a href="dashboard.html">School Mode</a>
+          <a class="nav-active" href="work.html" aria-current="page">Work Mode</a>
+          <a href="index.html">Home</a>
+        </div>
+      </nav>
+    </header>
+
+    <main id="work">
+      <section class="section work-hero">
+        <div>
+          <div class="eyebrow">Product preview</div>
+          <h1>Work Mode</h1>
+          <p class="work-subtitle">Employee-to-Task and Shift Allocation</p>
+          <p class="hero-copy">
+            Extend FairMatch AI from student-project allocation to workplace scheduling,
+            task assignment, and shift planning.
+          </p>
+          <div class="hero-actions">
+            <a class="button primary" href="dashboard.html">Back to School Mode Demo</a>
+            <a class="button secondary" href="index.html">Back to Home</a>
+          </div>
+        </div>
+        <aside class="work-hero-card">
+          <span class="coming-soon-badge">Coming Soon</span>
+          <div class="work-scenario-pairs">
+            <div><strong>Employee</strong><span>-></span><strong>Task</strong></div>
+            <div><strong>Employee</strong><span>-></span><strong>Shift</strong></div>
+          </div>
+          <p>
+            Work Mode is a product preview. It demonstrates how the same allocation platform
+            can support operational scheduling in a later backend release.
+          </p>
+        </aside>
+      </section>
+
+      <section class="section work-section">
+        <div class="section-heading compact">
+          <div class="eyebrow">Product scenario</div>
+          <h2>From people and constraints to explainable schedules.</h2>
+        </div>
+        <div class="work-flow" aria-label="Work Mode product flow">
+          <div class="work-flow-node">Employees</div>
+          <div class="work-flow-arrow">-></div>
+          <div class="work-flow-node">Skills & Availability</div>
+          <div class="work-flow-arrow">-></div>
+          <div class="work-flow-node">Task / Shift Requirements</div>
+          <div class="work-flow-arrow">-></div>
+          <div class="work-flow-node">Fair Allocation</div>
+          <div class="work-flow-arrow">-></div>
+          <div class="work-flow-node">Explainable Schedule</div>
+        </div>
+      </section>
+
+      <section class="section work-section">
+        <div class="section-heading">
+          <div class="eyebrow">Planned capabilities</div>
+          <h2>Designed for workplace allocation problems.</h2>
+        </div>
+        <div class="capability-grid">
+          <article class="capability-card">
+            <span>01</span>
+            <h3>Skill-Based Task Assignment</h3>
+            <p>Match employees to tasks where their skills satisfy operational requirements.</p>
+          </article>
+          <article class="capability-card">
+            <span>02</span>
+            <h3>Shift Scheduling</h3>
+            <p>Support employee-to-shift allocation for recurring workplace schedules.</p>
+          </article>
+          <article class="capability-card">
+            <span>03</span>
+            <h3>Availability Constraints</h3>
+            <p>Respect employee availability windows before assigning work.</p>
+          </article>
+          <article class="capability-card">
+            <span>04</span>
+            <h3>Workload Balance</h3>
+            <p>Reduce uneven task or hour distribution across employees.</p>
+          </article>
+          <article class="capability-card">
+            <span>05</span>
+            <h3>Fairness Evaluation</h3>
+            <p>Measure whether outcomes are balanced instead of only optimised for total score.</p>
+          </article>
+          <article class="capability-card">
+            <span>06</span>
+            <h3>Transparent Explanations</h3>
+            <p>Explain why a task or shift was selected and which constraints mattered.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="section work-section">
+        <div class="section-heading compact">
+          <div class="eyebrow">Mode comparison</div>
+          <h2>School Mode and Work Mode share the same product logic.</h2>
+        </div>
+        <div class="comparison-table" role="table" aria-label="School Mode and Work Mode comparison">
+          <div class="comparison-table-row comparison-table-head" role="row">
+            <span>Capability</span>
+            <span>School Mode</span>
+            <span>Work Mode</span>
+          </div>
+          <div class="comparison-table-row"><span>Person Type</span><span>Student</span><span>Employee</span></div>
+          <div class="comparison-table-row"><span>Item Type</span><span>Project</span><span>Task / Shift</span></div>
+          <div class="comparison-table-row"><span>Preferences</span><span>Project preferences</span><span>Task / shift preferences</span></div>
+          <div class="comparison-table-row"><span>Skills</span><span>Student skills</span><span>Employee skills</span></div>
+          <div class="comparison-table-row"><span>Capacity</span><span>Project capacity</span><span>Shift/task capacity</span></div>
+          <div class="comparison-table-row"><span>Workload</span><span>Student workload</span><span>Employee hours/workload</span></div>
+          <div class="comparison-table-row"><span>Fairness</span><span>Satisfaction fairness</span><span>Workload/fairness balance</span></div>
+        </div>
+      </section>
+
+      <section id="architecture" class="section work-section">
+        <div class="engine-card">
+          <div>
+            <div class="eyebrow">Engine reuse</div>
+            <h2>One allocation engine, multiple domains.</h2>
+            <p>
+              The same FairMatch AI optimisation engine can support Work Mode because both
+              School Mode and Work Mode follow a Person-to-Item allocation structure.
+            </p>
+          </div>
+          <div class="engine-flow">
+            <div>Person</div>
+            <span>-></span>
+            <div>Fairness-Aware Solver</div>
+            <span>-></span>
+            <div>Item</div>
+          </div>
+          <div class="engine-examples">
+            <span>Student -> Project</span>
+            <span>Employee -> Task</span>
+            <span>Employee -> Shift</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="section work-section">
+        <div class="section-heading compact">
+          <div class="eyebrow">Roadmap</div>
+          <h2>Work Mode backend remains future work.</h2>
+        </div>
+        <ol class="roadmap-list">
+          <li>Work dataset schema</li>
+          <li>Availability constraints</li>
+          <li>Shift/task dashboard</li>
+          <li>Workload counterfactual comparison</li>
+          <li>Supervisor/manager reporting</li>
+        </ol>
+      </section>
+
+      <section class="section work-cta">
+        <div>
+          <div class="eyebrow">Continue demo</div>
+          <h2>Explore the verified School Mode engine.</h2>
+        </div>
+        <div class="hero-actions">
+          <a class="button primary" href="dashboard.html">Back to School Mode Demo</a>
+          <a class="button secondary" href="index.html">Back to Home</a>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <span>FairMatch AI Work Mode Preview</span>
+      <span>Made by LCK</span>
+    </footer>
+
+    <script src="app.js"></script>
+  </body>
+</html>

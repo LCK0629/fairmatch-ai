@@ -22,11 +22,13 @@
           <span></span>
         </button>
         <div class="nav-links" data-nav-links>
-          <a href="#dashboard">Dashboard</a>
-          <a href="#fairness">Fairness</a>
-          <a href="#explanations">Explanations</a>
-          <a href="#comparison">Comparison</a>
-          <a href="index.html">Back to Home</a>
+          <a href="index.html#product">Product</a>
+          <a href="index.html#architecture">Architecture</a>
+          <a href="index.html#demo">Demo</a>
+          <a href="index.html#future-work">Future Work</a>
+          <a class="nav-active" href="dashboard.html" aria-current="page">School Mode</a>
+          <a href="work.html">Work Mode</a>
+          <a href="index.html">Home</a>
         </div>
       </nav>
     </header>
@@ -54,9 +56,37 @@
             <span>Supervisors</span>
             <strong data-scenario-supervisors>5</strong>
           </div>
-          <div class="scenario-stat">
-            <span>API</span>
-            <strong data-api-status>Checking</strong>
+          <div class="scenario-stat api-status-card">
+            <span>API Status</span>
+            <div class="status-pill status-pill-compact" data-api-status>Checking</div>
+            <p>Backend connection for live allocation.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="section dashboard-section executive-summary-section">
+        <div class="executive-summary">
+          <div class="section-heading compact">
+            <div class="eyebrow">Executive summary</div>
+            <h2>Outcome first, details second.</h2>
+          </div>
+          <div class="executive-summary-grid">
+            <article>
+              <span>Allocation</span>
+              <strong data-summary-status>Completed</strong>
+            </article>
+            <article>
+              <span>Students Assigned</span>
+              <strong data-summary-assigned>5</strong>
+            </article>
+            <article>
+              <span>Projects Considered</span>
+              <strong data-summary-projects>4</strong>
+            </article>
+            <article>
+              <span>Result Type</span>
+              <strong data-summary-result>Fairness-Aware</strong>
+            </article>
           </div>
         </div>
       </section>

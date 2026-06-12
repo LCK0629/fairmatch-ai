@@ -605,6 +605,81 @@ Before UX review, the Version 2 prototype should be cleaned of small duplication
 Next Step:
 Perform Version 2 UX review and visual polish.
 
+## Round 33 - Version 2.1 Work Mode Product Experience
+
+Status:
+Completed
+
+Completed:
+- Added Work Mode product preview page
+- Linked Work Mode card from landing page
+- Explained Employee-to-Task and Employee-to-Shift allocation
+- Added School Mode vs Work Mode comparison
+- Documented shared Person-to-Item allocation engine concept
+- Preserved backend and solver logic
+
+Rationale:
+Version 2.1 strengthens FairMatch AI's positioning as a multi-domain allocation platform without risking the verified School Mode backend.
+
+Next Step:
+Review Version 2.1 user flow and decide whether to implement Work Mode backend in a later version.
+
+## Round 34 - Cross-Mode Navigation Polish
+
+Status:
+Completed
+
+Completed:
+- Added direct School Mode → Work Mode navigation
+- Added direct Work Mode → School Mode navigation
+- Improved navigation consistency across Version 2 pages
+- Preserved Home navigation
+
+Rationale:
+Version 2.1 positions FairMatch AI as a multi-mode allocation platform. Users should be able to move directly between School Mode and Work Mode without returning to the landing page.
+
+Next Step:
+Perform full Version 2.1 UX review.
+
+## Round 36 - Version 2.2 Product Polish
+
+Status:
+Completed
+
+Completed:
+- Fixed API status card overflow
+- Improved landing page hero wording
+- Added executive summary to School Mode dashboard
+- Reduced landing page visual length
+- Improved metric card readability and responsiveness
+
+Rationale:
+Version 2.1 established the multi-mode product experience. Version 2.2 improves product polish, readability and first impression before portfolio review.
+
+Next Step:
+Perform final browser screenshot review and commit Version 2.2.
+
+## Round 35 - Complete Product Navigation
+
+Status:
+Completed
+
+Completed:
+- Restored Product navigation
+- Restored Architecture navigation
+- Restored Demo navigation
+- Restored Future Work navigation
+- Preserved School Mode navigation
+- Preserved Work Mode navigation
+- Added section anchor links
+- Kept active page highlighting
+
+Rationale:
+Version 2.1 should behave like a complete product website, not only a mode selector.
+
+Next Step:
+Perform full Version 2.1 UX review.
+
 ## Round 32 - Localhost Frontend Server
 
 Status:
